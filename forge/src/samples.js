@@ -8,6 +8,7 @@
 import seed from './seed/exb.json';
 import { createSite } from './sites';
 import { createDecision } from './decisions';
+import { seedGraph } from './graph';
 
 export const SAMPLE_DECISIONS = [
   {
@@ -47,5 +48,6 @@ export async function loadSampleBuilding(input, accountId) {
   );
   const decisions = [];
   for (const d of SAMPLE_DECISIONS) decisions.push(await createDecision({ ...d, siteId: site.id }, accountId));
-  return { site, decisions };
+  const graph = await seedGraph(site.id);
+  return { site, decisions, graph };
 }

@@ -12,6 +12,7 @@ import { acknowledgeForIssue, checkWorkOrder, reaffirm, setWorkOrderEquipment } 
 import { loadSampleBuilding } from './samples';
 import { spikeAssetsRefs } from './spikes/assetsRefs';
 import { getEquipmentContext } from './actions';
+import { deleteGraph, equipmentContextForSite } from './graph';
 
 /** Bumped by hand when the backend contract changes; the UI shows it so we can confirm which build is live. */
 export const BACKEND_VERSION = '0.4.0';
@@ -106,7 +107,11 @@ resolver.define('listSites', () => listSites());
 resolver.define('getSite', ({ payload }) => getSite(payload?.id));
 resolver.define('createSite', ({ payload, context }) => createSite(payload, context.accountId));
 resolver.define('updateSite', ({ payload }) => updateSite(payload));
-resolver.define('deleteSite', ({ payload }) => deleteSite(payload?.id));
+resolver.define('deleteSite', async ({ payload }) => {
+  const result = await deleteSite(payload?.id);
+  await deleteGraph(payload.id); // the site's building graph goes with it
+  return result;
+});
 resolver.define('addScanToSite', ({ payload, context }) => addScanToSite(payload, context.accountId));
 resolver.define('loadSampleSite', ({ payload, context }) => loadSampleSite(payload, context.accountId));
 
@@ -126,6 +131,9 @@ resolver.define('spikeCleanSite', async ({ context }) => {
   try { out.sites = (await listSites()).length; } catch (err) { out.errors.push(`sites: ${err.message}`); }
   return out;
 });
+
+// Building context graph: one piece of equipment's power chain, served areas, connections and support.
+resolver.define('getEquipmentContext', ({ payload }) => equipmentContextForSite(payload?.siteId, payload?.tag));
 
 // Site equipment (live from Assets, seed fallback).
 resolver.define('getSiteEquipment', async ({ payload }) => {

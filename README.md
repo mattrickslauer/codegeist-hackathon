@@ -68,8 +68,10 @@ Honest as of this commit:
 | Workflow validator blocking *In Progress* | ✅ verified on a test workflow. **Attaching it to a space's workflows automatically during setup is in progress** |
 | Equipment in Jira Assets | ✅ import verified. **Running it as part of setup is in progress** (until then the app uses the bundled equipment data) |
 | LiDAR scan upload as a site's 3D model | ✅ working |
+| Building context graph: each unit's power chain (panel, breaker, wire size, disconnect), what it serves and what holds it up, every fact labelled as-built or **illustrative** | ✅ working on the sample building. The electrical and structural parts are an **illustrative** design derived from the real equipment ratings (see `samples/bim/exb/README.md`) |
 | Public install link | ⏳ coming before submission |
-| Rovo agent ("what's been decided about RTU-1?", "is this work order clear?") | ⏳ planned |
+| Rovo agent "Precedent" + `get-equipment-context` action, also an MCP tool ("what feeds RTU-2?") | ✅ deployed to development, being verified |
+| Scoping briefs ("what does replacing RTU-2 involve?") and contractor closeout with photos in the customer portal | ⏳ in progress |
 
 ---
 

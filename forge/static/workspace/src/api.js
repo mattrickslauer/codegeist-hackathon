@@ -21,6 +21,7 @@ export const api = {
   loadSampleSite: (space) => invoke('loadSampleSite', { space }),
   loadSampleBuilding: (space) => invoke('loadSampleBuilding', { space }),
   getSiteEquipment: (siteId) => invoke('getSiteEquipment', { siteId }),
+  getEquipmentContext: (siteId, tag) => invoke('getEquipmentContext', { siteId, tag }),
   // Decisions
   listDecisions: (siteId) => invoke('listDecisions', { siteId }),
   createDecision: (input) => invoke('createDecision', input),

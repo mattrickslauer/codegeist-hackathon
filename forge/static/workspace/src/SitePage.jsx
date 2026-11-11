@@ -1,3 +1,4 @@
+import EquipmentGraph from './EquipmentGraph.jsx';
 import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   api, blockedWorkOrdersJql, downloadScan, listSpaces, listWorkOrders, openInJira, uploadScanToSite,
@@ -112,7 +113,7 @@ function Overview({ site, data, onSelectTag, onRecord, onChanged }) {
   );
 }
 
-function EquipmentDetail({ tag, data, onBack, onRecord }) {
+function EquipmentDetail({ siteId, tag, data, onBack, onRecord }) {
   const item = data.equipment.equipment.find((e) => e.tag === tag);
   const decisions = (data.decisions ?? []).filter((d) => d.equipment.includes(tag) && ['standing', 'proposed'].includes(d.status));
   const orders = (data.orders ?? []).filter((o) => o.check?.touched?.includes(tag));
@@ -131,6 +132,8 @@ function EquipmentDetail({ tag, data, onBack, onRecord }) {
           {item.specs && <details style={{ marginTop: 8 }}><summary className="subtle">Specifications</summary><p style={{ fontSize: 13 }}>{item.specs}</p></details>}
         </div>
       ) : <p className="subtle">Not in this site's equipment register.</p>}
+
+      <EquipmentGraph siteId={siteId} tag={tag} />
 
       <h3 className="card-title">Decisions about {tag}</h3>
       {decisions.length === 0 && <p className="subtle">None yet.</p>}
@@ -203,7 +206,7 @@ function ModelTab({ site, data, initialTag }) {
       <div>
         {data.error && <Banner tone="error">{data.error}</Banner>}
         {selectedTag
-          ? <EquipmentDetail tag={selectedTag} data={data} onBack={() => setSelectedTag(null)} onRecord={setRecording} />
+          ? <EquipmentDetail siteId={site.id} tag={selectedTag} data={data} onBack={() => setSelectedTag(null)} onRecord={setRecording} />
           : <Overview site={site} data={data} onSelectTag={setSelectedTag} onRecord={setRecording} onChanged={data.reload} />}
       </div>
       {recording && (

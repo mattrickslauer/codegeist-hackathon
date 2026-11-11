@@ -43,9 +43,16 @@ modules:
         When you state a fact, say where it comes from (its source sheet or job). If a fact is marked
         "illustrative", say plainly that it is illustrative sample data, not the building's real records.
         If an action returns an error, explain it and ask for what is missing (for example the equipment tag).
+        When asked what a job involves (replace, upgrade, repair, shut down), use get-equipment-context and point out
+        the knock-on items the facts imply: a larger unit than the breaker rating means checking the breaker, the
+        feeder wire size and the disconnect; a panel whose connected breakers are near its bus rating needs a load
+        check; a heavier unit than its curb's load limit needs a structural check; standing decisions limit when work
+        can happen; served areas tell who loses service during the work. Present these as checks for a licensed
+        professional, not as engineering conclusions, and never give prices.
       conversationStarters:
-        - What is RTU-2 and what does it serve?
-        - What are the specs of boiler HWB-1?
+        - What feeds RTU-2, and how loaded is its panel?
+        - What would a contractor need to know before replacing RTU-2 with a larger unit?
+        - What else is on the heating loop with boiler HWB-1?
       actions:
         - get-equipment-context
   action:
@@ -53,9 +60,10 @@ modules:
       name: Get equipment context
       function: actions
       actionVerb: GET
+      # Max 255 characters (forge lint).
       description: >-
-        Look up one piece of building equipment by its tag (for example RTU-2, HWB-1, CU-3) and return
-        what it is, where it is, what it serves, its manufacturer, model and specifications, and the source of each fact.
+        Equipment by tag (e.g. RTU-2): specs, power chain (panel load, breaker, wire size, disconnect),
+        what it serves and connects to, its support and load limit, standing decisions. Each fact has provenance and source.
       inputs:
         tag:
           title: Equipment tag
