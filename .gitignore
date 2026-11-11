@@ -7,6 +7,7 @@ docs/research/
 submission/
 scripts/fetch_winners.py
 files.zip
+branding/explore/
 
 # Environment and credentials
 .env
