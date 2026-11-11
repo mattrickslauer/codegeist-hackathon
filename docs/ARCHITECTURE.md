@@ -241,6 +241,93 @@ WorkOrder (Jira/JSM issue) ── touches → Asset[]   (Assets custom field, or
 
 Recommended capture: Scaniverse (free) in mesh mode → GLB. Alternatives: 3D Scanner App, SiteScape (E57/PLY), Polycam (glTF on the free plan).
 
+### 6.7 Building context graph, scoping agent, contractor closeout (design, 2026-11-11, not built)
+
+#### Why
+The person asking for work on a building (an office or facilities manager) usually doesn't know what a job really involves. "Upgrade the AC on the roof" can mean a bigger breaker, new conductors because the existing wire gauge is too small for the new load, a new disconnect, a structural check because the new unit is heavier, and a weekday shutdown that a standing decision forbids. None of that is in the request, so quotes come back wrong, change orders follow and jobs stall on site.
+
+Precedent becomes **everything a technician or contractor needs to know before quoting a job, kept true by every finished job**:
+1. A **building context graph**: equipment and what powers it, what it feeds, what it serves and what holds it up.
+2. A **Rovo agent** that walks the graph and produces a **scoping brief** for a job.
+3. **Contractor closeout** in the JSM customer portal: the contractor records what was actually installed, with original photos of each part, and once accepted the graph reflects the building as it now is.
+
+The existing decisions loop (§5) stays. Standing decisions become one layer of the brief ("shutdowns of RTU-1 are restricted on weekdays").
+
+#### Goals
+- G1. A typed graph of the sample building's electrical, mechanical and structural connections, where every node and link records where it came from.
+- G2. A Rovo agent that answers "what's involved in <job> on <equipment>?" with a brief built **only from graph facts**, each fact cited with its source.
+- G3. A contractor working through the customer portal can close out a job: what changed per part, plus original photos linked to that part.
+- G4. Accepted closeouts update the graph. Every node keeps a history of who changed what, on which job, with which photos.
+- G5. The same actions are exposed as `rovo:mcp` tools, so outside agents can use them too.
+
+#### Non-goals
+- Engineering sign-off, code compliance or load calculations someone could rely on. The brief lists *checks to make*, not answers. The existing disclaimer is extended: Precedent doesn't replace a licensed engineer or electrician.
+- Prices or quote amounts.
+- Editing IFC or CAD files.
+- Any backend outside Forge.
+
+#### Anti-goals (a failure even if it works)
+- Presenting illustrative data as the real building's as-built data, in the app, the README or the video.
+- The agent stating a spec, size or rating that isn't in the graph.
+- A contractor's report changing the graph without a facilities-side review.
+- Photos recompressed, resized or stripped of metadata. Originals are kept byte-for-byte.
+
+#### Provenance (applies to every node, link and attribute value)
+`provenance`: `as-built` (from the record drawings / COBie, cite `sheet`) · `illustrative` (written by us for the demo, never presented as real) · `as-installed` (from an accepted contractor closeout, cite `issueKey` + photo ids). The UI shows it as a small tag; the agent must say "illustrative" when it uses illustrative facts. Replacing illustrative links with the partner's real connection data later (open request, `samples/bim/exb/README.md`) needs no code change.
+
+#### G1. The graph
+**Node types:** Site · Level · RoofZone (with a load rating) · Equipment (existing 28) · Switchboard · Panel · Breaker (overcurrent protective device) · Feeder (conductor run: material, size, sets, insulation, length) · Disconnect · ServedArea (e.g. "North tower L2–5") · LineSet (refrigerant piping) · PipeLoop (heating hot water) · Curb/Support.
+
+**Link types (directed):** `feeds` (switchboard → panel → breaker → feeder → disconnect → equipment) · `protects` (breaker → feeder) · `serves` (equipment → served area) · `connects` (condensing unit ↔ line set ↔ indoor unit; pump ↔ loop ↔ boiler) · `supportedBy` (equipment → curb → roof zone) · `locatedOn` (→ level).
+
+**Illustrative electrical design for the sample building** (derived from the real ratings, all marked `illustrative`):
+- Main switchboard MSB, 480Y/277 V, in the level 1 main electrical room. That room is real (CU-2 cools it), but the switchboard's details are illustrative.
+- Roof distribution panels, one per tower.
+- **Breaker size = the unit's real MOP**, rounded to a standard size: RTU-1/RTU-3 600 A, RTU-2/RTU-4 250 A. Boilers (6.5 FLA): 15 A.
+- **Conductors from the NEC 310.16 table (75 °C copper column)**: 600 A → 2 parallel sets of 350 kcmil; 250 A → 250 kcmil; 15 A → 12 AWG. Each with a disconnect at the unit.
+- Units with no electrical data in the take-off (CUs, fans, pumps): plausible ratings, flagged `illustrative` with `ratingAssumed: true`.
+- RoofZones with load ratings, so a heavier replacement unit triggers a structural check.
+- One deliberate tight spot for the demo: a panel close to its capacity, so "upgrade RTU-2" surfaces that the panel and feeder, not just the breaker, need attention.
+
+The data lives in a generated seed file (like `exb.json`), written by a script from the take-off CSVs plus a hand-written `illustrative.yaml` (derivation rules and assumptions), so a reviewer can see exactly what was invented.
+
+**Storage (call made 2026-11-11):** **app storage is the source of truth** for the graph (nodes, links, per-value provenance, history), written asApp. The app's own storage needs no Assets licence or admin rights, so the whole flow, including accepted closeouts, works on any site, and provenance has a natural home. The install seeds it from the bundled seed. **Jira Assets is a mirror** where available: nodes become objects in the `PREC` schema and links become reference attributes, so the graph is browsable in Jira. The mirror is synced asUser by an admin ("Sync to Assets" in site Settings, extending today's import), and again after accepted closeouts when the accepting user can write Assets. Otherwise the change is queued and shown as "Assets out of date". A missing or failing mirror never blocks anything.
+
+#### G2. The Rovo agent
+- `rovo:agent` "Precedent" (30-character name limit), with a prompt that says: answer only from action results, cite each fact's provenance and sheet/job, say "illustrative" when it applies, and end every brief with "checks for a licensed professional".
+- **Actions** (Forge `action` modules, all `GET` except where noted):
+  - `get-equipment-context(tag)`: the node, its upstream electrical chain, mechanical connections, served areas, support, standing decisions, open work orders and recent closeouts.
+  - `scope-job(tag, jobType, newRatingAmps?, newWeightLb?, newRefrigerant?)`: a structured brief. **Deterministic rules** produce the knock-on items. For example: a new rating above the breaker → breaker, conductors and disconnect; the panel's connected load plus the delta over its rating → the panel too; more weight → a structural check on the support; a refrigerant change → the line set; standing decisions → scheduling constraints; served areas → occupant impact. The LLM phrases the brief; the rules decide its content.
+  - `check-work-order(issueKey)`: the existing check (§5.2).
+  - **Not Rovo-only:** `scope-job` and `attach-scope-brief` are shared backend functions. The issue panel has a **Scope this job** form (equipment, job type, optional new rating/weight/refrigerant) that calls them directly, so briefs and the closeout flow work with no Rovo and no LLM (§2.4). Rovo phrases the brief in conversation; the panel shows the same structured brief.
+  - `attach-scope-brief(issueKey, tag, jobType, …)` (`CREATE`): saves the brief on the work order (issue property `precedent.brief`) so the panel and the contractor's portal view show it.
+- The user always comes from `context.accountId`, never from inputs. Issue access is checked as the user, as `assertCanView` does today.
+- **`rovo:mcp`** exposes `get-equipment-context`, `scope-job` and `check-work-order` (Preview; an admin turns on external access per installation).
+- Conversation starters: "What's involved in upgrading RTU-2 to a larger unit?", "What feeds RTU-1, and what does it serve?", "Is FAC-123 clear to start?"
+
+#### G3/G4. Contractor closeout (JSM customer portal)
+- `jiraServiceManagement:portalRequestDetail` (Custom UI, `unlicensedAccess: [customer]`) on requests in a site's linked service space. It shows the scoping brief and a **Close out this job** list of the graph parts the job touches: the brief's parts when a brief exists, otherwise the work order's touched equipment plus its upstream electrical chain and support, with **Add a part** (picker over the site graph) for anything else.
+- Per part, the contractor records **what's there now** with fields specific to the node type (feeder: material, size, sets; breaker: rating, frame; equipment: model, serial, weight, refrigerant), plus a note.
+- **Photos:** any number per part, uploaded as **originals** (JPEG, HEIC, PNG, camera RAW such as DNG), stored byte-for-byte in Object Store under a content-addressed key. Each photo records the SHA-256, uploader account id, time, issue key and node id. Browser-renderable types get a preview; others show as files.
+- **If spike 8 fails** (Object Store not usable from the portal for customers): photos go in as **JSM request attachments** (Jira keeps attachment bytes unchanged). The app records each attachment's id, SHA-256 (computed in the browser before upload and verified on read), uploader and node id. The contract (original bytes, linked to a part) is the same either way.
+- **Rule:** the closeout can't be submitted until every part marked "changed" has at least one photo.
+- Submitting creates a closeout record with status **pending review**. Only the site's **approvers** (`site.approvers`, as for supersessions; default the site creator) may Accept or Reject. Facilities staff see it in the issue panel and on the site page, with the photos next to the proposed changes. **Accept** → the graph is updated (values become `as-installed`, the history entry links the job and photos). **Reject** needs a reason, which the contractor sees in the portal.
+- Security: every portal resolver call checks the caller is the reporter or a participant of that request (looked up asApp, never taken from the payload). Photos are signed for download only for people who can see the request.
+
+#### Judge path (the rules require the video to work from the install link)
+- Site setup links a **service space** (JSM). The sample-building setup creates one if the site has none (scope `manage:jira-project`, verify), with a "Contractor work" request type and seeded requests: one already scoped, one ready to close out.
+- A judge walks the contractor side **as themselves** in the portal (licensed users can open portal requests, and the panel declares `unlicensedAccess: [customer]` for real contractors). No second account is needed. The setup instructions also say how to invite a customer if they want the true contractor view.
+- The judge is the sample site's creator, so they are its approver and can accept their own closeout (shown as "self-approved", as decisions already are).
+
+#### Build order (each step is demoable alone)
+1. Graph seed (illustrative design + generator) and graph read API; graph in the site page (equipment detail shows its chain).
+2. Agent + actions + `rovo:mcp`.
+3. Portal closeout + photos + review → graph update.
+4. Stretch: feed graph nodes and closeouts into Teamwork Graph through a connector (verify the module and its status first).
+
+#### Left to the builder
+Exact Assets attribute types and reference configuration, the Forge SQL vs KVS choice for history, the portal UI layout, the deterministic rule table's exact thresholds, and the conversation-starter wording.
+
 ## 7. Spikes (each must pass on the dev site before we build on it)
 | # | Spike | Status |
 |---|---|---|
@@ -251,6 +338,10 @@ Recommended capture: Scaniverse (free) in mesh mode → GLB. Alternatives: 3D Sc
 | 4 | Assets REST from Forge: create a schema, object types and objects | ✅ passed 2026-11-09 (reported in the browser): "Import EXB into Assets" created the **Precedent** schema (PREC), Site/Level/Equipment types, and the EXB site, 6 levels and 28 equipment. Reads work asApp; schema/object creation needs **asUser** (the app account got 403, see §5.6). Two fixes on the way: descriptions under 50 chars, then asUser for setup |
 | 5 | Forge LLM `chat()` in an install-link app; cost per check | ⏳ |
 | 6 | A Rovo agent + action calling the shared check function | ⏳ |
+| 7 | Assets **reference attributes** created by the app (asUser) and read asApp; AQL walk of a 4-hop electrical chain in < 5 s | ⏳ |
+| 8 | `portalRequestDetail` as a **customer**: resolver gets the customer's `accountId`; `objectStore.upload` works from the portal; a 25 MB DNG uploads byte-identical | ⏳ |
+| 9 | Rovo agent + actions on a **clean** site (is Rovo available to judges?) and `rovo:mcp` reachable from an external client | ⏳ |
+| 10 | Assets availability on a clean judge-like site (plan/licence); otherwise the seed fallback is the demo path | ⏳ |
 
 ## 8. Scope order (cut from the bottom)
 **Never cut:**
@@ -281,3 +372,6 @@ Recommended capture: Scaniverse (free) in mesh mode → GLB. Alternatives: 3D Sc
 | 2026-11-08 | Drop the native iPhone app; Scaniverse + web upload | Judges only test the install link; no Mac or Apple account; frees weeks for Jira polish |
 | 2026-11-08 | Custom UI (not UI Kit) for the workspace | The WebGL scan viewer needs a real DOM/canvas |
 | 2026-11-08 | Vite + React 19 instead of the template's Create React App on React 16 | CRA is deprecated; Vite bundles three.js well |
+| 2026-11-11 | Expand to a building context graph + scoping agent + contractor closeout (§6.7) | Building managers can't scope jobs; contractors need connections (feeders, breakers, structure), not just an equipment list |
+| 2026-11-11 | Invent an **illustrative** electrical/mechanical design for the sample building, derived from its real ratings and always labelled | The partner's connection data hasn't arrived; the demo needs a graph; we must never present invented data as as-built |
+| 2026-11-11 | Contractor closeouts change the graph only after facilities review | Trust: the graph is what the next quote relies on |
