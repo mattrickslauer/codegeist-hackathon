@@ -40,7 +40,7 @@ const TYPE_DEFS = [
   ] },
 ];
 
-async function readJson(res, what) {
+export async function readJson(res, what) {
   const text = await res.text();
   if (!res.ok) {
     const err = new Error(`${what} failed: HTTP ${res.status} ${text.slice(0, 300)}`);
@@ -57,8 +57,8 @@ async function readJson(res, what) {
  *   account isn't an Assets admin (2026-11-09: HTTP 403 "you do not have permission" asApp, while the
  *   installing user is in assets-admins). The person running setup is the site admin who installed the app.
  */
-const AS_APP = () => api.asApp();
-const AS_USER = () => api.asUser();
+export const AS_APP = () => api.asApp();
+export const AS_USER = () => api.asUser();
 
 /** The site's Assets workspace id (null if Assets isn't available on this site). */
 export async function getWorkspaceId(who = AS_APP) {
@@ -68,10 +68,10 @@ export async function getWorkspaceId(who = AS_APP) {
   return body?.values?.[0]?.workspaceId ?? null;
 }
 
-const json = (body) => ({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+export const json = (body) => ({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 
 /** Assets REST client bound to a caller (AS_APP or AS_USER). */
-const assetsClient = (who) => ({
+export const assetsClient = (who) => ({
   listSchemas: async (ws) => readJson(await who().requestJira(route`/jsm/assets/workspace/${ws}/v1/objectschema/list`), 'List schemas'),
   createSchema: async (ws, body) => readJson(await who().requestJira(route`/jsm/assets/workspace/${ws}/v1/objectschema/create`, json(body)), 'Create schema'),
   listTypes: async (ws, schemaId) => readJson(await who().requestJira(route`/jsm/assets/workspace/${ws}/v1/objectschema/${schemaId}/objecttypes/flat`), 'List object types'),

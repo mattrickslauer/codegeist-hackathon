@@ -10,6 +10,7 @@ import { ensureAssetsModel, exbImportPlan, importExbStep, listSiteEquipment, pro
 import { approveDecision, createDecision, getDecision, listDecisions, proposeSupersession, withdrawDecision } from './decisions';
 import { acknowledgeForIssue, checkWorkOrder, reaffirm, setWorkOrderEquipment } from './check';
 import { loadSampleBuilding } from './samples';
+import { spikeAssetsRefs } from './spikes/assetsRefs';
 
 /** Bumped by hand when the backend contract changes; the UI shows it so we can confirm which build is live. */
 export const BACKEND_VERSION = '0.4.0';
@@ -105,6 +106,8 @@ resolver.define('assetsProbe', () => probeAssets());
 resolver.define('assetsSetup', () => ensureAssetsModel());
 resolver.define('assetsImportPlan', () => exbImportPlan());
 resolver.define('assetsImportStep', ({ payload }) => importExbStep(payload ?? {}));
+// Spike 7: Assets reference attributes + app-account writes (Diagnostics only).
+resolver.define('spikeAssetsRefs', () => spikeAssetsRefs());
 
 // Site equipment (live from Assets, seed fallback).
 resolver.define('getSiteEquipment', async ({ payload }) => {

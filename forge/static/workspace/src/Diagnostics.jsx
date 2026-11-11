@@ -3,6 +3,7 @@ import { invoke, objectStore } from '@forge/bridge';
 import ScanViewer from './ScanViewer.jsx';
 import ValidatorSpike from './ValidatorSpike.jsx';
 import AssetsSpike from './AssetsSpike.jsx';
+import AssetsRefsSpike from './AssetsRefsSpike.jsx';
 import { navigate } from './router.js';
 
 /** The 17 MB Scaniverse sample uploaded during spike 1 (content-addressed key). */
@@ -114,6 +115,7 @@ export default function Diagnostics() {
       {ping.state === 'ok' && <p>Backend v{ping.res.backendVersion} reachable · server time {ping.res.serverTime}</p>}
 
       <AssetsSpike />
+      <AssetsRefsSpike />
 
       <ValidatorSpike />
 
