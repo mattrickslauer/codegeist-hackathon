@@ -44,16 +44,20 @@ resolver.define('ping', ({ context }) => ({
 /** base64 → base64url (no '+', '/', '='), so a checksum can be used safely inside an object key. */
 export const base64ToBase64Url = (b64) => b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 
-/** Content-addressed key for a scan: the same bytes always map to the same key. */
-export const scanKeyFor = (sha256Base64) => `${SCAN_PREFIX}sha256-${base64ToBase64Url(sha256Base64)}`;
+/** Content-addressed key under a prefix: the same bytes always map to the same key. */
+const contentKey = (prefix, sha256Base64) => `${prefix}sha256-${base64ToBase64Url(sha256Base64)}`;
+export const scanKeyFor = (sha256Base64) => contentKey(SCAN_PREFIX, sha256Base64);
+
+/** Original photos (closeout evidence, spike 8). Same size cap as scans; bytes are never transformed. */
+const PHOTO_PREFIX = 'photos/';
 
 /**
- * getScanUploadUrls: called by the `objectStore.upload` bridge (functionKey).
+ * Upload signing for the `objectStore.upload` bridge (functionKey).
  * Bridge contract: payload `{ allObjectMetadata: [{ length, checksum, checksumType }] }`
  * → returns `{ [presignedPutUrl]: { key, length, checksum, checksumType } }`.
  * The browser then PUTs each file straight to its URL; file bytes never pass through this function.
  */
-resolver.define('getScanUploadUrls', async ({ payload }) => {
+async function signUploads(prefix, payload) {
   const items = payload?.allObjectMetadata;
   if (!Array.isArray(items) || items.length === 0) throw new Error('allObjectMetadata is required');
 
@@ -61,36 +65,40 @@ resolver.define('getScanUploadUrls', async ({ payload }) => {
   for (const { length, checksum, checksumType } of items) {
     if (checksumType !== 'SHA256') throw new Error(`Unsupported checksum type: ${checksumType}`);
     if (!Number.isInteger(length) || length <= 0 || length > MAX_SCAN_BYTES) {
-      throw new Error(`Scan size ${length} bytes is outside the allowed range (1 B – ${MAX_SCAN_BYTES} B)`);
+      throw new Error(`File size ${length} bytes is outside the allowed range (1 B – ${MAX_SCAN_BYTES} B)`);
     }
-    const key = scanKeyFor(checksum);
+    const key = contentKey(prefix, checksum);
     const res = await objectStore.createUploadUrl({ key, length, checksum, checksumType, overwrite: true });
     if (!res?.url) throw new Error(`Object Store returned no upload URL for ${key}`);
-    // Spike diagnostics: the host the browser must be allowed to PUT to (needed if Custom UI CSP blocks it).
     console.log(`upload url host=${new URL(res.url).host} key=${key} length=${length}`);
     mapping[res.url] = { key, length, checksum, checksumType };
   }
   return mapping;
-});
+}
 
 /**
- * getScanDownloadUrls: called by the `objectStore.download` bridge (functionKey).
- * Bridge contract: payload `{ keys: string[] }` → returns `{ [presignedGetUrl]: key }`.
+ * Download signing for the `objectStore.download` bridge (functionKey).
+ * Bridge contract: payload `{ keys: string[] }` → returns `{ [presignedGetUrl]: key }`. Only keys under `prefix`.
  */
-resolver.define('getScanDownloadUrls', async ({ payload }) => {
+async function signDownloads(prefix, payload) {
   const keys = payload?.keys;
   if (!Array.isArray(keys) || keys.length === 0) throw new Error('keys is required');
 
   const mapping = {};
   for (const key of keys) {
-    if (typeof key !== 'string' || !key.startsWith(SCAN_PREFIX)) throw new Error(`Refusing to sign key outside ${SCAN_PREFIX}`);
+    if (typeof key !== 'string' || !key.startsWith(prefix)) throw new Error(`Refusing to sign key outside ${prefix}`);
     const res = await objectStore.createDownloadUrl(key);
     if (!res?.url) throw new Error(`No object found for ${key}`);
-    console.log(`download url host=${new URL(res.url).host} key=${key}`);
     mapping[res.url] = key;
   }
   return mapping;
-});
+}
+
+resolver.define('getScanUploadUrls', ({ payload }) => signUploads(SCAN_PREFIX, payload));
+resolver.define('getScanDownloadUrls', ({ payload }) => signDownloads(SCAN_PREFIX, payload));
+// Spike 8: original photos from the JSM portal. TODO (closeout plan): only for participants of the request.
+resolver.define('getPhotoUploadUrls', ({ payload }) => signUploads(PHOTO_PREFIX, payload));
+resolver.define('getPhotoDownloadUrls', ({ payload }) => signDownloads(PHOTO_PREFIX, payload));
 
 // Sites (KVS). The caller's account ID always comes from the Forge context, never the payload.
 resolver.define('listSites', () => listSites());
@@ -144,6 +152,29 @@ resolver.define('checkWorkOrder', async ({ payload }) => {
 resolver.define('reaffirmConflict', ({ payload, context }) => reaffirm(payload ?? {}, context.accountId));
 resolver.define('setWorkOrderEquipment', ({ payload }) => setWorkOrderEquipment(payload ?? {}));
 resolver.define('getDecision', ({ payload }) => getDecision(payload?.siteId, payload?.decisionId));
+
+/**
+ * Spike 8: who is calling from the JSM portal panel, and are they on this request?
+ * The request key comes from the Forge context (not the payload). Reporter/participants are read asApp.
+ */
+resolver.define('portalWhoAmI', async ({ context }) => {
+  const accountId = context.accountId ?? null;
+  const requestKey = context.extension?.request?.key ?? null;
+  const out = { accountId, requestKey, extensionType: context.extension?.type ?? null, canSeeRequest: false, reporter: null, participants: [], errors: [] };
+  if (!requestKey || !accountId) return out;
+  try {
+    const req = await api.asApp().requestJira(route`/rest/servicedeskapi/request/${requestKey}`);
+    if (req.ok) out.reporter = (await req.json()).reporter?.accountId ?? null;
+    else out.errors.push(`request ${req.status}`);
+    const parts = await api.asApp().requestJira(route`/rest/servicedeskapi/request/${requestKey}/participant`);
+    if (parts.ok) out.participants = ((await parts.json()).values ?? []).map((p) => p.accountId);
+    else out.errors.push(`participants ${parts.status}`);
+  } catch (err) {
+    out.errors.push(err.message);
+  }
+  out.canSeeRequest = out.reporter === accountId || out.participants.includes(accountId);
+  return out;
+});
 
 export const handler = resolver.getDefinitions();
 

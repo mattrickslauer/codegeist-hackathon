@@ -23,6 +23,15 @@ modules:
         - avi:jira:updated:issue
       filter:
         ignoreSelf: true
+  # Contractor closeout in the JSM customer portal (spike 8: identity + original photo round trip).
+  jiraServiceManagement:portalRequestDetail:
+    - key: precedent-portal-closeout
+      title: Precedent
+      resource: workspace
+      resolver:
+        function: resolver
+      unlicensedAccess:
+        - customer
   # Rovo agent (spike 9): answers questions about a building's equipment from Precedent's data only.
   rovo:agent:
     - key: precedent-agent

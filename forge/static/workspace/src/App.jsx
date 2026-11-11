@@ -8,6 +8,8 @@ import { Banner, Button, Spinner } from './ui.jsx';
 
 // Developer test panels; loaded only when visited.
 const Diagnostics = lazy(() => import('./Diagnostics.jsx'));
+// JSM portal panel (spike 8); loaded only in the portal.
+const PortalSpike = lazy(() => import('./PortalSpike.jsx'));
 
 /** Workspace (global page): routes between Sites, a Site, and Diagnostics. */
 function Workspace() {
@@ -68,7 +70,11 @@ export default function App() {
   if (!context) return <Spinner label="Loading…" />;
   return (
     <ErrorBoundary>
-      {context.extension?.type === 'jira:issuePanel' ? <WorkOrderPanel issueKey={context.extension.issue.key} /> : <Workspace />}
+      {context.extension?.type === 'jira:issuePanel' && <WorkOrderPanel issueKey={context.extension.issue.key} />}
+      {context.extension?.type === 'jiraServiceManagement:portalRequestDetail' && (
+        <Suspense fallback={<Spinner label="Loading…" />}><PortalSpike context={context} /></Suspense>
+      )}
+      {!['jira:issuePanel', 'jiraServiceManagement:portalRequestDetail'].includes(context.extension?.type) && <Workspace />}
     </ErrorBoundary>
   );
 }

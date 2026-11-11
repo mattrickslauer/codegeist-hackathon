@@ -9,11 +9,7 @@ import { navigate } from './router.js';
 /** The 17 MB Scaniverse sample uploaded during spike 1 (content-addressed key). */
 const SAMPLE_SCAN_KEY = 'scans/sha256-zt-WlSvcMpaRAwzOn2qnh8yVxCRAyeiRdgGr2Va9b1w';
 
-/** SHA-256 of a Blob as lowercase hex (used to prove the round trip is byte-identical). */
-async function sha256Hex(blob) {
-  const digest = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
-  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('');
-}
+import { sha256Hex } from './hash.js';
 
 const mb = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 const secs = (ms) => `${(ms / 1000).toFixed(1)} s`;
