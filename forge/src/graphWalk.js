@@ -28,7 +28,15 @@ const value = (node, attr) => node?.attrs?.[attr]?.value;
 export function findEquipment(ix, tag) {
   const t = normaliseTagInput(tag);
   const node = t && ix.nodes.get(`equipment:${t}`);
-  if (!node) throw new Error(`Equipment ${t || String(tag ?? '')} isn't in this site's graph`);
+  if (!node) {
+    // Name the tags that do exist, so an agent can offer real alternatives instead of guessing.
+    const all = [...ix.nodes.values()].filter((n) => n.type === 'Equipment').map((n) => n.name)
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const prefix = t.split('-')[0];
+    const similar = all.filter((name) => prefix && name.split('-')[0] === prefix);
+    const hint = similar.length ? `Similar tags here: ${similar.join(', ')}.` : `Equipment tags here: ${all.join(', ')}.`;
+    throw new Error(`Equipment ${t || String(tag ?? '')} isn't in this site's graph. ${hint}`);
+  }
   return node;
 }
 

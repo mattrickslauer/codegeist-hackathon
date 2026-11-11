@@ -16,6 +16,11 @@ test('unknown tag', () => {
   assert.throws(() => findEquipment(ix, ''), /isn't in this site's graph/);
 });
 
+test('unknown tag lists the similar tags that do exist', () => {
+  assert.throws(() => findEquipment(ix, 'RTU-12'), /Equipment RTU-12 isn't in this site's graph\. Similar tags here: RTU-1, RTU-2, RTU-3, RTU-4\./);
+  assert.throws(() => findEquipment(ix, 'ZZ-1'), /Equipment tags here: .*RTU-4/);
+});
+
 test('RTU-1 power chain, source first', () => {
   const ids = powerChain(ix, 'RTU-1').map((n) => n.id);
   assert.deepEqual(ids, ['switchboard:MSB', 'panel:RDP-N', 'breaker:RTU-1', 'feeder:RTU-1', 'disconnect:RTU-1', 'equipment:RTU-1']);
