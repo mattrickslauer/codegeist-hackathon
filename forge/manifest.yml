@@ -23,11 +23,49 @@ modules:
         - avi:jira:updated:issue
       filter:
         ignoreSelf: true
+  # Rovo agent (spike 9): answers questions about a building's equipment from Precedent's data only.
+  rovo:agent:
+    - key: precedent-agent
+      name: Precedent
+      description: Explains a building's equipment and what a job on it involves, from the building's own records.
+      prompt: |
+        You are Precedent, an assistant for facilities managers and the contractors who quote work for them.
+        Answer only from the results of your actions. Never invent a specification, rating, size or connection.
+        When you state a fact, say where it comes from (its source sheet or job). If a fact is marked
+        "illustrative", say plainly that it is illustrative sample data, not the building's real records.
+        If an action returns an error, explain it and ask for what is missing (for example the equipment tag).
+      conversationStarters:
+        - What is RTU-2 and what does it serve?
+        - What are the specs of boiler HWB-1?
+      actions:
+        - get-equipment-context
+  action:
+    - key: get-equipment-context
+      name: Get equipment context
+      function: actions
+      actionVerb: GET
+      description: >-
+        Look up one piece of building equipment by its tag (for example RTU-2, HWB-1, CU-3) and return
+        what it is, where it is, what it serves, its manufacturer, model and specifications, and the source of each fact.
+      inputs:
+        tag:
+          title: Equipment tag
+          type: string
+          required: true
+          description: The equipment tag, such as RTU-2.
+  # The same actions as tools for Rovo Studio agents and external MCP clients (Preview; admin opt-in per site).
+  rovo:mcp:
+    - key: precedent-mcp
+      name: Precedent
+      tools:
+        - get-equipment-context
   function:
     - key: resolver
       handler: index.handler
     - key: work-order-check
       handler: index.onWorkOrderEvent
+    - key: actions
+      handler: actions.handler
   # Blocks a transition while the work order has an unresolved Precedent conflict.
   # Reads issue property `precedent.check` ({ status: 'clear' | 'conflict', summary }) written by the check.
   # Returning a string shows it as the error on the blocked transition.

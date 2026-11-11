@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "test": "node --test test/match.test.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
     "build:ui": "npm --prefix static/workspace run build",
     "lint": "../node_modules/.bin/forge lint",
     "deploy": "npm run build:ui && ../node_modules/.bin/forge deploy --non-interactive -e development"
