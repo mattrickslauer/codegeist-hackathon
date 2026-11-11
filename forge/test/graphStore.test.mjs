@@ -22,8 +22,15 @@ test('siteForAction: no graph sites → null (bundled sample)', () => {
   assert.equal(siteForAction([], 'FAC'), null);
 });
 
-test('siteForAction: ambiguous → asks which site', () => {
-  assert.throws(() => siteForAction([a, b], undefined), /Which site\?.*Example Office Building, Example Office Building \(2\)/);
+test('siteForAction: ambiguous → asks which site, naming each with its space', () => {
+  assert.throws(() => siteForAction([a, b], undefined), /Which site\?.*Example Office Building \(FAC\), Example Office Building \(2\) \(OPS\)/);
+});
+
+test('siteForAction: a site name or space key picks among several', () => {
+  assert.equal(siteForAction([a, b], undefined, 'ops'), b);
+  assert.equal(siteForAction([a, b], undefined, '(2)'), b);
+  assert.equal(siteForAction([a, b], 'FAC', 'ops'), b, 'an explicit site wins over the space context');
+  assert.throws(() => siteForAction([a, b], undefined, 'nowhere'), /No Precedent site matches "nowhere"/);
 });
 
 test('factsOf keeps provenance', () => {

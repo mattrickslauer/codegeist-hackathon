@@ -43,13 +43,14 @@ export function Spike8() {
 
 export function Spike9() {
   const [tag, setTag] = useState('rtu 2');
+  const [site, setSite] = useState('');
   const [out, setOut] = useState('');
   const [busy, setBusy] = useState(false);
 
   async function run() {
     setBusy(true);
     try {
-      setOut(JSON.stringify(await invoke('spikeEquipmentContext', { tag }), null, 2));
+      setOut(JSON.stringify(await invoke('spikeEquipmentContext', { tag, site: site || undefined }), null, 2));
     } catch (err) {
       setOut(`✘ ${String(err?.message ?? err)}`);
     } finally {
@@ -62,7 +63,8 @@ export function Spike9() {
       <h2 style={title}>Spike 9 · Rovo agent, action and MCP tool</h2>
       <p>1. Run the action's logic directly (the tag is normalised, so "rtu 2" should find RTU-2):</p>
       <div className="row">
-        <input className="input" value={tag} onChange={(e) => setTag(e.target.value)} style={{ maxWidth: 200 }} />
+        <input className="input" value={tag} onChange={(e) => setTag(e.target.value)} style={{ maxWidth: 160 }} aria-label="Tag" />
+        <input className="input" value={site} onChange={(e) => setSite(e.target.value)} style={{ maxWidth: 200 }} placeholder="site or space (optional)" aria-label="Site" />
         <button type="button" onClick={run} disabled={busy}>{busy ? 'Running…' : 'Run get-equipment-context'}</button>
       </div>
       <pre style={{ ...logBox, marginTop: 12 }}>{out || 'No run yet.'}</pre>

@@ -9,14 +9,24 @@ export const graphKey = (siteId) => `graph:${siteId}`;
  * Returns the site, null when no site has a graph (caller falls back to the bundled sample), or throws when
  * several sites could match and nothing says which.
  */
-export function siteForAction(sites, projectKey) {
+export function siteForAction(sites, projectKey, siteName) {
+  const label = (s) => `${s.name}${s.space?.key ? ` (${s.space.key})` : ''}`;
+  const wanted = String(siteName ?? '').trim().toLowerCase();
+  if (wanted) {
+    const exactKey = sites.filter((s) => s.space?.key?.toLowerCase() === wanted);
+    const byName = sites.filter((s) => s.name.toLowerCase().includes(wanted));
+    const matches = exactKey.length ? exactKey : byName;
+    if (matches.length === 1) return matches[0];
+    if (!matches.length) throw new Error(`No Precedent site matches "${siteName}". Sites: ${sites.map(label).join(', ') || 'none'}.`);
+    sites = matches; // still several: fall through to the space context / "Which site?"
+  }
   if (projectKey) {
     const linked = sites.find((s) => s.space?.key === projectKey);
     if (linked) return linked;
   }
   if (sites.length === 0) return null;
   if (sites.length === 1) return sites[0];
-  throw new Error(`Which site? Precedent has several: ${sites.map((s) => s.name).join(', ')}. Ask from a work order in the site's Jira space, or name the site.`);
+  throw new Error(`Which site? Precedent has several: ${sites.map(label).join(', ')}. Name the site or its Jira space (the "site" input), or ask from a work order in that space.`);
 }
 
 /** A node in the compact, model-friendly form actions return: every fact keeps its provenance and source. */

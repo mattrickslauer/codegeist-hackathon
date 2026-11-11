@@ -17,6 +17,17 @@ export async function seedGraph(siteId) {
 }
 
 export const getGraph = (siteId) => kvs.get(graphKey(siteId));
+
+/**
+ * The site's graph. Sample-building sites created before the graph existed (≤ v6.10) are seeded on first read,
+ * from any path (site page, agent, MCP), so every reader sees the same data.
+ */
+async function ensureGraph(site) {
+  const graph = await getGraph(site.id);
+  if (graph || site.model?.path !== 'models/exb.glb') return graph ?? null;
+  await seedGraph(site.id);
+  return getGraph(site.id);
+}
 export const deleteGraph = (siteId) => kvs.delete(graphKey(siteId));
 
 /** Standing decisions about one tag, in the short form the brief needs. */
@@ -29,12 +40,7 @@ async function standingDecisions(siteId, tag) {
 
 /** For the site page: the equipment's context from this site's graph, or { source: 'none' }. */
 export async function equipmentContextForSite(siteId, tag) {
-  let graph = await getGraph(siteId);
-  if (!graph && (await getSite(siteId)).model?.path === 'models/exb.glb') {
-    // Sample-building sites created before the graph existed (≤ v6.10): seed on first read.
-    await seedGraph(siteId);
-    graph = await getGraph(siteId);
-  }
+  const graph = await ensureGraph(await getSite(siteId));
   if (!graph) return { source: 'none' };
   return { source: 'graph', context: context(indexGraph(graph), tag) };
 }
@@ -44,15 +50,17 @@ export async function equipmentContextForSite(siteId, tag) {
  * Inputs may be hallucinated; they only select data, never grant access.
  */
 export async function equipmentContextForAction(payload) {
-  const sites = await listSites();
-  const withGraph = [];
-  for (const s of sites) if (await getGraph(s.id)) withGraph.push(s);
-  const site = siteForAction(withGraph, payload?.context?.jira?.projectKey);
-  const graph = site ? await getGraph(site.id) : bundled;
+  const graphs = new Map();
+  for (const s of await listSites()) {
+    const g = await ensureGraph(s);
+    if (g) graphs.set(s.id, { site: s, graph: g });
+  }
+  const site = siteForAction([...graphs.values()].map((x) => x.site), payload?.context?.jira?.projectKey, payload?.site);
+  const graph = site ? graphs.get(site.id).graph : bundled;
   const c = context(indexGraph(graph), payload?.tag);
   const tag = c.equipment.name;
   return {
-    site: site ? site.name : `${bundled.building} (bundled sample; not loaded as a site yet)`,
+    site: site ? `${site.name}${site.space?.key ? ` (Jira space ${site.space.key})` : ''}` : `${bundled.building} (bundled sample; not loaded as a site yet)`,
     note: 'Each fact has a provenance: as-built (from the record drawings; source = sheet), illustrative (sample data written for the demo, NOT the real building), or as-installed (from a completed job).',
     equipment: factsOf(c.equipment),
     powerChainFromSource: c.powerChain.map(factsOf),
