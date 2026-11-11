@@ -67,25 +67,40 @@ export async function spikeAssetsRefs() {
     return `panel type ${s[PANEL_TYPE].id}, feeder type ${s[FEEDER_TYPE].id}`;
   });
 
-  await step(`Ensure reference type "${REF_TYPE}" (user)`, async () => {
+  // 2026-11-11 first run: GET config/referencetype → "Authentication Required" (51 ms), i.e. the config API
+  // isn't reachable with the app's scopes. Record it, then try the attribute without our own reference type.
+  await step(`List / create reference type "${REF_TYPE}" (user)`, async () => {
     const list = await userX.listRefTypes(s.ws, s.schema.id);
-    let rt = (list ?? []).find((x) => x.name === REF_TYPE);
+    s.refTypes = list ?? [];
+    let rt = s.refTypes.find((x) => x.name === REF_TYPE);
     if (!rt) rt = await userX.createRefType(s.ws, { name: REF_TYPE, description: 'Spike 7', objectSchemaId: String(s.schema.id) });
     s.refType = rt;
-    return `reference type id ${rt.id}`;
+    return `reference type id ${rt.id}; available: ${s.refTypes.map((r) => `${r.id}=${r.name}`).join(', ')}`;
   });
 
   await step(`Ensure reference attribute "${REF_ATTR}" (user)`, async () => {
+    if (!s[FEEDER_TYPE] || !s[PANEL_TYPE]) throw new Error('skipped: spike types missing');
     const existing = s[FEEDER_TYPE].attrs[REF_ATTR];
     if (existing) {
       s.refAttr = existing;
-      return `exists: id ${existing.id}, type ${existing.type}, referenceObjectTypeId ${existing.referenceObjectTypeId}`;
+      return `exists: id ${existing.id}, type ${existing.type}, referenceObjectTypeId ${existing.referenceObjectTypeId}, referenceType ${existing.referenceType?.name ?? '?'}`;
     }
-    const created = await user.createAttribute(s.ws, s[FEEDER_TYPE].id, {
-      name: REF_ATTR, type: OBJECT_REFERENCE, typeValue: String(s[PANEL_TYPE].id), additionalValue: String(s.refType.id),
-    });
-    s.refAttr = created;
-    return `created: id ${created.id}, type ${created.type}, referenceObjectTypeId ${created.referenceObjectTypeId}, referenceType ${created.referenceType?.name}`;
+    // Candidates for the reference type: ours if we have it, none at all, then low ids (built-in types are usually 1..n).
+    const candidates = [s.refType?.id, undefined, ...[1, 2, 3, 4, 5, 6, 7, 8].map(String)].filter((v, i, a) => a.indexOf(v) === i);
+    const tried = [];
+    for (const additionalValue of candidates) {
+      if (additionalValue === undefined && tried.includes('none')) continue;
+      const body = { name: REF_ATTR, type: OBJECT_REFERENCE, typeValue: String(s[PANEL_TYPE].id) };
+      if (additionalValue !== undefined) body.additionalValue = String(additionalValue);
+      try {
+        const created = await user.createAttribute(s.ws, s[FEEDER_TYPE].id, body);
+        s.refAttr = created;
+        return `created with additionalValue=${additionalValue ?? 'none'} (after ${tried.length} failed tries): id ${created.id}, type ${created.type}, referenceType ${created.referenceType?.id}=${created.referenceType?.name}`;
+      } catch (err) {
+        tried.push(`${additionalValue ?? 'none'}: ${err.message.slice(0, 120)}`);
+      }
+    }
+    throw new Error(`every candidate failed → ${tried.join(' | ')}`);
   });
 
   const upsert = async (client, typeName, name, extraAttrs = []) => {
@@ -101,6 +116,7 @@ export async function spikeAssetsRefs() {
   };
 
   await step('Create SP-1 and SF-1 → SP-1 (user)', async () => {
+    if (!s.refAttr) throw new Error('skipped: no reference attribute');
     const panel = await upsert(user, PANEL_TYPE, 'SP-1');
     s.panel = panel.obj;
     const feeder = await upsert(user, FEEDER_TYPE, 'SF-1', [
@@ -111,6 +127,7 @@ export async function spikeAssetsRefs() {
   });
 
   await step('App account creates SF-2 (app write test)', async () => {
+    if (!s.refAttr) throw new Error('skipped: no reference attribute');
     const { obj, created } = await upsert(app, FEEDER_TYPE, 'SF-2', s.panel ? [
       { objectTypeAttributeId: s.refAttr.id, objectAttributeValues: [{ value: s.panel.objectKey }] },
     ] : []);
@@ -118,6 +135,7 @@ export async function spikeAssetsRefs() {
   });
 
   await step('Read SF-1 reference by AQL (app)', async () => {
+    if (!s.feeder) throw new Error('skipped: SF-1 not created');
     const res = await appX.aqlMany(s.ws, `objectTypeId = ${s[FEEDER_TYPE].id} AND "${REF_ATTR}" = "SP-1"`);
     const names = (res?.values ?? []).map((o) => o.label);
     if (!names.includes('SF-1')) throw new Error(`SF-1 not found; got [${names.join(', ')}]`);

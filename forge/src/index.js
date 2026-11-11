@@ -11,6 +11,7 @@ import { approveDecision, createDecision, getDecision, listDecisions, proposeSup
 import { acknowledgeForIssue, checkWorkOrder, reaffirm, setWorkOrderEquipment } from './check';
 import { loadSampleBuilding } from './samples';
 import { spikeAssetsRefs } from './spikes/assetsRefs';
+import { getEquipmentContext } from './actions';
 
 /** Bumped by hand when the backend contract changes; the UI shows it so we can confirm which build is live. */
 export const BACKEND_VERSION = '0.4.0';
@@ -116,6 +117,15 @@ resolver.define('assetsImportPlan', () => exbImportPlan());
 resolver.define('assetsImportStep', ({ payload }) => importExbStep(payload ?? {}));
 // Spike 7: Assets reference attributes + app-account writes (Diagnostics only).
 resolver.define('spikeAssetsRefs', () => spikeAssetsRefs());
+// Spike 9: run the Rovo action's logic directly, to separate "action works" from "Rovo calls it".
+resolver.define('spikeEquipmentContext', ({ payload }) => getEquipmentContext(payload));
+// Spike 10: what a clean (judge-like) site offers this app. Rovo availability is checked by hand.
+resolver.define('spikeCleanSite', async ({ context }) => {
+  const out = { backendVersion: BACKEND_VERSION, installContext: context.installContext ?? null, assets: null, sites: null, errors: [] };
+  try { out.assets = await probeAssets(); } catch (err) { out.errors.push(`assets: ${err.message}`); }
+  try { out.sites = (await listSites()).length; } catch (err) { out.errors.push(`sites: ${err.message}`); }
+  return out;
+});
 
 // Site equipment (live from Assets, seed fallback).
 resolver.define('getSiteEquipment', async ({ payload }) => {

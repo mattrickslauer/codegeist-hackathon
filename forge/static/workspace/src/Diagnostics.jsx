@@ -4,6 +4,7 @@ import ScanViewer from './ScanViewer.jsx';
 import ValidatorSpike from './ValidatorSpike.jsx';
 import AssetsSpike from './AssetsSpike.jsx';
 import AssetsRefsSpike from './AssetsRefsSpike.jsx';
+import { Spike5, Spike6, Spike8, Spike9, Spike10 } from './LaterSpikes.jsx';
 import { navigate } from './router.js';
 
 /** The 17 MB Scaniverse sample uploaded during spike 1 (content-addressed key). */
@@ -110,11 +111,18 @@ export default function Diagnostics() {
       {ping.state === 'error' && <p role="alert">Backend error: {ping.message}</p>}
       {ping.state === 'ok' && <p>Backend v{ping.res.backendVersion} reachable · server time {ping.res.serverTime}</p>}
 
-      <AssetsSpike />
-      <AssetsRefsSpike />
-
-      <ValidatorSpike />
-
+      <section style={panel}>
+        <h2 style={{ marginTop: 0, fontSize: 18 }}>Spike 1 · scan upload round trip</h2>
+        <p>Pick a GLB scan. It uploads straight to Forge Object Store, downloads back, and the bytes are compared.</p>
+        <input
+          type="file"
+          accept=".glb,model/gltf-binary"
+          disabled={busy}
+          onChange={(e) => e.target.files?.[0] && runRoundTrip(e.target.files[0])}
+        />
+        {busy && <p>Working…</p>}
+        <pre style={logBox}>{log.join('\n') || 'No run yet.'}</pre>
+      </section>
       <section style={panel}>
         <h2 style={{ marginTop: 0, fontSize: 18 }}>Spike 2 · 3D scan viewer</h2>
         <p>Loads a stored scan from Object Store and renders it with three.js inside this Jira page.</p>
@@ -135,18 +143,14 @@ export default function Diagnostics() {
         <pre style={logBox}>{viewerLog.join('\n') || 'No run yet.'}</pre>
       </section>
 
-      <section style={panel}>
-        <h2 style={{ marginTop: 0, fontSize: 18 }}>Spike 1 · scan upload round trip</h2>
-        <p>Pick a GLB scan. It uploads straight to Forge Object Store, downloads back, and the bytes are compared.</p>
-        <input
-          type="file"
-          accept=".glb,model/gltf-binary"
-          disabled={busy}
-          onChange={(e) => e.target.files?.[0] && runRoundTrip(e.target.files[0])}
-        />
-        {busy && <p>Working…</p>}
-        <pre style={logBox}>{log.join('\n') || 'No run yet.'}</pre>
-      </section>
+      <ValidatorSpike />
+      <AssetsSpike />
+      <Spike5 />
+      <Spike6 />
+      <AssetsRefsSpike />
+      <Spike8 />
+      <Spike9 />
+      <Spike10 />
     </main>
   );
 }
