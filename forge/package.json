@@ -1,0 +1,18 @@
+{
+  "name": "precedent-forge",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test test/match.test.mjs",
+    "build:ui": "npm --prefix static/workspace run build",
+    "lint": "../node_modules/.bin/forge lint",
+    "deploy": "npm run build:ui && ../node_modules/.bin/forge deploy --non-interactive -e development"
+  },
+  "dependencies": {
+    "@forge/api": "8.4.0",
+    "@forge/kvs": "2.1.1",
+    "@forge/object-store": "3.0.3",
+    "@forge/resolver": "2.0.2"
+  }
+}

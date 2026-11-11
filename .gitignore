@@ -1,0 +1,34 @@
+# Private planning notes and working files (kept locally, not part of the project)
+STRATEGY.md
+CLAUDE.md
+docs/rules/
+docs/winners/
+docs/research/
+submission/
+scripts/fetch_winners.py
+files.zip
+
+# Environment and credentials
+.env
+.env.*
+!.env.example
+
+# Node / Forge
+node_modules/
+.forge/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+# IfcOpenShell environment for scripts/build_exb_model.py
+.venv-bim/
+
+# Local
+.DS_Store
+*.log
+.claude/worktrees/

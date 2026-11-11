@@ -1,0 +1,15 @@
+{
+  "name": "precedent",
+  "private": true,
+  "description": "Precedent: decisions about physical places, pinned to the scan, enforced on every work order (Codegeist 2026).",
+  "scripts": {
+    "forge": "forge",
+    "rules": "./scripts/fetch_rules.sh"
+  },
+  "devDependencies": {
+    "@forge/cli": "15.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

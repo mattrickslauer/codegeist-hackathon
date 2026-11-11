@@ -1,0 +1,90 @@
+modules:
+  # Precedent workspace: sites, scans, decisions. Custom UI (needed for the WebGL scan viewer).
+  jira:globalPage:
+    - key: precedent-workspace
+      resource: workspace
+      resolver:
+        function: resolver
+      title: Precedent
+  # The Precedent panel on every work order: detected equipment, conflicts, reaffirm / supersede / withdraw.
+  jira:issuePanel:
+    - key: precedent-work-order-panel
+      resource: workspace
+      resolver:
+        function: resolver
+      title: Precedent
+      icon: resource:workspace;precedent-icon.svg
+  # Run the check whenever a work order is created or edited. ignoreSelf: our own property/comment writes don't re-trigger.
+  trigger:
+    - key: precedent-work-order-trigger
+      function: work-order-check
+      events:
+        - avi:jira:created:issue
+        - avi:jira:updated:issue
+      filter:
+        ignoreSelf: true
+  function:
+    - key: resolver
+      handler: index.handler
+    - key: work-order-check
+      handler: index.onWorkOrderEvent
+  # Blocks a transition while the work order has an unresolved Precedent conflict.
+  # Reads issue property `precedent.check` ({ status: 'clear' | 'conflict', summary }) written by the check.
+  # Returning a string shows it as the error on the blocked transition.
+  jira:workflowValidator:
+    - key: precedent-open-conflict-validator
+      name: "Precedent: no unresolved decision conflict"
+      description: Blocks the transition while this work order conflicts with a standing site decision recorded in Precedent.
+      expression: >-
+        issue.properties['precedent.check'] == null || issue.properties['precedent.check'].status != 'conflict'
+        ? true
+        : 'Blocked by Precedent: this work order conflicts with a standing decision: "'
+          + issue.properties['precedent.check'].summary
+          + '". Open the Precedent panel on this work order to reaffirm, supersede or withdraw.'
+      errorMessage: Blocked by Precedent. This work order conflicts with a standing site decision.
+      projectTypes: ['company-managed', 'team-managed']
+  # Index the `precedent.check` issue property so JQL can find blocked work orders:
+  #   precedentStatus = conflict   ·   precedentSite = "<site id>"
+  jira:entityProperty:
+    - key: precedent-check-index
+      entityType: issue
+      propertyKey: precedent.check
+      values:
+        - path: status
+          type: string
+          searchAlias: precedentStatus
+        - path: siteId
+          type: string
+          searchAlias: precedentSite
+  # Forge Object Store (Preview): scans, photos, audio. Adding it is a major version upgrade (admin must approve).
+  objectStore:
+    - key: precedent-objects
+      storageClass: standard
+resources:
+  - key: workspace
+    path: static/workspace/dist
+permissions:
+  scopes:
+    # Read work orders and their `precedent.check` property; write that property (spike 3 test controls, later the check).
+    - read:jira-work
+    - write:jira-work
+    # Sites records in Forge KVS.
+    - storage:app
+    # Jira Assets (spike 4): find the workspace, then create/read the Precedent schema, types, attributes, objects.
+    # No delete scopes: Precedent never deletes customer Assets data.
+    - read:servicedesk-request
+    - read:cmdb-schema:jira
+    - write:cmdb-schema:jira
+    - read:cmdb-type:jira
+    - write:cmdb-type:jira
+    - read:cmdb-attribute:jira
+    - write:cmdb-attribute:jira
+    - read:cmdb-object:jira
+    - write:cmdb-object:jira
+    - read:cmdb-icon:jira
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/0fa45447-08dc-430d-93a1-8501bd630d9d

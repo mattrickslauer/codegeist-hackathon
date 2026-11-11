@@ -1,0 +1,5 @@
+id,type,system,level,grid,z,w,d,h,manufacturer,model,specs,name,sheet,conf
+ELEV-1,elevator,,L1,"A/12[+161.5,+126.5]",0,10,8,78.5,,,,Elevator #1,E4.02A,drawn
+ELEV-2,elevator,,L1,"A/12[+172.5,+126.5]",0,10,8,78.5,,,,Elevator #2,E4.02A,drawn
+ELEV-3,elevator,,L1,"A/12[+161.5,+141.5]",0,10,8,78.5,,,,Elevator #3,E4.02A,drawn
+ELEV-4,elevator,,L1,"A/12[+172.5,+141.5]",0,10,8,78.5,,,,Elevator #4,E4.02A,drawn

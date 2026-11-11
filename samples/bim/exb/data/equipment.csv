@@ -1,0 +1,9 @@
+tag,discipline,category,manufacturer,model,description,level,location,service,capacity,electrical,sheet
+RTU-1,MEC,AirHandler,Mammoth,Custom,Packaged evaporative-cooled rooftop AHU (underfloor air),Roof,North tower roof,North tower levels 2-5,"67,000 CFM supply (82,300 w/ spare); 15,300 CFM OA; R-134A 830 lb; EER 14.3; 10 x 9 HP supply fan array; 12 return fans",,M1.01
+RTU-2,MEC,AirHandler,Mammoth,Custom,Packaged evaporative-cooled rooftop AHU (underfloor air),Roof,North tower roof,North tower level 1,"20,000 CFM supply (28,000 w/ spare); 8,700 CFM OA; R-410A 294 lb; EER 12.4; 4 x 8 HP supply fans",,M1.01
+RTU-3,MEC,AirHandler,Mammoth,Custom,Packaged evaporative-cooled rooftop AHU (underfloor air),Roof,South tower roof,South tower levels 2-5,"67,000 CFM supply (82,300 w/ spare); 11,800 CFM OA; R-134A 830 lb; EER 14.3; 10 x 9 HP supply fan array; 12 return fans",,M1.01
+RTU-4,MEC,AirHandler,Mammoth,Custom,Packaged evaporative-cooled rooftop AHU (underfloor air),Roof,South tower roof,South tower level 1,"22,500 CFM supply (28,000 w/ spare); 7,400 CFM OA; R-410A 294 lb; EER 12.4; 4 x 5.5 HP supply fans",,M1.01
+HWB-1,MEC,Boiler,RBI,CB2000,Condensing gas boiler,Roof,Roof,Heating hot water,"1,999 MBH input / 1,839 MBH output; 92%; 135 GPM 140/115F; BACnet",460-3-60 6.5 FLA,M1.01
+HWB-2,MEC,Boiler,RBI,CB2000,Condensing gas boiler,Roof,Roof,Heating hot water,"1,999 MBH input / 1,839 MBH output; 92%; 135 GPM 140/115F; BACnet",460-3-60 6.5 FLA,M1.01
+HWP-1,MEC,Pump,Bell & Gossett,SC80-2.5x2.5x9.5B,Vertical in-line pump,Roof,Roof,Heating hot water loop,135 GPM @ 68 ft; 5 HP 1750 RPM; on VFD-3,460-3-60,M1.01
+HWP-2,MEC,Pump,Bell & Gossett,SC80-2.5x2.5x9.5B,Vertical in-line pump,Roof,Roof,Heating hot water loop,135 GPM @ 68 ft; 5 HP 1750 RPM; on VFD-4,460-3-60,M1.01
