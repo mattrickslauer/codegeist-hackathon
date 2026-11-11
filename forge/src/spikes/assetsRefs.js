@@ -78,6 +78,27 @@ export async function spikeAssetsRefs() {
     return `reference type id ${rt.id}; available: ${s.refTypes.map((r) => `${r.id}=${r.name}`).join(', ')}`;
   });
 
+  // Run 2 (2026-11-11): no additionalValue → 400; ids 1–8 → "ReferenceType invalid". Reference type ids are
+  // per workspace, so learn real ones from reference attributes that already exist anywhere on the site.
+  await step('Discover reference types from existing reference attributes (user)', async () => {
+    const found = new Map();
+    const schemas = (await user.listSchemas(s.ws))?.values ?? [];
+    for (const schema of schemas.slice(0, 10)) { // capped: stay well under the 25 s resolver limit
+      const types = await user.listTypes(s.ws, schema.id);
+      for (const t of types.slice(0, 30)) {
+        for (const a of await user.listAttributes(s.ws, t.id)) {
+          if (a.referenceType?.id && !found.has(String(a.referenceType.id))) {
+            found.set(String(a.referenceType.id), `${a.referenceType.name} (e.g. ${schema.objectSchemaKey}/${t.name}.${a.name})`);
+          }
+        }
+      }
+      if (found.size >= 5) break;
+    }
+    s.discoveredRefTypes = [...found.keys()];
+    if (!found.size) throw new Error(`no reference attributes in ${schemas.length} schemas`);
+    return [...found.entries()].map(([id, d]) => `${id}=${d}`).join('; ');
+  });
+
   await step(`Ensure reference attribute "${REF_ATTR}" (user)`, async () => {
     if (!s[FEEDER_TYPE] || !s[PANEL_TYPE]) throw new Error('skipped: spike types missing');
     const existing = s[FEEDER_TYPE].attrs[REF_ATTR];
@@ -86,10 +107,10 @@ export async function spikeAssetsRefs() {
       return `exists: id ${existing.id}, type ${existing.type}, referenceObjectTypeId ${existing.referenceObjectTypeId}, referenceType ${existing.referenceType?.name ?? '?'}`;
     }
     // Candidates for the reference type: ours if we have it, none at all, then low ids (built-in types are usually 1..n).
-    const candidates = [s.refType?.id, undefined, ...[1, 2, 3, 4, 5, 6, 7, 8].map(String)].filter((v, i, a) => a.indexOf(v) === i);
+    const candidates = [s.refType?.id, ...(s.discoveredRefTypes ?? [])].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+    if (!candidates.length) throw new Error('skipped: no reference type id known');
     const tried = [];
     for (const additionalValue of candidates) {
-      if (additionalValue === undefined && tried.includes('none')) continue;
       const body = { name: REF_ATTR, type: OBJECT_REFERENCE, typeValue: String(s[PANEL_TYPE].id) };
       if (additionalValue !== undefined) body.additionalValue = String(additionalValue);
       try {
@@ -127,8 +148,8 @@ export async function spikeAssetsRefs() {
   });
 
   await step('App account creates SF-2 (app write test)', async () => {
-    if (!s.refAttr) throw new Error('skipped: no reference attribute');
-    const { obj, created } = await upsert(app, FEEDER_TYPE, 'SF-2', s.panel ? [
+    if (!s[FEEDER_TYPE]) throw new Error('skipped: spike types missing');
+    const { obj, created } = await upsert(app, FEEDER_TYPE, 'SF-2', s.panel && s.refAttr ? [
       { objectTypeAttributeId: s.refAttr.id, objectAttributeValues: [{ value: s.panel.objectKey }] },
     ] : []);
     return `app CAN write objects: SF-2 ${obj.objectKey}${created ? ' (new)' : ' (already existed)'}`;
