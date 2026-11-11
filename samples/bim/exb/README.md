@@ -12,6 +12,12 @@ An **anonymised real building**: a 5-storey office building with a parking struc
 | `EXB-COBie.xlsx` | COBie handover workbook: 28 components (`ExtIdentifier` = IFC GlobalId), 7 types (manufacturer/model), 126 attributes. `System` and `Connection` sheets are **empty** | ✅ components; ⏳ systems |
 | `data/*.csv` | The take-off tables the IFC/COBie were generated from (equipment specs with source sheet refs, levels, grid, footprint) | ✅ |
 
+## Illustrative design (not part of the as-built record)
+
+The take-off has no electrical, plumbing or structural connections, so Precedent's demo uses an **illustrative** design written by us: `illustrative.json`. It holds the main switchboard, two roof panels split by drawing sheet (E3.06A north, E3.06B south), roof zones and curbs with load limits, line sets and the heating hot water loop. It also holds the rules that derive each breaker, feeder and disconnect from the units' **real** MOP/FLA ratings (NEC 240.6 standard sizes, NEC 310.16 75 °C copper ampacities).
+
+`scripts/build_exb_graph.py` merges it with the as-built equipment into `forge/src/seed/exb-graph.json`. Every fact keeps its provenance: `as-built` (with its sheet) or `illustrative`. The app shows that label and the Rovo agent says it out loud. The north roof panel RDP-N is deliberately close to full (1,005 A of breakers on a 1,200 A bus), and RTU-2's curb has only about 11% spare capacity, so an RTU-2 upgrade shows realistic knock-on work. **None of this is the real building's electrical or structural design.**
+
 **Requested from the partner:** electrical, plumbing and fire elements; COBie System + Connection data (what serves what); a GLB export with objects named by tag; written OK to show the anonymised building in a public hackathon submission.
 
 | File | SHA-256 |

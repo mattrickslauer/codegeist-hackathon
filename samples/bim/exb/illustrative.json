@@ -1,0 +1,51 @@
+{
+  "about": "ILLUSTRATIVE design for the Example Office Building, written by the Precedent team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
+  "rules": {
+    "breaker": "Breaker = the unit's real MOP rounded up to an NEC 240.6(A) standard size. With only FLA: the next standard size >= 1.25 x FLA, minimum 15 A.",
+    "feeder": "Copper, 75 C column of NEC Table 310.16. Smallest single set whose ampacity >= the breaker; else the fewest parallel sets (each >= 1/0) of the smallest size that works. Minimum 12 AWG (common commercial practice).",
+    "disconnect": "Fusible disconnect: the next standard size >= the breaker.",
+    "panelLoad": "'Connected breaker total' = the sum of branch breaker ratings on a panel. It is a quick tightness indicator for scoping, not a load calculation."
+  },
+  "standardBreakersA": [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000],
+  "standardDisconnectsA": [30, 60, 100, 200, 400, 600, 800, 1200],
+  "ampacityCu75C": [
+    ["14 AWG", 20], ["12 AWG", 25], ["10 AWG", 35], ["8 AWG", 50], ["6 AWG", 65], ["4 AWG", 85], ["3 AWG", 100],
+    ["2 AWG", 115], ["1 AWG", 130], ["1/0", 150], ["2/0", 175], ["3/0", 200], ["4/0", 230], ["250 kcmil", 255],
+    ["300 kcmil", 285], ["350 kcmil", 310], ["400 kcmil", 335], ["500 kcmil", 380], ["600 kcmil", 420]
+  ],
+  "minimumConductor": "12 AWG",
+  "switchboard": {
+    "id": "MSB", "name": "Main switchboard MSB", "voltage": "480Y/277 V, 3-phase", "busA": 3000, "level": "L1",
+    "location": "Level 1 main electrical room",
+    "why": "The level 1 main electrical room is real (CU-2 cools it, per the FCU schedule); the switchboard's details are illustrative."
+  },
+  "panels": [
+    {
+      "id": "RDP-N", "name": "Roof distribution panel RDP-N (north tower)", "busA": 1200, "fedFrom": "MSB", "level": "ROOF",
+      "sheet": "E3.06A",
+      "why": "Serves the equipment on sheet E3.06A (north roof). Sized so it is close to full: an RTU-2 upgrade must look at the panel, not just the breaker."
+    },
+    {
+      "id": "RDP-S", "name": "Roof distribution panel RDP-S (south tower)", "busA": 2000, "fedFrom": "MSB", "level": "ROOF",
+      "sheet": "E3.06B",
+      "why": "Serves the equipment on sheet E3.06B (south roof)."
+    }
+  ],
+  "assumedRatings": {
+    "CU": { "mopA": 40, "why": "Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs." },
+    "EF": { "mopA": 15, "why": "Small 460 V exhaust fan; the fan schedule was not part of the take-off." },
+    "HWP": { "mopA": 15, "why": "Small 460 V heating hot water pump; no electrical data in the take-off." }
+  },
+  "roofZones": [
+    { "id": "RZ-N", "name": "North tower roof", "loadLimitLb": 150000, "why": "Holds RTU-1 and RTU-2 (117,000 lb together)." },
+    { "id": "RZ-S", "name": "South tower roof", "loadLimitLb": 150000, "why": "Holds RTU-3 and RTU-4 (117,000 lb together)." }
+  ],
+  "curbs": {
+    "RTU-1": { "zone": "RZ-N", "loadLimitLb": 100000, "why": "Rated a little above RTU-1's 90,000 lb." },
+    "RTU-2": { "zone": "RZ-N", "loadLimitLb": 30000, "why": "Only about 11% above RTU-2's 27,000 lb: a heavier replacement needs a structural check." },
+    "RTU-3": { "zone": "RZ-S", "loadLimitLb": 100000, "why": "Rated a little above RTU-3's 90,000 lb." },
+    "RTU-4": { "zone": "RZ-S", "loadLimitLb": 35000, "why": "Rated above RTU-4's 27,000 lb." }
+  },
+  "lineSets": { "refrigerant": "R-410A", "why": "Assumed refrigerant for the VRF condensing units; their charge is not in the take-off." },
+  "heatingLoop": { "id": "HHW", "name": "Heating hot water loop" }
+}

@@ -1,0 +1,4549 @@
+{
+ "schemaVersion": 1,
+ "building": "Example Office Building",
+ "about": "ILLUSTRATIVE design for the Example Office Building, written by the Precedent team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
+ "nodes": [
+  {
+   "id": "breaker:CU-1",
+   "type": "Breaker",
+   "name": "CU-1 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-2",
+   "type": "Breaker",
+   "name": "CU-2 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-3",
+   "type": "Breaker",
+   "name": "CU-3 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-4",
+   "type": "Breaker",
+   "name": "CU-4 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-5",
+   "type": "Breaker",
+   "name": "CU-5 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-6",
+   "type": "Breaker",
+   "name": "CU-6 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-7",
+   "type": "Breaker",
+   "name": "CU-7 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-8",
+   "type": "Breaker",
+   "name": "CU-8 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:CU-9",
+   "type": "Breaker",
+   "name": "CU-9 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 40,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Typical MOP for a 460 V VRF condensing unit of this size; the take-off has no electrical data for the CUs.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-1",
+   "type": "Breaker",
+   "name": "EF-1 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-12",
+   "type": "Breaker",
+   "name": "EF-12 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-13",
+   "type": "Breaker",
+   "name": "EF-13 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-14",
+   "type": "Breaker",
+   "name": "EF-14 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-2",
+   "type": "Breaker",
+   "name": "EF-2 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-8",
+   "type": "Breaker",
+   "name": "EF-8 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:EF-9",
+   "type": "Breaker",
+   "name": "EF-9 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V exhaust fan; the fan schedule was not part of the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:HWB-1",
+   "type": "Breaker",
+   "name": "HWB-1 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker from FLA 6.5 A (E3.06B; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "breaker:HWB-2",
+   "type": "Breaker",
+   "name": "HWB-2 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker from FLA 6.5 A (E3.06B; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "breaker:HWP-1",
+   "type": "Breaker",
+   "name": "HWP-1 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V heating hot water pump; no electrical data in the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V heating hot water pump; no electrical data in the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:HWP-2",
+   "type": "Breaker",
+   "name": "HWP-2 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 15,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V heating hot water pump; no electrical data in the take-off.)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ratingAssumed": {
+     "value": true,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: assumed rating (Small 460 V heating hot water pump; no electrical data in the take-off.)"
+    }
+   }
+  },
+  {
+   "id": "breaker:RTU-1",
+   "type": "Breaker",
+   "name": "RTU-1 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 600,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker = MOP 600 A (E3.06A; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "breaker:RTU-2",
+   "type": "Breaker",
+   "name": "RTU-2 breaker in RDP-N",
+   "attrs": {
+    "ratingA": {
+     "value": 250,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker = MOP 250 A (E3.06A; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "breaker:RTU-3",
+   "type": "Breaker",
+   "name": "RTU-3 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 600,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker = MOP 600 A (E3.06B; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "breaker:RTU-4",
+   "type": "Breaker",
+   "name": "RTU-4 breaker in RDP-S",
+   "attrs": {
+    "ratingA": {
+     "value": 250,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: breaker = MOP 250 A (E3.06B; mech schedule p10)"
+    },
+    "poles": {
+     "value": 3,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "curb:RTU-1",
+   "type": "Curb",
+   "name": "RTU-1 roof curb",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 100000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Rated a little above RTU-1's 90,000 lb.",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "curb:RTU-2",
+   "type": "Curb",
+   "name": "RTU-2 roof curb",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 30000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Only about 11% above RTU-2's 27,000 lb: a heavier replacement needs a structural check.",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "curb:RTU-3",
+   "type": "Curb",
+   "name": "RTU-3 roof curb",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 100000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Rated a little above RTU-3's 90,000 lb.",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "curb:RTU-4",
+   "type": "Curb",
+   "name": "RTU-4 roof curb",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 35000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Rated above RTU-4's 27,000 lb.",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-1",
+   "type": "Disconnect",
+   "name": "CU-1 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-2",
+   "type": "Disconnect",
+   "name": "CU-2 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-3",
+   "type": "Disconnect",
+   "name": "CU-3 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-4",
+   "type": "Disconnect",
+   "name": "CU-4 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-5",
+   "type": "Disconnect",
+   "name": "CU-5 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-6",
+   "type": "Disconnect",
+   "name": "CU-6 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-7",
+   "type": "Disconnect",
+   "name": "CU-7 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-8",
+   "type": "Disconnect",
+   "name": "CU-8 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:CU-9",
+   "type": "Disconnect",
+   "name": "CU-9 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 60,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-1",
+   "type": "Disconnect",
+   "name": "EF-1 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-12",
+   "type": "Disconnect",
+   "name": "EF-12 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-13",
+   "type": "Disconnect",
+   "name": "EF-13 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-14",
+   "type": "Disconnect",
+   "name": "EF-14 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-2",
+   "type": "Disconnect",
+   "name": "EF-2 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-8",
+   "type": "Disconnect",
+   "name": "EF-8 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:EF-9",
+   "type": "Disconnect",
+   "name": "EF-9 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:HWB-1",
+   "type": "Disconnect",
+   "name": "HWB-1 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:HWB-2",
+   "type": "Disconnect",
+   "name": "HWB-2 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:HWP-1",
+   "type": "Disconnect",
+   "name": "HWP-1 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:HWP-2",
+   "type": "Disconnect",
+   "name": "HWP-2 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 30,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:RTU-1",
+   "type": "Disconnect",
+   "name": "RTU-1 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 600,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:RTU-2",
+   "type": "Disconnect",
+   "name": "RTU-2 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 400,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:RTU-3",
+   "type": "Disconnect",
+   "name": "RTU-3 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 600,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "disconnect:RTU-4",
+   "type": "Disconnect",
+   "name": "RTU-4 disconnect",
+   "attrs": {
+    "ratingA": {
+     "value": 400,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "type": {
+     "value": "Fusible, NEMA 3R",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-1",
+   "type": "Equipment",
+   "name": "CU-1",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-1101..1103 retail, FCU-1104/1105 pharmacy (level 1)",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "Fan coils: 5 ceiling FCUs, Daikin FXMQ54/FXMQ72, MERV 13, with heat",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "2ZFig$ZpHKcBRjRH7zBbZv",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-2",
+   "type": "Equipment",
+   "name": "CU-2",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-1201 main electrical room, FCU-1202 emergency electrical room, FCU-1203 BEFR (level 1)",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "FCU-1201 main electrical room, FCU-1202 emergency electrical room, FCU-1203 BEFR (level 1)",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "2nfyfcOcXMYgzsnXPsvFTl",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-3",
+   "type": "Equipment",
+   "name": "CU-3",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-2301..5301, TR rooms levels 2-5 south",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "Fan coils: 4 x FXMQ36PVJU, 1,130 CFM, 28.4 MBH",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "1$RRlY6yTJXw5MXPOTzZoF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-4",
+   "type": "Equipment",
+   "name": "CU-4",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-2401..5401, TR rooms levels 2-5 north",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    },
+    "specs": {
+     "value": "Fan coils: 4 x FXMQ36PVJU, 1,130 CFM, 28.4 MBH",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "1$w1vf7wPIcupufkWSZ8aF",
+     "provenance": "as-built",
+     "source": "E3.06A; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-5",
+   "type": "Equipment",
+   "name": "CU-5",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-1501, MCR level 1",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "Fan coil: FXMQ96MVJU, 2,543 CFM, 75.9 MBH",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "0Y9APw2Z5MVPekUK_808q1",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-6",
+   "type": "Equipment",
+   "name": "CU-6",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-1601, MCR level 1",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "Fan coil: FXMQ96MVJU, 2,543 CFM, 75.9 MBH",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "1IGyskg6LP5A5vQoLgFUNp",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-7",
+   "type": "Equipment",
+   "name": "CU-7",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "manufacturer": {
+     "value": "Daikin",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "serves": {
+     "value": "FCU-1701 TR level 1 south, FCU-1702 electrical room level 1 south",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "specs": {
+     "value": "FCU-1701 TR level 1 south, FCU-1702 electrical room level 1 south",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    },
+    "ifcGuid": {
+     "value": "2SN4DNtfbTThvJBRqKzJ5V",
+     "provenance": "as-built",
+     "source": "E3.06B; FCU schedule p11"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-8",
+   "type": "Equipment",
+   "name": "CU-8",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Not on the part of the FCU schedule read so far",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Not on the part of the FCU schedule read so far",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "18E_ZuXVjNWOsW49$0Vm4R",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:CU-9",
+   "type": "Equipment",
+   "name": "CU-9",
+   "attrs": {
+    "category": {
+     "value": "Condensing unit",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "serves": {
+     "value": "Not on the part of the FCU schedule read so far",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "specs": {
+     "value": "Not on the part of the FCU schedule read so far",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "ifcGuid": {
+     "value": "0lhuTJZ5XNiw$MZvtI2stz",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-1",
+   "type": "Equipment",
+   "name": "EF-1",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "1tgkaT0RrOhOdwpNSb3KDH",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-12",
+   "type": "Equipment",
+   "name": "EF-12",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "3KYN2fmDDTrwU97L5vHn24",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-13",
+   "type": "Equipment",
+   "name": "EF-13",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Stair #1 (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Stair #1 (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "0ElfFgDf5PTwtwbsIX9JEr",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-14",
+   "type": "Equipment",
+   "name": "EF-14",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "serves": {
+     "value": "Stair #2 (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "specs": {
+     "value": "Stair #2 (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "ifcGuid": {
+     "value": "3Aw80u$OvO9uSJEmAq54jL",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-2",
+   "type": "Equipment",
+   "name": "EF-2",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "3JdsPWDwPGsPFbreTadXsk",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-8",
+   "type": "Equipment",
+   "name": "EF-8",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "serves": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "specs": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    },
+    "ifcGuid": {
+     "value": "0o$l6$jxXNvQND3_R0ejp7",
+     "provenance": "as-built",
+     "source": "E3.06A"
+    }
+   }
+  },
+  {
+   "id": "equipment:EF-9",
+   "type": "Equipment",
+   "name": "EF-9",
+   "attrs": {
+    "category": {
+     "value": "Exhaust fan",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "serves": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "specs": {
+     "value": "Exhaust (schedule not read yet)",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    },
+    "ifcGuid": {
+     "value": "3$Kiuva5XV097mMjRi2pqI",
+     "provenance": "as-built",
+     "source": "E3.06B"
+    }
+   }
+  },
+  {
+   "id": "equipment:ELEV-1",
+   "type": "Equipment",
+   "name": "ELEV-1",
+   "attrs": {
+    "category": {
+     "value": "Elevators",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "level": {
+     "value": "L1",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "specs": {
+     "value": "Elevator #1",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "ifcGuid": {
+     "value": "19qTRNp0bQwuB2Q$8JDYK2",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    }
+   }
+  },
+  {
+   "id": "equipment:ELEV-2",
+   "type": "Equipment",
+   "name": "ELEV-2",
+   "attrs": {
+    "category": {
+     "value": "Elevators",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "level": {
+     "value": "L1",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "specs": {
+     "value": "Elevator #2",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "ifcGuid": {
+     "value": "0GKIiEH6XJfABtgqORYmwt",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    }
+   }
+  },
+  {
+   "id": "equipment:ELEV-3",
+   "type": "Equipment",
+   "name": "ELEV-3",
+   "attrs": {
+    "category": {
+     "value": "Elevators",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "level": {
+     "value": "L1",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "specs": {
+     "value": "Elevator #3",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "ifcGuid": {
+     "value": "1HNU2DmAnGlBb49bz5u$NU",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    }
+   }
+  },
+  {
+   "id": "equipment:ELEV-4",
+   "type": "Equipment",
+   "name": "ELEV-4",
+   "attrs": {
+    "category": {
+     "value": "Elevators",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "level": {
+     "value": "L1",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "specs": {
+     "value": "Elevator #4",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    },
+    "ifcGuid": {
+     "value": "25aEySrAjRzAb3jzAPEOUc",
+     "provenance": "as-built",
+     "source": "EXB-COBie.xlsx"
+    }
+   }
+  },
+  {
+   "id": "equipment:HWB-1",
+   "type": "Equipment",
+   "name": "HWB-1",
+   "attrs": {
+    "category": {
+     "value": "Boiler",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "RBI",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "CB2000 condensing",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "Heating hot water",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Input: 1,999 MBH; Output: 1,839 MBH; Efficiency: 92%; Flow: 135 GPM; Water: 140 F leaving, 115 F entering; Motors: 1 HP blower, 1-1/2 HP pump; Electrical: 460-3-60, 6.5 FLA; Options: Modulating low-NOx burner, condensate neutralizer, BACnet interface",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "1aNzfEZRTVKPcIKSXOk3Hs",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "flaA": {
+     "value": 6.5,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:HWB-2",
+   "type": "Equipment",
+   "name": "HWB-2",
+   "attrs": {
+    "category": {
+     "value": "Boiler",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "RBI",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "CB2000 condensing",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "Heating hot water",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Input: 1,999 MBH; Output: 1,839 MBH; Efficiency: 92%; Flow: 135 GPM; Water: 140 F leaving, 115 F entering; Motors: 1 HP blower, 1-1/2 HP pump; Electrical: 460-3-60, 6.5 FLA; Options: Modulating low-NOx burner, condensate neutralizer, BACnet interface",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "2jbao0l89RN94j3WQ0eMEa",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "flaA": {
+     "value": 6.5,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:HWP-1",
+   "type": "Equipment",
+   "name": "HWP-1",
+   "attrs": {
+    "category": {
+     "value": "Pump",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Bell & Gossett",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "SC80-2.5x2.5x9.5B vertical in-line",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "Heating hot water loop",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Flow: 135 GPM at 68 ft; Motor: 5 HP, 1750 RPM, 460-3-60, TEFC; Drive: VFD-3",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "1umPVWF2vHchbtFJCF5CWy",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:HWP-2",
+   "type": "Equipment",
+   "name": "HWP-2",
+   "attrs": {
+    "category": {
+     "value": "Pump",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Bell & Gossett",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "SC80-2.5x2.5x9.5B vertical in-line",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "Heating hot water loop",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Flow: 135 GPM at 68 ft; Motor: 5 HP, 1750 RPM, 460-3-60, TEFC; Drive: VFD-4",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "0a1_vmUu5H2xjALBXlS_z8",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:RTU-1",
+   "type": "Equipment",
+   "name": "RTU-1",
+   "attrs": {
+    "category": {
+     "value": "Rooftop air handler",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Mammoth",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "model": {
+     "value": "Custom, packaged evaporative-cooled",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "serves": {
+     "value": "North tower, levels 2-5",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "specs": {
+     "value": "Supply: 67,000 CFM design (82,300 with spare capacity); Outside air: 15,300 CFM (17,125 spare); Cooling: 2,257 MBH total, 2,063 sensible; Refrigerant: R-134A, 830.4 lb, centrifugal compressor; EER: 14.3; Electrical: 460-3-60, MOP 600; Weight: 90,000 lb; Features: Supply fan wall, relief fan wall, economizer, hot gas reheat, smoke detectors on supply and return",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "3tBo3NqyDPCxAc5ptapXuT",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "mopA": {
+     "value": 600,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "weightLb": {
+     "value": 90000,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "refrigerant": {
+     "value": "R-134A",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "refrigerantChargeLb": {
+     "value": 830.4,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:RTU-2",
+   "type": "Equipment",
+   "name": "RTU-2",
+   "attrs": {
+    "category": {
+     "value": "Rooftop air handler",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Mammoth",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "model": {
+     "value": "Custom, packaged evaporative-cooled",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "serves": {
+     "value": "North tower, level 1",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "specs": {
+     "value": "Supply: 20,000 CFM design (28,000 spare); Outside air: 8,700 CFM (9,250 spare); Cooling: 803 MBH total, 712 sensible; Refrigerant: R-410A, 294.1 lb, scroll compressors; EER: 12.4; Electrical: 460-3-60, MOP 250; Weight: 27,000 lb; Features: Supply fan wall, single relief fan, economizer, hot gas bypass, smoke detectors on supply and return",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "3GgGrGID9NCvJ8MirPFbtU",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "mopA": {
+     "value": 250,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "weightLb": {
+     "value": 27000,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    },
+    "refrigerantChargeLb": {
+     "value": 294.1,
+     "provenance": "as-built",
+     "source": "E3.06A; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:RTU-3",
+   "type": "Equipment",
+   "name": "RTU-3",
+   "attrs": {
+    "category": {
+     "value": "Rooftop air handler",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Mammoth",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "Custom, packaged evaporative-cooled",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "South tower, levels 2-5",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Supply: 67,000 CFM design (82,300 spare); Outside air: 11,800 CFM (17,125 spare); Cooling: 2,257 MBH total, 2,063 sensible; Refrigerant: R-134A, 830.4 lb, centrifugal compressor; EER: 14.3; Electrical: 460-3-60, MOP 600; Weight: 90,000 lb; Features: Supply fan wall, relief fan wall, economizer, hot gas reheat, smoke detectors on supply and return",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "3HJ2GE025Nsvi$c$8y4PFa",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "mopA": {
+     "value": 600,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "weightLb": {
+     "value": 90000,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "refrigerant": {
+     "value": "R-134A",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "refrigerantChargeLb": {
+     "value": 830.4,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "equipment:RTU-4",
+   "type": "Equipment",
+   "name": "RTU-4",
+   "attrs": {
+    "category": {
+     "value": "Rooftop air handler",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "level": {
+     "value": "ROOF",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "manufacturer": {
+     "value": "Mammoth",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "model": {
+     "value": "Custom, packaged evaporative-cooled",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "serves": {
+     "value": "South tower, level 1",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "specs": {
+     "value": "Supply: 22,500 CFM design (28,000 spare); Outside air: 7,400 CFM (9,250 spare); Cooling: 856 MBH total, 753 sensible; Refrigerant: R-410A, 294.1 lb, scroll compressors; EER: 12.4; Electrical: 460-3-60, MOP 250; Weight: 27,000 lb; Features: Supply fan wall, single relief fan, economizer, hot gas bypass, smoke detectors on supply and return",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "ifcGuid": {
+     "value": "2gRwu08BTM2uJg5L3buTB3",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "voltage": {
+     "value": "460-3-60",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "mopA": {
+     "value": 250,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "weightLb": {
+     "value": 27000,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    },
+    "refrigerantChargeLb": {
+     "value": 294.1,
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-1",
+   "type": "Feeder",
+   "name": "CU-1 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-2",
+   "type": "Feeder",
+   "name": "CU-2 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-3",
+   "type": "Feeder",
+   "name": "CU-3 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-4",
+   "type": "Feeder",
+   "name": "CU-4 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-5",
+   "type": "Feeder",
+   "name": "CU-5 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-6",
+   "type": "Feeder",
+   "name": "CU-6 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-7",
+   "type": "Feeder",
+   "name": "CU-7 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-8",
+   "type": "Feeder",
+   "name": "CU-8 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:CU-9",
+   "type": "Feeder",
+   "name": "CU-9 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "8 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 50 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 50,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-1",
+   "type": "Feeder",
+   "name": "EF-1 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-12",
+   "type": "Feeder",
+   "name": "EF-12 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-13",
+   "type": "Feeder",
+   "name": "EF-13 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-14",
+   "type": "Feeder",
+   "name": "EF-14 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-2",
+   "type": "Feeder",
+   "name": "EF-2 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-8",
+   "type": "Feeder",
+   "name": "EF-8 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:EF-9",
+   "type": "Feeder",
+   "name": "EF-9 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:HWB-1",
+   "type": "Feeder",
+   "name": "HWB-1 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:HWB-2",
+   "type": "Feeder",
+   "name": "HWB-2 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:HWP-1",
+   "type": "Feeder",
+   "name": "HWP-1 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:HWP-2",
+   "type": "Feeder",
+   "name": "HWP-2 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "12 AWG",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 25 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 25,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:RTU-1",
+   "type": "Feeder",
+   "name": "RTU-1 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "350 kcmil",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 310 A per set"
+    },
+    "sets": {
+     "value": 2,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 620,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:RTU-2",
+   "type": "Feeder",
+   "name": "RTU-2 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "250 kcmil",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 255 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 255,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:RTU-3",
+   "type": "Feeder",
+   "name": "RTU-3 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "350 kcmil",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 310 A per set"
+    },
+    "sets": {
+     "value": 2,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 620,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "feeder:RTU-4",
+   "type": "Feeder",
+   "name": "RTU-4 feeder",
+   "attrs": {
+    "material": {
+     "value": "Cu",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "size": {
+     "value": "250 kcmil",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json: NEC 310.16 75 C Cu, 255 A per set"
+    },
+    "sets": {
+     "value": 1,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "ampacityA": {
+     "value": 255,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "insulation": {
+     "value": "THHN/THWN-2",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "level:L1",
+   "type": "Level",
+   "name": "Level 1",
+   "attrs": {
+    "elevationFt": {
+     "value": 0.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 22.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "level:L2",
+   "type": "Level",
+   "name": "Level 2",
+   "attrs": {
+    "elevationFt": {
+     "value": 22.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 14.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "level:L3",
+   "type": "Level",
+   "name": "Level 3",
+   "attrs": {
+    "elevationFt": {
+     "value": 36.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 14.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "level:L4",
+   "type": "Level",
+   "name": "Level 4",
+   "attrs": {
+    "elevationFt": {
+     "value": 51.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 14.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "level:L5",
+   "type": "Level",
+   "name": "Level 5",
+   "attrs": {
+    "elevationFt": {
+     "value": 65.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 13.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "level:ROOF",
+   "type": "Level",
+   "name": "Roof",
+   "attrs": {
+    "elevationFt": {
+     "value": 78.5,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    },
+    "heightFt": {
+     "value": 6.0,
+     "provenance": "as-built",
+     "source": "data/levels.csv"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-1",
+   "type": "LineSet",
+   "name": "CU-1 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-2",
+   "type": "LineSet",
+   "name": "CU-2 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-3",
+   "type": "LineSet",
+   "name": "CU-3 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-4",
+   "type": "LineSet",
+   "name": "CU-4 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-5",
+   "type": "LineSet",
+   "name": "CU-5 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-6",
+   "type": "LineSet",
+   "name": "CU-6 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-7",
+   "type": "LineSet",
+   "name": "CU-7 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-8",
+   "type": "LineSet",
+   "name": "CU-8 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "lineset:CU-9",
+   "type": "LineSet",
+   "name": "CU-9 refrigerant line set",
+   "attrs": {
+    "refrigerant": {
+     "value": "R-410A",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "panel:RDP-N",
+   "type": "Panel",
+   "name": "Roof distribution panel RDP-N (north tower)",
+   "attrs": {
+    "busA": {
+     "value": 1200,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Serves the equipment on sheet E3.06A (north roof). Sized so it is close to full: an RTU-2 upgrade must look at the panel, not just the breaker.",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "panel:RDP-S",
+   "type": "Panel",
+   "name": "Roof distribution panel RDP-S (south tower)",
+   "attrs": {
+    "busA": {
+     "value": 2000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Serves the equipment on sheet E3.06B (south roof).",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "pipeloop:HHW",
+   "type": "PipeLoop",
+   "name": "Heating hot water loop",
+   "attrs": {
+    "medium": {
+     "value": "Heating hot water",
+     "provenance": "as-built",
+     "source": "E3.06B; mech schedule p10"
+    }
+   }
+  },
+  {
+   "id": "roofzone:RZ-N",
+   "type": "RoofZone",
+   "name": "North tower roof",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 150000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Holds RTU-1 and RTU-2 (117,000 lb together).",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "roofzone:RZ-S",
+   "type": "RoofZone",
+   "name": "South tower roof",
+   "attrs": {
+    "loadLimitLb": {
+     "value": 150000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "why": {
+     "value": "Holds RTU-3 and RTU-4 (117,000 lb together).",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  },
+  {
+   "id": "servedarea:fcu-1101-1103-retail-fcu-1104-1105-pharmacy-level-1",
+   "type": "ServedArea",
+   "name": "FCU-1101..1103 retail, FCU-1104/1105 pharmacy (level 1)",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-1201-main-electrical-room-fcu-1202-emergency-electrical-room-fcu-1203-befr-level-1",
+   "type": "ServedArea",
+   "name": "FCU-1201 main electrical room, FCU-1202 emergency electrical room, FCU-1203 BEFR (level 1)",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-1501-mcr-level-1",
+   "type": "ServedArea",
+   "name": "FCU-1501, MCR level 1",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-1601-mcr-level-1",
+   "type": "ServedArea",
+   "name": "FCU-1601, MCR level 1",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-1701-tr-level-1-south-fcu-1702-electrical-room-level-1-south",
+   "type": "ServedArea",
+   "name": "FCU-1701 TR level 1 south, FCU-1702 electrical room level 1 south",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-2301-5301-tr-rooms-levels-2-5-south",
+   "type": "ServedArea",
+   "name": "FCU-2301..5301, TR rooms levels 2-5 south",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:fcu-2401-5401-tr-rooms-levels-2-5-north",
+   "type": "ServedArea",
+   "name": "FCU-2401..5401, TR rooms levels 2-5 north",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:north-tower-level-1",
+   "type": "ServedArea",
+   "name": "North tower, level 1",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:north-tower-levels-2-5",
+   "type": "ServedArea",
+   "name": "North tower, levels 2-5",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:south-tower-level-1",
+   "type": "ServedArea",
+   "name": "South tower, level 1",
+   "attrs": {}
+  },
+  {
+   "id": "servedarea:south-tower-levels-2-5",
+   "type": "ServedArea",
+   "name": "South tower, levels 2-5",
+   "attrs": {}
+  },
+  {
+   "id": "switchboard:MSB",
+   "type": "Switchboard",
+   "name": "Main switchboard MSB",
+   "attrs": {
+    "voltage": {
+     "value": "480Y/277 V, 3-phase",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "busA": {
+     "value": 3000,
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    },
+    "location": {
+     "value": "Level 1 main electrical room",
+     "provenance": "illustrative",
+     "source": "samples/bim/exb/illustrative.json"
+    }
+   }
+  }
+ ],
+ "links": [
+  {
+   "from": "breaker:CU-1",
+   "to": "feeder:CU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-1",
+   "to": "feeder:CU-1",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-2",
+   "to": "feeder:CU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-2",
+   "to": "feeder:CU-2",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-3",
+   "to": "feeder:CU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-3",
+   "to": "feeder:CU-3",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-4",
+   "to": "feeder:CU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-4",
+   "to": "feeder:CU-4",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-5",
+   "to": "feeder:CU-5",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-5",
+   "to": "feeder:CU-5",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-6",
+   "to": "feeder:CU-6",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-6",
+   "to": "feeder:CU-6",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-7",
+   "to": "feeder:CU-7",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-7",
+   "to": "feeder:CU-7",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-8",
+   "to": "feeder:CU-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-8",
+   "to": "feeder:CU-8",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-9",
+   "to": "feeder:CU-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:CU-9",
+   "to": "feeder:CU-9",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-1",
+   "to": "feeder:EF-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-1",
+   "to": "feeder:EF-1",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-12",
+   "to": "feeder:EF-12",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-12",
+   "to": "feeder:EF-12",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-13",
+   "to": "feeder:EF-13",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-13",
+   "to": "feeder:EF-13",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-14",
+   "to": "feeder:EF-14",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-14",
+   "to": "feeder:EF-14",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-2",
+   "to": "feeder:EF-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-2",
+   "to": "feeder:EF-2",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-8",
+   "to": "feeder:EF-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-8",
+   "to": "feeder:EF-8",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-9",
+   "to": "feeder:EF-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:EF-9",
+   "to": "feeder:EF-9",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWB-1",
+   "to": "feeder:HWB-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWB-1",
+   "to": "feeder:HWB-1",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWB-2",
+   "to": "feeder:HWB-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWB-2",
+   "to": "feeder:HWB-2",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWP-1",
+   "to": "feeder:HWP-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWP-1",
+   "to": "feeder:HWP-1",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWP-2",
+   "to": "feeder:HWP-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:HWP-2",
+   "to": "feeder:HWP-2",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-1",
+   "to": "feeder:RTU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-1",
+   "to": "feeder:RTU-1",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-2",
+   "to": "feeder:RTU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-2",
+   "to": "feeder:RTU-2",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-3",
+   "to": "feeder:RTU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-3",
+   "to": "feeder:RTU-3",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-4",
+   "to": "feeder:RTU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "breaker:RTU-4",
+   "to": "feeder:RTU-4",
+   "type": "protects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "curb:RTU-1",
+   "to": "roofzone:RZ-N",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "curb:RTU-2",
+   "to": "roofzone:RZ-N",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "curb:RTU-3",
+   "to": "roofzone:RZ-S",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "curb:RTU-4",
+   "to": "roofzone:RZ-S",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-1",
+   "to": "equipment:CU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-2",
+   "to": "equipment:CU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-3",
+   "to": "equipment:CU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-4",
+   "to": "equipment:CU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-5",
+   "to": "equipment:CU-5",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-6",
+   "to": "equipment:CU-6",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-7",
+   "to": "equipment:CU-7",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-8",
+   "to": "equipment:CU-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:CU-9",
+   "to": "equipment:CU-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-1",
+   "to": "equipment:EF-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-12",
+   "to": "equipment:EF-12",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-13",
+   "to": "equipment:EF-13",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-14",
+   "to": "equipment:EF-14",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-2",
+   "to": "equipment:EF-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-8",
+   "to": "equipment:EF-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:EF-9",
+   "to": "equipment:EF-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:HWB-1",
+   "to": "equipment:HWB-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:HWB-2",
+   "to": "equipment:HWB-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:HWP-1",
+   "to": "equipment:HWP-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:HWP-2",
+   "to": "equipment:HWP-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:RTU-1",
+   "to": "equipment:RTU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:RTU-2",
+   "to": "equipment:RTU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:RTU-3",
+   "to": "equipment:RTU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "disconnect:RTU-4",
+   "to": "equipment:RTU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-1",
+   "to": "lineset:CU-1",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-1",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-1",
+   "to": "servedarea:fcu-1101-1103-retail-fcu-1104-1105-pharmacy-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-2",
+   "to": "lineset:CU-2",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-2",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-2",
+   "to": "servedarea:fcu-1201-main-electrical-room-fcu-1202-emergency-electrical-room-fcu-1203-befr-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-3",
+   "to": "lineset:CU-3",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-3",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-3",
+   "to": "servedarea:fcu-2301-5301-tr-rooms-levels-2-5-south",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-4",
+   "to": "lineset:CU-4",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-4",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-4",
+   "to": "servedarea:fcu-2401-5401-tr-rooms-levels-2-5-north",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06A; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-5",
+   "to": "lineset:CU-5",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-5",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-5",
+   "to": "servedarea:fcu-1501-mcr-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-6",
+   "to": "lineset:CU-6",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-6",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-6",
+   "to": "servedarea:fcu-1601-mcr-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-7",
+   "to": "lineset:CU-7",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-7",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-7",
+   "to": "servedarea:fcu-1701-tr-level-1-south-fcu-1702-electrical-room-level-1-south",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; FCU schedule p11"
+  },
+  {
+   "from": "equipment:CU-8",
+   "to": "lineset:CU-8",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-8",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:CU-9",
+   "to": "lineset:CU-9",
+   "type": "connects",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:CU-9",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B"
+  },
+  {
+   "from": "equipment:EF-1",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:EF-12",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:EF-13",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:EF-14",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B"
+  },
+  {
+   "from": "equipment:EF-2",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:EF-8",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A"
+  },
+  {
+   "from": "equipment:EF-9",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B"
+  },
+  {
+   "from": "equipment:ELEV-1",
+   "to": "level:L1",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "EXB-COBie.xlsx"
+  },
+  {
+   "from": "equipment:ELEV-2",
+   "to": "level:L1",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "EXB-COBie.xlsx"
+  },
+  {
+   "from": "equipment:ELEV-3",
+   "to": "level:L1",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "EXB-COBie.xlsx"
+  },
+  {
+   "from": "equipment:ELEV-4",
+   "to": "level:L1",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "EXB-COBie.xlsx"
+  },
+  {
+   "from": "equipment:HWB-1",
+   "to": "pipeloop:HHW",
+   "type": "connects",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWB-1",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWB-2",
+   "to": "pipeloop:HHW",
+   "type": "connects",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWB-2",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWP-1",
+   "to": "pipeloop:HHW",
+   "type": "connects",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWP-1",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWP-2",
+   "to": "pipeloop:HHW",
+   "type": "connects",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:HWP-2",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-1",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-1",
+   "to": "servedarea:north-tower-levels-2-5",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06A; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-1",
+   "to": "curb:RTU-1",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:RTU-2",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06A; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-2",
+   "to": "servedarea:north-tower-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06A; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-2",
+   "to": "curb:RTU-2",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:RTU-3",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-3",
+   "to": "servedarea:south-tower-levels-2-5",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-3",
+   "to": "curb:RTU-3",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "equipment:RTU-4",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-4",
+   "to": "servedarea:south-tower-level-1",
+   "type": "serves",
+   "provenance": "as-built",
+   "source": "E3.06B; mech schedule p10"
+  },
+  {
+   "from": "equipment:RTU-4",
+   "to": "curb:RTU-4",
+   "type": "supportedBy",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-1",
+   "to": "disconnect:CU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-2",
+   "to": "disconnect:CU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-3",
+   "to": "disconnect:CU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-4",
+   "to": "disconnect:CU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-5",
+   "to": "disconnect:CU-5",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-6",
+   "to": "disconnect:CU-6",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-7",
+   "to": "disconnect:CU-7",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-8",
+   "to": "disconnect:CU-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:CU-9",
+   "to": "disconnect:CU-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-1",
+   "to": "disconnect:EF-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-12",
+   "to": "disconnect:EF-12",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-13",
+   "to": "disconnect:EF-13",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-14",
+   "to": "disconnect:EF-14",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-2",
+   "to": "disconnect:EF-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-8",
+   "to": "disconnect:EF-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:EF-9",
+   "to": "disconnect:EF-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:HWB-1",
+   "to": "disconnect:HWB-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:HWB-2",
+   "to": "disconnect:HWB-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:HWP-1",
+   "to": "disconnect:HWP-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:HWP-2",
+   "to": "disconnect:HWP-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:RTU-1",
+   "to": "disconnect:RTU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:RTU-2",
+   "to": "disconnect:RTU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:RTU-3",
+   "to": "disconnect:RTU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "feeder:RTU-4",
+   "to": "disconnect:RTU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:CU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:CU-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:EF-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:EF-12",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:EF-13",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:EF-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:EF-8",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:RTU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "breaker:RTU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-N",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-5",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-6",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-7",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:CU-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:EF-14",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:EF-9",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:HWB-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:HWB-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:HWP-1",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:HWP-2",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:RTU-3",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "breaker:RTU-4",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "panel:RDP-S",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "roofzone:RZ-N",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "roofzone:RZ-S",
+   "to": "level:ROOF",
+   "type": "locatedOn",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "switchboard:MSB",
+   "to": "panel:RDP-N",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "switchboard:MSB",
+   "to": "panel:RDP-S",
+   "type": "feeds",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  },
+  {
+   "from": "switchboard:MSB",
+   "to": "level:L1",
+   "type": "locatedOn",
+   "provenance": "illustrative",
+   "source": "samples/bim/exb/illustrative.json"
+  }
+ ]
+}
