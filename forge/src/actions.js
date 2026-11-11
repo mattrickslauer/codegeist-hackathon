@@ -18,6 +18,7 @@ export async function getEquipmentContext(payload) {
 
 /** Single Forge function behind every action; Forge passes the action's inputs as the payload. */
 export const handler = async (payload, context) => {
-  console.log(`action get-equipment-context tag=${payload?.tag} project=${payload?.context?.jira?.projectKey ?? '-'} account=${context?.principal?.accountId ?? context?.accountId ?? 'unknown'}`);
-  return getEquipmentContext(payload);
+  const result = await getEquipmentContext(payload);
+  console.log(`action get-equipment-context tag=${payload?.tag} site=${payload?.site ?? '-'} project=${payload?.context?.jira?.projectKey ?? '-'} → ${result.error ? `error: ${result.error}` : `site "${result.site}", ${result.standingDecisions.length} decisions`} account=${context?.principal?.accountId ?? context?.accountId ?? 'unknown'}`);
+  return result;
 };

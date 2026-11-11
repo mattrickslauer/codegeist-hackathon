@@ -4,6 +4,13 @@
 export const graphKey = (siteId) => `graph:${siteId}`;
 
 /**
+ * Is this site the bundled sample building? Newer sites record the bundled model; sites created before models
+ * existed are recognised by their Assets equipment source (same rule as SitePage.modelSourceFor).
+ */
+export const isSampleBuilding = (site) =>
+  site?.model?.path === 'models/exb.glb' || site?.equipmentSource?.siteName === 'Example Office Building';
+
+/**
  * Which site an agent question is about.
  * `sites`: sites that have a graph. `projectKey`: the Jira space the agent was opened from, if any.
  * Returns the site, null when no site has a graph (caller falls back to the bundled sample), or throws when

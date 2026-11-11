@@ -5,7 +5,7 @@
 import { kvs } from '@forge/kvs';
 import bundled from './seed/exb-graph.json';
 import { context, indexGraph } from './graphWalk';
-import { factsOf, graphKey, siteForAction } from './graphKeys';
+import { factsOf, graphKey, isSampleBuilding, siteForAction } from './graphKeys';
 import { listDecisions } from './decisions';
 import { getSite, listSites } from './sites';
 
@@ -24,7 +24,7 @@ export const getGraph = (siteId) => kvs.get(graphKey(siteId));
  */
 async function ensureGraph(site) {
   const graph = await getGraph(site.id);
-  if (graph || site.model?.path !== 'models/exb.glb') return graph ?? null;
+  if (graph || !isSampleBuilding(site)) return graph ?? null;
   await seedGraph(site.id);
   return getGraph(site.id);
 }

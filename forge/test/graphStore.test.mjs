@@ -1,6 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { factsOf, graphKey, siteForAction } from '../src/graphKeys.js';
+import { factsOf, graphKey, isSampleBuilding, siteForAction } from '../src/graphKeys.js';
+
+test('isSampleBuilding: new sites (bundled model) and sites created before models existed', () => {
+  assert.equal(isSampleBuilding({ model: { kind: 'bundled', path: 'models/exb.glb' } }), true);
+  assert.equal(isSampleBuilding({ equipmentSource: { kind: 'assets', siteName: 'Example Office Building' } }), true);
+  assert.equal(isSampleBuilding({ name: 'North Plant Room', scans: [] }), false);
+  assert.equal(isSampleBuilding(null), false);
+});
 
 const a = { id: 'a', name: 'Example Office Building', space: { key: 'FAC' } };
 const b = { id: 'b', name: 'Example Office Building (2)', space: { key: 'OPS' } };
