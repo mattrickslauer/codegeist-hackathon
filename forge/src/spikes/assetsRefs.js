@@ -1,7 +1,7 @@
 /**
- * Spike 7 (docs/ARCHITECTURE.md §7): can Precedent model graph links as Assets reference attributes?
+ * Spike 7 (docs/ARCHITECTURE.md §7): can Walkdown model graph links as Assets reference attributes?
  *
- * As the user (Assets admin): ensure two throwaway types in the PREC schema ("Spike Panel", "Spike Feeder"),
+ * As the user (Assets admin): ensure two throwaway types in the WALK schema ("Spike Panel", "Spike Feeder"),
  * a reference type "feeds", and a reference attribute "Fed from" on Spike Feeder; create SP-1 and SF-1 → SP-1.
  * As the app: try to create SF-2 (can accept-time closeouts write Assets as the app?), read SF-1 by AQL,
  * and time a reference-walking AQL query.
@@ -44,12 +44,12 @@ export async function spikeAssetsRefs() {
   const appX = extra(AS_APP);
   const s = {};
 
-  const ready = await step('Find workspace + PREC schema (user)', async () => {
+  const ready = await step('Find workspace + WALK schema (user)', async () => {
     s.ws = await getWorkspaceId(AS_USER);
     if (!s.ws) throw new Error('Assets not available');
     const schemas = await user.listSchemas(s.ws);
     s.schema = (schemas?.values ?? []).find((x) => x.objectSchemaKey === SCHEMA_KEY);
-    if (!s.schema) throw new Error('PREC schema missing: run the Assets import first');
+    if (!s.schema) throw new Error('WALK schema missing: run the Assets import first');
     return `workspace ${s.ws}, schema ${s.schema.id}`;
   });
   if (!ready) return { steps };

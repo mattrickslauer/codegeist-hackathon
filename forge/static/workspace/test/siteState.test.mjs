@@ -5,7 +5,7 @@ import { deriveSiteState, normaliseCheck } from '../src/siteState.js';
 
 const decision = { id: 'd1', status: 'standing', equipment: ['RTU-1'] };
 
-test('legacy precedent.check (spike-3 test format, no conflicts list) does not crash', () => {
+test('legacy walkdown.check (spike-3 test format, no conflicts list) does not crash', () => {
   // Exactly what FAC-272 / FAC-278 carried on 2026-11-11 and what crashed the site page.
   const legacy = { status: 'conflict', summary: 'Bypass valve V-12 stays locked open', decidedBy: 'x', decidedAt: '2026-03-03', source: 'spike-3' };
   const orders = [{ key: 'FAC-272', check: normaliseCheck(legacy) }];

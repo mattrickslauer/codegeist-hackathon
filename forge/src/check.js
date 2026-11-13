@@ -4,11 +4,11 @@
  * Deterministic and explainable (no LLM decides anything):
  *  1. Sites whose linked Jira space is this work order's project.
  *  2. Equipment the work order touches = tags found in its summary/description (word-bounded, so
- *     "RTU-1" never matches "RTU-10") ∪ tags set by hand (issue property `precedent.equipment`).
+ *     "RTU-1" never matches "RTU-10") ∪ tags set by hand (issue property `walkdown.equipment`).
  *  3. A standing decision conflicts when it governs touched equipment AND (it guards no specific action,
  *     or the work order's text contains one of its guarded actions).
  *  4. Conflicts someone reaffirmed for this work order are acknowledged, not blocking.
- *  5. Result written to issue property `precedent.check` (read by the workflow validator and JQL index).
+ *  5. Result written to issue property `walkdown.check` (read by the workflow validator and JQL index).
  */
 import api, { route } from '@forge/api';
 import { kvs } from '@forge/kvs';
@@ -16,8 +16,8 @@ import { listSites } from './sites';
 import { getDecision, listDecisions, normaliseTag } from './decisions';
 import { adfText, evaluate } from './match';
 
-export const CHECK_PROPERTY = 'precedent.check';
-export const EQUIPMENT_PROPERTY = 'precedent.equipment';
+export const CHECK_PROPERTY = 'walkdown.check';
+export const EQUIPMENT_PROPERTY = 'walkdown.equipment';
 const CHECK_VERSION = 1;
 
 const resolutionKey = (issueKey, decisionId) => `resolution:${issueKey}:${decisionId}`;
@@ -47,13 +47,13 @@ async function setProperty(issueKey, propertyKey, value) {
 /** One Jira comment that @mentions the decider, so Jira notifies them natively. */
 async function commentNewConflict(issueKey, conflict) {
   const content = [
-    { type: 'text', text: '⚠ Precedent: this work order conflicts with a standing decision: ' },
+    { type: 'text', text: '⚠ Walkdown: this work order conflicts with a standing decision: ' },
     { type: 'text', text: `"${conflict.statement}"`, marks: [{ type: 'strong' }] },
   ];
   if (conflict.decidedBy) {
     content.push({ type: 'text', text: ' (decided by ' }, { type: 'mention', attrs: { id: conflict.decidedBy } }, { type: 'text', text: ')' });
   }
-  content.push({ type: 'text', text: `. Equipment: ${conflict.matched.join(', ')}. It can't start until someone reaffirms, supersedes or withdraws it in the Precedent panel.` });
+  content.push({ type: 'text', text: `. Equipment: ${conflict.matched.join(', ')}. It can't start until someone reaffirms, supersedes or withdraws it in the Walkdown panel.` });
   await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/comment`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ body: { type: 'doc', version: 1, content: [{ type: 'paragraph', content }] } }),
@@ -61,8 +61,8 @@ async function commentNewConflict(issueKey, conflict) {
 }
 
 /**
- * Run the check for one work order and write `precedent.check`.
- * Returns the written value, or { status: 'unlinked' } when no Precedent site guards this space.
+ * Run the check for one work order and write `walkdown.check`.
+ * Returns the written value, or { status: 'unlinked' } when no Walkdown site guards this space.
  */
 export async function checkWorkOrder(issueKey) {
   const issue = await getIssue(issueKey);

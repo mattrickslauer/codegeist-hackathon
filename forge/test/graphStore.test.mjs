@@ -37,7 +37,7 @@ test('siteForAction: a site name or space key picks among several', () => {
   assert.equal(siteForAction([a, b], undefined, 'ops'), b);
   assert.equal(siteForAction([a, b], undefined, '(2)'), b);
   assert.equal(siteForAction([a, b], 'FAC', 'ops'), b, 'an explicit site wins over the space context');
-  assert.throws(() => siteForAction([a, b], undefined, 'nowhere'), /No Precedent site matches "nowhere"/);
+  assert.throws(() => siteForAction([a, b], undefined, 'nowhere'), /No Walkdown site matches "nowhere"/);
 });
 
 test('factsOf keeps provenance', () => {

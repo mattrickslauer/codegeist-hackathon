@@ -2,7 +2,9 @@
 
 The single place for the product's name, words, colours, marks and media rules. Everything public (the app UI, README, Devpost text, video, screenshots) takes its copy and look from here.
 
-> **Name: under review (2026-11-11).** The app ships as **Precedent**. The product has grown from "decisions enforced on work orders" into "everything a contractor needs to know before quoting a job, kept true by every finished job", so the name is being reconsidered before anything goes to judges. Until a new name is chosen, use *Precedent*. Rename steps: [Rename checklist](#rename-checklist).
+> **Name: Walkdown** (chosen 2026-11-13; the app was called *Precedent* until then). A *walkdown* is the site walk a contractor or engineer does before quoting or starting work. Walkdown lets you do that walk from Jira, and every finished job keeps it true. In the video, say what a walkdown is once, in the first 20 seconds.
+>
+> **Tagline:** *The pre-quote walkdown, before anyone climbs the roof.*
 
 ## Positioning
 
@@ -37,9 +39,9 @@ The app follows the Atlassian Design System tokens (so it matches Jira light and
 
 ## Mark
 
-- Current: `forge/static/workspace/public/precedent-icon.svg`, a location pin with a check ("decided here"), #0C66E4 on transparent, 24×24. Used as the issue panel icon.
-- A new name gets a new mark. Brief: works at 16 px in Jira's sidebar; reads as *building* or *trace* (a unit with a line running to its source), not as a generic pin; single colour plus white; no third-party logos.
-- Files go in `branding/marks/` (SVG source, plus 16/24/48/128 px PNG exports for Devpost and the Marketplace).
+- **Walkdown mark** (v1, 2026-11-13): a trace walking down from its source, through a junction, to a rooftop unit (a box with a fan). White on brand blue #0C66E4, rounded square, 24×24 grid.
+- Source: `branding/marks/walkdown-mark.svg` (the same file ships as `forge/static/workspace/public/walkdown-icon.svg`, the issue panel icon). Exports: `walkdown-16/24/48/128.png` for Devpost and a future Marketplace listing. Regenerate with `magick -background none -density 1200 walkdown-mark.svg -resize 128x128 walkdown-128.png`.
+- Rules: legible at 16 px; single colour plus white; no third-party logos. v1 is a first pass: refine the unit's shape before filming if it reads as a camera.
 
 ## Media rules (from the hackathon rules and our data agreements)
 
@@ -53,16 +55,23 @@ The app follows the Atlassian Design System tokens (so it matches Jira light and
 | Path | What | Public? |
 |---|---|---|
 | `branding/README.md` | This guide | yes |
-| `branding/marks/` | Logo / icon sources and exports (empty until the name is final) | yes |
+| `branding/marks/` | Mark source (SVG) and PNG exports | yes |
 | `branding/screenshots/` | Devpost gallery images | yes |
 | `branding/explore/` | Name shortlists, mark sketches, rejected options | **no** (git-ignored) |
 
-## Rename checklist
+## Rename record (Precedent → Walkdown, 2026-11-13)
 
-The name appears in about 30 files. Change in this order, deploy, and check the dev site before anything is filmed:
+Done in one commit across 40 files: every user-visible string (manifest titles, validator name, Rovo agent and MCP names and prompt, UI copy, `<title>`, the Jira comment), the docs, and the internal keys:
 
-1. **User-visible text**: `forge/manifest.yml` (`title` on the global page and issue panel, workflow validator `name`/`description`, `rovo:agent` name/prompt, `rovo:mcp` name), UI copy in `forge/static/workspace/src/*.jsx`, `index.html` `<title>`, the Jira comment text in `forge/src/check.js`, the Assets schema display name in `forge/src/assets.js` (`SCHEMA_NAME`).
-2. **Docs**: `README.md`, `docs/ARCHITECTURE.md`, this file.
-3. **Internal keys (optional, do it before any judge installs)**: issue properties `precedent.check` / `precedent.equipment`, JQL aliases `precedentStatus` / `precedentSite`, manifest module keys `precedent-*`, Assets schema key `PREC`, package names. Changing them orphans data on the dev site (re-load the sample). The Forge app id doesn't change.
-4. **Developer console**: app name and Distribution listing name.
-5. **Mark**: replace `precedent-icon.svg` and update the issue panel `icon` path.
+| Old | New |
+|---|---|
+| issue properties `precedent.check`, `precedent.equipment` | `walkdown.check`, `walkdown.equipment` |
+| JQL aliases `precedentStatus`, `precedentSite` | `walkdownStatus`, `walkdownSite` |
+| module keys `precedent-workspace`, `-work-order-panel`, `-work-order-trigger`, `-portal-closeout`, `-agent`, `-mcp`, `-check-index` | `walkdown-…` |
+| Assets schema "Precedent" (key `PREC`) | "Walkdown" (key `WALK`) |
+| package names `precedent`, `precedent-forge`, `precedent-workspace` | `walkdown…` |
+| mark `precedent-icon.svg` | `walkdown-icon.svg` |
+
+**Kept on purpose (invisible to users):** module key `precedent-objects` (the Object Store: a new key would orphan stored scans and photos) and `precedent-open-conflict-validator` (attached to the FAC workflow on the dev site; a new key would leave a dangling rule there). Both can change once nothing depends on them.
+
+**Still to do by hand:** rename the app in the Atlassian developer console (and its Distribution listing). On the dev site, the old `PREC` schema and its objects stay in Assets (the app has no delete scopes); re-run the Assets import to create `WALK`. Old `precedent.check` properties are ignored; each work order gets `walkdown.check` the next time it is edited or its panel is opened.

@@ -1,7 +1,7 @@
 {
  "schemaVersion": 1,
  "building": "Example Office Building",
- "about": "ILLUSTRATIVE design for the Example Office Building, written by the Precedent team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
+ "about": "ILLUSTRATIVE design for the Example Office Building, written by the Walkdown team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
  "nodes": [
   {
    "id": "breaker:CU-1",

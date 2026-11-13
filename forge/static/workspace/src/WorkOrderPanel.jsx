@@ -8,7 +8,7 @@ import { normaliseCheck } from './siteState.js';
 const acceptCheck = (r) => (r?.status === 'unlinked' ? r : normaliseCheck(r));
 
 /**
- * The Precedent panel on a Jira work order (jira:issuePanel).
+ * The Walkdown panel on a Jira work order (jira:issuePanel).
  * Runs the check, shows detected equipment and any conflicting standing decisions, and lets the user
  * reaffirm (with a reason), propose a superseding decision (needs an approver), or withdraw (edit the work order).
  */
@@ -28,7 +28,7 @@ function ConflictCard({ issueKey, conflict, onChanged }) {
         onChanged(await api.reaffirmConflict({ issueKey, siteId: conflict.siteId, decisionId: conflict.decisionId, reason }));
       } else if (mode === 'supersede') {
         await api.proposeSupersession({ issueKey, siteId: conflict.siteId, decisionId: conflict.decisionId, statement, reason });
-        setDone('Proposed. The work order stays blocked until a site approver accepts the new decision in Precedent → site → Decisions.');
+        setDone('Proposed. The work order stays blocked until a site approver accepts the new decision in Walkdown → site → Decisions.');
         setMode(null);
       }
     } catch (err) {
@@ -47,7 +47,7 @@ function ConflictCard({ issueKey, conflict, onChanged }) {
       <p style={{ fontSize: 15, fontWeight: 600, margin: '8px 0 4px' }}>"{conflict.statement}"</p>
       {conflict.reason && <p className="subtle" style={{ margin: '0 0 8px' }}>{conflict.reason}</p>}
       <div className="subtlest">
-        <a onClick={() => router.navigate({ target: 'module', moduleKey: 'precedent-workspace', path: `/sites/${encodeURIComponent(conflict.siteId)}?equipment=${encodeURIComponent(conflict.matched[0])}` })}>
+        <a onClick={() => router.navigate({ target: 'module', moduleKey: 'walkdown-workspace', path: `/sites/${encodeURIComponent(conflict.siteId)}?equipment=${encodeURIComponent(conflict.matched[0])}` })}>
           View on model
         </a>{' · '}
         Equipment: <strong>{conflict.matched.join(', ')}</strong>
@@ -87,7 +87,7 @@ function ConflictCard({ issueKey, conflict, onChanged }) {
       )}
       {mode === 'withdraw' && (
         <Banner tone="info">
-          Edit this work order so it no longer conflicts (for example change the action or the equipment). Precedent re-checks automatically when you save.
+          Edit this work order so it no longer conflicts (for example change the action or the equipment). Walkdown re-checks automatically when you save.
           {' '}<a onClick={() => setMode(null)}>OK</a>
         </Banner>
       )}
@@ -124,7 +124,7 @@ export default function WorkOrderPanel({ issueKey }) {
   if (check.status === 'unlinked') {
     return (
       <div style={{ padding: 8 }} className="subtle">
-        No Precedent site is linked to this space ({check.projectKey}). Link one in <a onClick={() => router.navigate('/jira/apps')}>Precedent</a> → site → Details.
+        No Walkdown site is linked to this space ({check.projectKey}). Link one in <a onClick={() => router.navigate('/jira/apps')}>Walkdown</a> → site → Details.
       </div>
     );
   }
@@ -133,7 +133,7 @@ export default function WorkOrderPanel({ issueKey }) {
     <div style={{ padding: 8 }}>
       <div className="row" style={{ justifyContent: 'space-between', marginBottom: 12 }}>
         {check.status === 'conflict'
-          ? <Lozenge tone="bold-danger">Blocked by Precedent</Lozenge>
+          ? <Lozenge tone="bold-danger">Blocked by Walkdown</Lozenge>
           : <Lozenge tone="success">Clear to start</Lozenge>}
         <span className="subtlest">Checked {new Date(check.checkedAt).toLocaleTimeString()} · <a onClick={load}>Re-check</a></span>
       </div>

@@ -1,5 +1,5 @@
 /*
- * Precedent workspace styles. Uses Atlassian Design System tokens (enabled by view.theme.enable())
+ * Walkdown workspace styles. Uses Atlassian Design System tokens (enabled by view.theme.enable())
  * so the app follows Jira's light/dark theme; the literal values are fallbacks only.
  */
 * { box-sizing: border-box; }

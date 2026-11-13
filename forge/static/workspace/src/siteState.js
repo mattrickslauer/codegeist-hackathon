@@ -1,13 +1,13 @@
 /**
  * Pure site-screen logic (unit-tested in test/siteState.test.mjs).
  *
- * Never trust the shape of stored data: `precedent.check` issue properties written by older versions
+ * Never trust the shape of stored data: `walkdown.check` issue properties written by older versions
  * (e.g. the spike-3 test controls) have no `conflicts`/`touched` lists. On 2026-11-11 that crashed the
  * site page (`Cannot read properties of undefined (reading 'forEach')`).
  */
 const list = (v) => (Array.isArray(v) ? v : []);
 
-/** Coerce any stored `precedent.check` value into the current shape (or null if it isn't one). */
+/** Coerce any stored `walkdown.check` value into the current shape (or null if it isn't one). */
 export function normaliseCheck(raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
   return {

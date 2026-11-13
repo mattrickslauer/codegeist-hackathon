@@ -93,7 +93,7 @@ function NewSiteDialog({ spaces, onClose, onCreated }) {
           <option value="">No space yet</option>
           {spaces.map((s) => <option key={s.key} value={s.key}>{s.name} ({s.key})</option>)}
         </select>
-        <span className="subtlest">Precedent checks work orders in this space against the site's decisions.</span>
+        <span className="subtlest">Walkdown checks work orders in this space against the site's decisions.</span>
       </div>
     </Dialog>
   );
@@ -150,7 +150,7 @@ export default function SitesPage() {
           <h2>Every decision about a building, enforced on every work order</h2>
           <p className="subtle" style={{ maxWidth: 560, margin: '0 auto 16px' }}>
             Record what was decided about a piece of equipment, and why. When a work order in the linked Jira space contradicts it,
-            Precedent blocks it from starting until someone reaffirms, supersedes or withdraws it.
+            Walkdown blocks it from starting until someone reaffirms, supersedes or withdraws it.
             Start with the sample: a real five-storey office building with its rooftop plant.
           </p>
           <div className="row" style={{ justifyContent: 'center' }}>

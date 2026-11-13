@@ -171,7 +171,7 @@ export function EquipmentTab({ site }) {
     <div className="stack">
       <div className="subtle">
         {eq.source === 'assets'
-          ? <>Live from <strong>Jira Assets</strong> (schema <strong>Precedent</strong>), imported from the building's as-built COBie.</>
+          ? <>Live from <strong>Jira Assets</strong> (schema <strong>Walkdown</strong>), imported from the building's as-built COBie.</>
           : <>From the bundled as-built data. Import it into Jira Assets from Diagnostics to manage it there.</>}
       </div>
       <table className="table">

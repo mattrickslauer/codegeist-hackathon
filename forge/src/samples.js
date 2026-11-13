@@ -2,7 +2,7 @@
  * Sample data a new installation can load so there's something real to explore.
  *
  * "Example Office Building" (EXB): an anonymised real 5-storey office building (samples/bim/exb).
- * Its equipment lives in Jira Assets (schema PREC, imported from COBie); the site lists it live from Assets.
+ * Its equipment lives in Jira Assets (schema WALK, imported from COBie); the site lists it live from Assets.
  * Three standing decisions are written from the real equipment data so the check has something to enforce.
  */
 import seed from './seed/exb.json';

@@ -14,7 +14,7 @@ An **anonymised real building**: a 5-storey office building with a parking struc
 
 ## Illustrative design (not part of the as-built record)
 
-The take-off has no electrical, plumbing or structural connections, so Precedent's demo uses an **illustrative** design written by us: `illustrative.json`. It holds the main switchboard, two roof panels split by drawing sheet (E3.06A north, E3.06B south), roof zones and curbs with load limits, line sets and the heating hot water loop. It also holds the rules that derive each breaker, feeder and disconnect from the units' **real** MOP/FLA ratings (NEC 240.6 standard sizes, NEC 310.16 75 °C copper ampacities).
+The take-off has no electrical, plumbing or structural connections, so Walkdown's demo uses an **illustrative** design written by us: `illustrative.json`. It holds the main switchboard, two roof panels split by drawing sheet (E3.06A north, E3.06B south), roof zones and curbs with load limits, line sets and the heating hot water loop. It also holds the rules that derive each breaker, feeder and disconnect from the units' **real** MOP/FLA ratings (NEC 240.6 standard sizes, NEC 310.16 75 °C copper ampacities).
 
 `scripts/build_exb_graph.py` merges it with the as-built equipment into `forge/src/seed/exb-graph.json`. Every fact keeps its provenance: `as-built` (with its sheet) or `illustrative`. The app shows that label and the Rovo agent says it out loud. The north roof panel RDP-N is deliberately close to full (1,005 A of breakers on a 1,200 A bus), and RTU-2's curb has only about 11% spare capacity, so an RTU-2 upgrade shows realistic knock-on work. **None of this is the real building's electrical or structural design.**
 

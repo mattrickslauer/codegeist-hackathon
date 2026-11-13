@@ -41,7 +41,7 @@
 - Produces: `spikeAssetsRefs(): Promise<{ steps: Array<{ name: string, ok: boolean, detail: string }> }>`
 
 - [ ] **Step 1:** In `assetsRefs.js`, reuse `assetsClient`/`getWorkspaceId` from `assets.js` (export them). Then, as the user:
-  - ensure two types in `PREC`, "Spike Panel" and "Spike Feeder";
+  - ensure two types in `WALK`, "Spike Panel" and "Spike Feeder";
   - add attribute "Fed from" on Spike Feeder with `type: 1` (object reference), `typeValue` = Spike Panel's type id, and `additionalValue` = the id of a reference type from `GET …/v1/config/referencetype` (create "feeds" if missing);
   - create panel `SP-1` and feeder `SF-1` referencing it.
 
@@ -54,7 +54,7 @@
 ### Task 2: Spike 8, portal panel as a customer, original photo upload
 
 **Files:**
-- Modify: `forge/manifest.yml` (add `jiraServiceManagement:portalRequestDetail` key `precedent-portal-closeout`, resource `workspace`, resolver `resolver`, `unlicensedAccess: [customer]`), `forge/src/index.js` (resolvers `portalWhoAmI`, `getPhotoUploadUrls`), `forge/static/workspace/src/App.jsx` (route extension type `jiraServiceManagement:portalRequestDetail` → `PortalSpike`)
+- Modify: `forge/manifest.yml` (add `jiraServiceManagement:portalRequestDetail` key `walkdown-portal-closeout`, resource `workspace`, resolver `resolver`, `unlicensedAccess: [customer]`), `forge/src/index.js` (resolvers `portalWhoAmI`, `getPhotoUploadUrls`), `forge/static/workspace/src/App.jsx` (route extension type `jiraServiceManagement:portalRequestDetail` → `PortalSpike`)
 - Create: `forge/static/workspace/src/PortalSpike.jsx`
 
 **Interfaces:**
@@ -70,7 +70,7 @@
 ### Task 3: Spike 9, Rovo agent, action and `rovo:mcp`
 
 **Files:**
-- Modify: `forge/manifest.yml` (add `rovo:agent` key `precedent-agent`, name `Precedent`, inline prompt; `action` key `get-equipment-context`, `actionVerb: GET`, input `tag` (string, required); `rovo:mcp` key `precedent-mcp` with `tools: [get-equipment-context]`; function `actions` handler `actions.handler`)
+- Modify: `forge/manifest.yml` (add `rovo:agent` key `walkdown-agent`, name `Walkdown`, inline prompt; `action` key `get-equipment-context`, `actionVerb: GET`, input `tag` (string, required); `rovo:mcp` key `walkdown-mcp` with `tools: [get-equipment-context]`; function `actions` handler `actions.handler`)
 - Create: `forge/src/actions.js`
 
 **Interfaces:**
@@ -78,8 +78,8 @@
 
 - [ ] **Step 1:** Add the modules and `actions.js`. Prompt (inline, for now): "You help facilities staff understand building equipment. Answer only from action results. If a fact is marked illustrative, say so."
 - [ ] **Step 2:** Lint, deploy and upgrade the install.
-- [ ] **Step 3:** In Rovo chat on the dev site, select the Precedent agent and ask "What is RTU-2?". Pass = the action is invoked and the answer quotes the 460-3-60 / MOP 250 specs.
-- [ ] **Step 4 (human):** In admin.atlassian.com → Connected apps → Precedent, turn on "Expose tools via external MCP endpoint". Connect an MCP client to `https://mcp.atlassian.com/forge/0fa45447-08dc-430d-93a1-8501bd630d9d` and call `get-equipment-context` with `RTU-2`. Pass = the same JSON comes back.
+- [ ] **Step 3:** In Rovo chat on the dev site, select the Walkdown agent and ask "What is RTU-2?". Pass = the action is invoked and the answer quotes the 460-3-60 / MOP 250 specs.
+- [ ] **Step 4 (human):** In admin.atlassian.com → Connected apps → Walkdown, turn on "Expose tools via external MCP endpoint". Connect an MCP client to `https://mcp.atlassian.com/forge/0fa45447-08dc-430d-93a1-8501bd630d9d` and call `get-equipment-context` with `RTU-2`. Pass = the same JSON comes back.
 - [ ] **Step 5:** Update §5.1, §5.3 and §7 row 9. Commit `Spike 9: Rovo agent, action and MCP tool`.
 
 ### Task 4: Spike 10, a clean judge-like site
@@ -88,7 +88,7 @@
 
 - [ ] **Step 1:** `cd forge && ../node_modules/.bin/forge deploy -e production` (current main code, so production stops being the scaffold).
 - [ ] **Step 2 (human):** Create a second Atlassian site under a different account (a free Jira + JSM site). In the developer console → Distribution → Sharing, create the install link and install it there as that site's admin.
-- [ ] **Step 3:** On the clean site, record whether: the install succeeds; Assets is available (`assetsProbe` on `/diagnostics`); Rovo is available and lists the Precedent agent; "Load sample building" works. Pass = all four recorded with evidence. Any "no" changes the demo path in §6.7, so report it before Task 5.
+- [ ] **Step 3:** On the clean site, record whether: the install succeeds; Assets is available (`assetsProbe` on `/diagnostics`); Rovo is available and lists the Walkdown agent; "Load sample building" works. Pass = all four recorded with evidence. Any "no" changes the demo path in §6.7, so report it before Task 5.
 - [ ] **Step 4:** Update §3 (production installed, clean-site URL) and §7 row 10. Commit `Spike 10: clean-site install`.
 
 ### Task 5: Graph generator and illustrative design

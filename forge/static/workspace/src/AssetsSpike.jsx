@@ -6,7 +6,7 @@ const logBox = { whiteSpace: 'pre-wrap', background: 'var(--ds-background-neutra
 
 /**
  * Spike 4: can the app (asApp) read and write Jira Assets?
- * Probe → ensure the Precedent schema/types/attributes → import the EXB building one item per call.
+ * Probe → ensure the Walkdown schema/types/attributes → import the EXB building one item per call.
  */
 export default function AssetsSpike() {
   const [log, setLog] = useState([]);
@@ -49,7 +49,7 @@ export default function AssetsSpike() {
       }
       setProgress({ done: plan.steps.length, total: plan.steps.length });
       say(`✔ Spike 4 PASSED: ${plan.steps.length} items in Assets (${created} new) in ${((performance.now() - t0) / 1000).toFixed(1)} s.`);
-      say('  In Jira: Assets → object schemas → "Precedent" (key PREC).');
+      say('  In Jira: Assets → object schemas → "Walkdown" (key WALK).');
     } catch (err) {
       say(`✘ ${String(err?.message ?? err)}`);
     } finally {
@@ -60,7 +60,7 @@ export default function AssetsSpike() {
   return (
     <section style={panel}>
       <h2 style={{ marginTop: 0, fontSize: 18 }}>Spike 4 · Jira Assets (as the app)</h2>
-      <p>Creates a <strong>Precedent</strong> Assets schema (Site → Level → Equipment) and imports the EXB building's 28 pieces of equipment from COBie. Safe to run twice.</p>
+      <p>Creates a <strong>Walkdown</strong> Assets schema (Site → Level → Equipment) and imports the EXB building's 28 pieces of equipment from COBie. Safe to run twice.</p>
       <button type="button" onClick={probe} disabled={busy}>Probe Assets</button>{' '}
       <button type="button" onClick={runImport} disabled={busy}>Import EXB into Assets</button>
       {busy && progress && <span> {progress.done}/{progress.total} · {progress.current}</span>}

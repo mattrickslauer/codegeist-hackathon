@@ -1,7 +1,7 @@
 /**
  * Jira Service Management Assets integration (spike 4).
  *
- * Precedent keeps its own Assets schema (key PREC) so it works on any site, including a judge's:
+ * Walkdown keeps its own Assets schema (key WALK) so it works on any site, including a judge's:
  *   Site  ──  Level  ──  Equipment     (object types; Site/Level/Equipment names are the object Name)
  *
  * Calls go through requestJira on the workspace-scoped Assets REST API (reads asApp, setup/import asUser):
@@ -16,8 +16,8 @@ import seed from './seed/exb.json';
 /** KVS key caching the ids from ensureAssetsModel(), so per-object steps don't re-walk the schema. */
 const MODEL_CACHE_KEY = 'assets:model';
 
-export const SCHEMA_KEY = 'PREC';
-const SCHEMA_NAME = 'Precedent';
+export const SCHEMA_KEY = 'WALK';
+const SCHEMA_NAME = 'Walkdown';
 
 // Assets attribute data types (defaultTypeId).
 const TEXT = 0;
@@ -101,7 +101,7 @@ export async function probeAssets() {
 }
 
 /**
- * Ensure the Precedent schema, its object types and their attributes exist.
+ * Ensure the Walkdown schema, its object types and their attributes exist.
  * Returns ids the per-object steps need: { ws, schemaId, types: { Site: { id, attrs: { name: id } }, ... } }.
  */
 export async function ensureAssetsModel() {
@@ -115,7 +115,7 @@ export async function ensureAssetsModel() {
     schema = await assetsAsUser.createSchema(ws, {
       name: SCHEMA_NAME,
       objectSchemaKey: SCHEMA_KEY,
-      description: 'Sites and equipment managed by Precedent',
+      description: 'Sites and equipment managed by Walkdown',
     });
     created.schema = true;
   }
@@ -149,7 +149,16 @@ export async function ensureAssetsModel() {
 
 /** Cached model ids, or (re)build them if missing. */
 async function getModel() {
-  return (await kvs.get(MODEL_CACHE_KEY)) ?? ensureAssetsModel();
+  return (await cachedModel()) ?? ensureAssetsModel();
+}
+
+/**
+ * The cached Assets model ids, ignored when they belong to another schema key (e.g. the pre-rename
+ * `PREC` schema from before 2026-11-13), so reads never mix an old schema with the current one.
+ */
+async function cachedModel() {
+  const model = await kvs.get(MODEL_CACHE_KEY);
+  return model?.schemaKey === SCHEMA_KEY ? model : null;
 }
 
 const aqlString = (v) => `"${String(v).replace(/["\\]/g, '\\$&')}"`;
@@ -175,7 +184,7 @@ async function upsertByName(model, typeName, name, values) {
 /**
  * Equipment of an Assets Site, read as the app (works with no user, e.g. in the background check).
  * Returns [{ tag, objectKey, category, level, serves, manufacturer, model, specs, sourceSheet, ifcGuid }].
- * Falls back to the bundled EXB seed when Assets or the Precedent schema isn't available, flagged `source: 'seed'`.
+ * Falls back to the bundled EXB seed when Assets or the Walkdown schema isn't available, flagged `source: 'seed'`.
  */
 export async function listSiteEquipment(siteName) {
   const fromSeed = () => ({
@@ -184,7 +193,7 @@ export async function listSiteEquipment(siteName) {
       ? seed.equipment.map((e) => ({ tag: e.tag, objectKey: null, category: e.category, level: e.level, serves: e.serves, manufacturer: e.manufacturer, model: e.model, specs: e.specs, sourceSheet: e.sourceSheet, ifcGuid: e.ifcGuid }))
       : [],
   });
-  const model = await kvs.get(MODEL_CACHE_KEY);
+  const model = await cachedModel();
   if (!model) return fromSeed();
   try {
     const type = model.types.Equipment;

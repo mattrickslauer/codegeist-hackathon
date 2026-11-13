@@ -1,15 +1,15 @@
 /**
  * Data access for the workspace.
- * - Precedent's own records (sites) go through our resolver (`invoke`).
+ * - Walkdown's own records (sites) go through our resolver (`invoke`).
  * - Jira data (spaces, work orders) is read as the current user with `requestJira`,
  *   so people only ever see spaces and work orders they're allowed to see in Jira.
  */
 import { invoke, objectStore, requestJira, router } from '@forge/bridge';
 import { normaliseCheck } from './siteState.js';
 
-export const CHECK_PROPERTY = 'precedent.check';
+export const CHECK_PROPERTY = 'walkdown.check';
 
-// ---------- Precedent (resolver) ----------
+// ---------- Walkdown (resolver) ----------
 export const api = {
   ping: () => invoke('ping'),
   listSites: () => invoke('listSites'),
@@ -74,7 +74,7 @@ export async function listSpaces() {
 
 const jqlString = (value) => `"${String(value).replace(/["\\]/g, '\\$&')}"`;
 
-/** Recent work orders in a space, with Precedent's check result for each. */
+/** Recent work orders in a space, with Walkdown's check result for each. */
 export async function listWorkOrders(spaceKey, max = 25) {
   const data = await jiraJson('/rest/api/3/search/jql', {
     method: 'POST',
@@ -99,7 +99,7 @@ export async function listWorkOrders(spaceKey, max = 25) {
 }
 
 export const openWorkOrdersJql = (spaceKey) => `project = ${jqlString(spaceKey)} AND statusCategory != Done`;
-export const blockedWorkOrdersJql = (spaceKey) => `project = ${jqlString(spaceKey)} AND precedentStatus = conflict`;
+export const blockedWorkOrdersJql = (spaceKey) => `project = ${jqlString(spaceKey)} AND walkdownStatus = conflict`;
 
 /** Approximate count for a JQL query; null if Jira can't evaluate it (e.g. index not built yet). */
 export async function countJql(jql) {

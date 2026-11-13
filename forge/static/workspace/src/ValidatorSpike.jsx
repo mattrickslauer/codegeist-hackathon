@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { requestJira } from '@forge/bridge';
 
 /** Issue property the workflow validator reads (manifest: precedent-open-conflict-validator). */
-export const CHECK_PROPERTY = 'precedent.check';
+export const CHECK_PROPERTY = 'walkdown.check';
 
 const TEST_CONFLICT = {
   status: 'conflict',
@@ -16,7 +16,7 @@ const panel = { marginTop: 24, padding: 16, border: '1px solid var(--ds-border, 
 const logBox = { whiteSpace: 'pre-wrap', background: 'var(--ds-background-neutral, #f4f5f7)', padding: 12, borderRadius: 6, minHeight: 48 };
 
 /**
- * Spike 3: set / clear / read the `precedent.check` issue property so we can prove the
+ * Spike 3: set / clear / read the `walkdown.check` issue property so we can prove the
  * workflow validator blocks "Start" (To Do → In Progress) while a conflict is open.
  * Calls Jira REST as the current user (requestJira).
  */

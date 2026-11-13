@@ -24,7 +24,7 @@ export function siteForAction(sites, projectKey, siteName) {
     const byName = sites.filter((s) => s.name.toLowerCase().includes(wanted));
     const matches = exactKey.length ? exactKey : byName;
     if (matches.length === 1) return matches[0];
-    if (!matches.length) throw new Error(`No Precedent site matches "${siteName}". Sites: ${sites.map(label).join(', ') || 'none'}.`);
+    if (!matches.length) throw new Error(`No Walkdown site matches "${siteName}". Sites: ${sites.map(label).join(', ') || 'none'}.`);
     sites = matches; // still several: fall through to the space context / "Which site?"
   }
   if (projectKey) {
@@ -33,7 +33,7 @@ export function siteForAction(sites, projectKey, siteName) {
   }
   if (sites.length === 0) return null;
   if (sites.length === 1) return sites[0];
-  throw new Error(`Which site? Precedent has several: ${sites.map(label).join(', ')}. Name the site or its Jira space (the "site" input), or ask from a work order in that space.`);
+  throw new Error(`Which site? Walkdown has several: ${sites.map(label).join(', ')}. Name the site or its Jira space (the "site" input), or ask from a work order in that space.`);
 }
 
 /** A node in the compact, model-friendly form actions return: every fact keeps its provenance and source. */

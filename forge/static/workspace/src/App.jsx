@@ -26,7 +26,7 @@ function Workspace() {
       )}
       {/* Diagnostics (developer test panels) is reachable only at /diagnostics, not linked in the product. */}
       <div className="page footer subtlest" style={{ paddingTop: 0 }}>
-        Precedent · every decision about a building, pinned to the equipment it governs, enforced on every work order
+        Walkdown · every decision about a building, pinned to the equipment it governs, enforced on every work order
       </div>
     </>
   );
@@ -47,7 +47,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    console.error('Precedent render error', error, info?.componentStack);
+    console.error('Walkdown render error', error, info?.componentStack);
   }
 
   render() {

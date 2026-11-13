@@ -21,7 +21,7 @@ function modelSourceFor(site) {
   return scan ? { kind: 'scan', key: scan.key, label: scan.fileName } : null;
 }
 
-/** Everything the site screens share: decisions, equipment, open work orders (with their Precedent check). */
+/** Everything the site screens share: decisions, equipment, open work orders (with their Walkdown check). */
 function useSiteData(site) {
   const [decisions, setDecisions] = useState(null);
   const [orders, setOrders] = useState(null);
@@ -240,7 +240,7 @@ function WorkOrdersTab({ site, data }) {
       {data.orders?.length === 0 && <div className="empty"><h2>No open work orders</h2></div>}
       {data.orders?.length > 0 && (
         <table className="table">
-          <thead><tr><th>Key</th><th>Summary</th><th>Status</th><th>Precedent</th><th>Equipment</th><th>Updated</th></tr></thead>
+          <thead><tr><th>Key</th><th>Summary</th><th>Status</th><th>Walkdown</th><th>Equipment</th><th>Updated</th></tr></thead>
           <tbody>
             {data.orders.map((o) => (
               <tr key={o.key}>

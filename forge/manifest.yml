@@ -1,22 +1,22 @@
 modules:
-  # Precedent workspace: sites, scans, decisions. Custom UI (needed for the WebGL scan viewer).
+  # Walkdown workspace: sites, scans, decisions. Custom UI (needed for the WebGL scan viewer).
   jira:globalPage:
-    - key: precedent-workspace
+    - key: walkdown-workspace
       resource: workspace
       resolver:
         function: resolver
-      title: Precedent
-  # The Precedent panel on every work order: detected equipment, conflicts, reaffirm / supersede / withdraw.
+      title: Walkdown
+  # The Walkdown panel on every work order: detected equipment, conflicts, reaffirm / supersede / withdraw.
   jira:issuePanel:
-    - key: precedent-work-order-panel
+    - key: walkdown-work-order-panel
       resource: workspace
       resolver:
         function: resolver
-      title: Precedent
-      icon: resource:workspace;precedent-icon.svg
+      title: Walkdown
+      icon: resource:workspace;walkdown-icon.svg
   # Run the check whenever a work order is created or edited. ignoreSelf: our own property/comment writes don't re-trigger.
   trigger:
-    - key: precedent-work-order-trigger
+    - key: walkdown-work-order-trigger
       function: work-order-check
       events:
         - avi:jira:created:issue
@@ -25,20 +25,20 @@ modules:
         ignoreSelf: true
   # Contractor closeout in the JSM customer portal (spike 8: identity + original photo round trip).
   jiraServiceManagement:portalRequestDetail:
-    - key: precedent-portal-closeout
-      title: Precedent
+    - key: walkdown-portal-closeout
+      title: Walkdown
       resource: workspace
       resolver:
         function: resolver
       unlicensedAccess:
         - customer
-  # Rovo agent (spike 9): answers questions about a building's equipment from Precedent's data only.
+  # Rovo agent (spike 9): answers questions about a building's equipment from Walkdown's data only.
   rovo:agent:
-    - key: precedent-agent
-      name: Precedent
+    - key: walkdown-agent
+      name: Walkdown
       description: Explains a building's equipment and what a job on it involves, from the building's own records.
       prompt: |
-        You are Precedent, an assistant for facilities managers and the contractors who quote work for them.
+        You are Walkdown, an assistant for facilities managers and the contractors who quote work for them.
         Answer only from the results of your actions. Never invent a specification, rating, size or connection.
         Start each answer by naming the site the facts come from (the "site" field); if it says "bundled sample",
         say that the site's own records weren't available, so decisions and work history are not included.
@@ -79,11 +79,11 @@ modules:
           title: Site
           type: string
           required: false
-          description: The site's name or Jira space key, when Precedent has several sites. Leave empty otherwise.
+          description: The site's name or Jira space key, when Walkdown has several sites. Leave empty otherwise.
   # The same actions as tools for Rovo Studio agents and external MCP clients (Preview; admin opt-in per site).
   rovo:mcp:
-    - key: precedent-mcp
-      name: Precedent
+    - key: walkdown-mcp
+      name: Walkdown
       tools:
         - get-equipment-context
   function:
@@ -93,34 +93,34 @@ modules:
       handler: index.onWorkOrderEvent
     - key: actions
       handler: actions.handler
-  # Blocks a transition while the work order has an unresolved Precedent conflict.
-  # Reads issue property `precedent.check` ({ status: 'clear' | 'conflict', summary }) written by the check.
+  # Blocks a transition while the work order has an unresolved Walkdown conflict.
+  # Reads issue property `walkdown.check` ({ status: 'clear' | 'conflict', summary }) written by the check.
   # Returning a string shows it as the error on the blocked transition.
   jira:workflowValidator:
     - key: precedent-open-conflict-validator
-      name: "Precedent: no unresolved decision conflict"
-      description: Blocks the transition while this work order conflicts with a standing site decision recorded in Precedent.
+      name: "Walkdown: no unresolved decision conflict"
+      description: Blocks the transition while this work order conflicts with a standing site decision recorded in Walkdown.
       expression: >-
-        issue.properties['precedent.check'] == null || issue.properties['precedent.check'].status != 'conflict'
+        issue.properties['walkdown.check'] == null || issue.properties['walkdown.check'].status != 'conflict'
         ? true
-        : 'Blocked by Precedent: this work order conflicts with a standing decision: "'
-          + issue.properties['precedent.check'].summary
-          + '". Open the Precedent panel on this work order to reaffirm, supersede or withdraw.'
-      errorMessage: Blocked by Precedent. This work order conflicts with a standing site decision.
+        : 'Blocked by Walkdown: this work order conflicts with a standing decision: "'
+          + issue.properties['walkdown.check'].summary
+          + '". Open the Walkdown panel on this work order to reaffirm, supersede or withdraw.'
+      errorMessage: Blocked by Walkdown. This work order conflicts with a standing site decision.
       projectTypes: ['company-managed', 'team-managed']
-  # Index the `precedent.check` issue property so JQL can find blocked work orders:
-  #   precedentStatus = conflict   ·   precedentSite = "<site id>"
+  # Index the `walkdown.check` issue property so JQL can find blocked work orders:
+  #   walkdownStatus = conflict   ·   walkdownSite = "<site id>"
   jira:entityProperty:
-    - key: precedent-check-index
+    - key: walkdown-check-index
       entityType: issue
-      propertyKey: precedent.check
+      propertyKey: walkdown.check
       values:
         - path: status
           type: string
-          searchAlias: precedentStatus
+          searchAlias: walkdownStatus
         - path: siteId
           type: string
-          searchAlias: precedentSite
+          searchAlias: walkdownSite
   # Forge Object Store (Preview): scans, photos, audio. Adding it is a major version upgrade (admin must approve).
   objectStore:
     - key: precedent-objects
@@ -130,13 +130,13 @@ resources:
     path: static/workspace/dist
 permissions:
   scopes:
-    # Read work orders and their `precedent.check` property; write that property (spike 3 test controls, later the check).
+    # Read work orders and their `walkdown.check` property; write that property (spike 3 test controls, later the check).
     - read:jira-work
     - write:jira-work
     # Sites records in Forge KVS.
     - storage:app
-    # Jira Assets (spike 4): find the workspace, then create/read the Precedent schema, types, attributes, objects.
-    # No delete scopes: Precedent never deletes customer Assets data.
+    # Jira Assets (spike 4): find the workspace, then create/read the Walkdown schema, types, attributes, objects.
+    # No delete scopes: Walkdown never deletes customer Assets data.
     - read:servicedesk-request
     - read:cmdb-schema:jira
     - write:cmdb-schema:jira

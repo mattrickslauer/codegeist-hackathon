@@ -41,5 +41,5 @@ export function cspSafeEmbeddedTextures(parser) {
     return promise;
   };
 
-  return { name: 'PRECEDENT_csp_safe_embedded_textures' };
+  return { name: 'WALKDOWN_csp_safe_embedded_textures' };
 }

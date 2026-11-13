@@ -17,7 +17,7 @@ export default function PortalSpike({ context }) {
 
   return (
     <div style={{ padding: 8 }}>
-      <strong>Precedent · spike 8 (portal panel)</strong>
+      <strong>Walkdown · spike 8 (portal panel)</strong>
       <div style={{ ...box, marginTop: 8 }}>
         {`extension: ${context?.extension?.type}\nrequest: ${context?.extension?.request?.key}\n`}
         {who ? JSON.stringify(who, null, 2) : 'Asking the backend who I am…'}

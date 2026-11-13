@@ -150,7 +150,7 @@ export async function loadSampleSite(input, accountId) {
   const site = await createSite(
     {
       name: 'North Plant Room',
-      description: 'Pump room and HVAC plant. Sample site created by Precedent so you can explore before scanning your own.',
+      description: 'Pump room and HVAC plant. Sample site created by Walkdown so you can explore before scanning your own.',
       space: input?.space ?? null,
     },
     accountId,

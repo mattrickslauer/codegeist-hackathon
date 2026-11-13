@@ -1,5 +1,5 @@
 {
-  "about": "ILLUSTRATIVE design for the Example Office Building, written by the Precedent team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
+  "about": "ILLUSTRATIVE design for the Example Office Building, written by the Walkdown team for the demo. It is NOT the building's real electrical or structural record (those drawings were not part of the as-built take-off). Every value below is derived from a real rating where one exists, and is marked 'illustrative' wherever it appears in the app. Replace with real data when it arrives; the generator needs no change.",
   "rules": {
     "breaker": "Breaker = the unit's real MOP rounded up to an NEC 240.6(A) standard size. With only FLA: the next standard size >= 1.25 x FLA, minimum 15 A.",
     "feeder": "Copper, 75 C column of NEC Table 310.16. Smallest single set whose ampacity >= the breaker; else the fewest parallel sets (each >= 1/0) of the smallest size that works. Minimum 12 AWG (common commercial practice).",

@@ -35,7 +35,7 @@ export function Spike8() {
     <section style={panel}>
       <h2 style={title}>Spike 8 · original photo upload (portal closeout)</h2>
       <p>Same upload path the JSM portal panel uses. The caller-identity check only runs in the portal: open a request in the
-        customer portal (<span className="mono">/servicedesk/customer/portals</span>) to see the Precedent panel, ideally as an invited customer.</p>
+        customer portal (<span className="mono">/servicedesk/customer/portals</span>) to see the Walkdown panel, ideally as an invited customer.</p>
       <PhotoRoundTrip />
     </section>
   );
@@ -68,8 +68,8 @@ export function Spike9() {
         <button type="button" onClick={run} disabled={busy}>{busy ? 'Running…' : 'Run get-equipment-context'}</button>
       </div>
       <pre style={{ ...logBox, marginTop: 12 }}>{out || 'No run yet.'}</pre>
-      <p>2. In Rovo chat, pick the <strong>Precedent</strong> agent and ask "What is RTU-2?". Pass: it quotes 460-3-60, MOP 250 and sheet E3.06A.</p>
-      <p>3. Optional: admin.atlassian.com → Connected apps → Precedent → "Expose tools via external MCP endpoint", then call the tool from an MCP client.</p>
+      <p>2. In Rovo chat, pick the <strong>Walkdown</strong> agent and ask "What is RTU-2?". Pass: it quotes 460-3-60, MOP 250 and sheet E3.06A.</p>
+      <p>3. Optional: admin.atlassian.com → Connected apps → Walkdown → "Expose tools via external MCP endpoint", then call the tool from an MCP client.</p>
     </section>
   );
 }
@@ -86,7 +86,7 @@ export function Spike10() {
       const ctx = await view.getContext();
       say(`Site: ${ctx.siteUrl ?? '?'} · environment: ${ctx.environmentType ?? '?'}`);
       const res = await invoke('spikeCleanSite');
-      say(`Backend v${res.backendVersion} · Precedent sites here: ${res.sites ?? '?'}`);
+      say(`Backend v${res.backendVersion} · Walkdown sites here: ${res.sites ?? '?'}`);
       say(res.assets?.available
         ? `✔ Assets available (workspace ${res.assets.workspaceId}; schemas: ${res.assets.schemas.map((s) => s.key).join(', ') || 'none'})`
         : '✘ Assets NOT available to the app on this site → the demo uses the bundled graph');
@@ -95,7 +95,7 @@ export function Spike10() {
       const service = spaces.filter((s) => s.projectTypeKey === 'service_desk');
       say(`Jira spaces: ${spaces.length} (${service.length} service spaces${service.length ? `: ${service.map((s) => s.key).join(', ')}` : ''})`);
       if (!service.length) say('✘ No service space → the contractor portal flow needs one (setup must create it)');
-      say('Rovo: check by hand that Rovo chat opens and lists the Precedent agent (spike 9 step 2).');
+      say('Rovo: check by hand that Rovo chat opens and lists the Walkdown agent (spike 9 step 2).');
     } catch (err) {
       say(`✘ ${String(err?.message ?? err)}`);
     } finally {
@@ -106,7 +106,7 @@ export function Spike10() {
   return (
     <section style={panel}>
       <h2 style={title}>Spike 10 · clean (judge-like) site</h2>
-      <p>Run this on a site that installed Precedent from the install link, with nothing set up.</p>
+      <p>Run this on a site that installed Walkdown from the install link, with nothing set up.</p>
       <button type="button" onClick={run} disabled={busy}>{busy ? 'Checking…' : 'Run spike 10 checks'}</button>
       <pre style={{ ...logBox, marginTop: 12 }}>{lines.join('\n') || 'No run yet.'}</pre>
     </section>

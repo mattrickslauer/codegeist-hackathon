@@ -91,7 +91,7 @@ def build():
         xs.extend(pos[0::3]); ys.extend(pos[1::3]); zs.extend(pos[2::3])
     cx, cz, base = (min(xs) + max(xs)) / 2, (min(zs) + max(zs)) / 2, min(ys)
 
-    gltf = {"asset": {"version": "2.0", "generator": "Precedent build_exb_model.py (IfcOpenShell)"},
+    gltf = {"asset": {"version": "2.0", "generator": "Walkdown: build_exb_model.py (IfcOpenShell)"},
             "scene": 0, "scenes": [{"nodes": []}], "nodes": [], "meshes": [], "materials": [],
             "accessors": [], "bufferViews": [], "buffers": []}
     blob = bytearray()

@@ -1,5 +1,5 @@
 /**
- * Precedent backend: the resolver behind every Custom UI `invoke` call.
+ * Walkdown backend: the resolver behind every Custom UI `invoke` call.
  * Function inventory and contracts live in docs/ARCHITECTURE.md (the canonical doc).
  */
 import Resolver from '@forge/resolver';
