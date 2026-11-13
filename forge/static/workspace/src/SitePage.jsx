@@ -12,6 +12,7 @@ import { deriveSiteState } from './siteState.js';
 
 // three.js is large; load the viewer only when the model is shown.
 const ModelViewer = lazy(() => import('./ModelViewer.jsx'));
+const SystemsWorkspace = lazy(() => import('./systems/SystemsWorkspace.jsx'));
 
 /** The 3D model to show: a model bundled with the app (sample building) or the site's latest uploaded scan. */
 function modelSourceFor(site) {
@@ -19,6 +20,21 @@ function modelSourceFor(site) {
   if (site.equipmentSource?.siteName === 'Example Office Building') return { kind: 'bundled', url: './models/exb.glb' }; // sites created before models existed
   const scan = site.scans?.at(-1);
   return scan ? { kind: 'scan', key: scan.key, label: scan.fileName } : null;
+}
+
+/** The model ready for a viewer: { url } for a bundled model, { blob } once a scan has downloaded, else null. */
+function useViewerSource(site) {
+  const source = modelSourceFor(site);
+  const [blob, setBlob] = useState(null);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    if (source?.kind !== 'scan') return undefined;
+    let cancelled = false;
+    downloadScan(source.key).then((b) => !cancelled && setBlob(b)).catch((e) => setError(String(e?.message ?? e)));
+    return () => { cancelled = true; };
+  }, [source?.key]);
+  const viewerSource = useMemo(() => (source?.kind === 'bundled' ? { url: source.url } : blob ? { blob } : null), [source?.url, blob]);
+  return { source, viewerSource, error };
 }
 
 /** Everything the site screens share: decisions, equipment, open work orders (with their Precedent check). */
@@ -113,7 +129,7 @@ function Overview({ site, data, onSelectTag, onRecord, onChanged }) {
   );
 }
 
-function EquipmentDetail({ siteId, tag, data, onBack, onRecord }) {
+function EquipmentDetail({ siteId, tag, data, onBack, onRecord, onOpenSystems }) {
   const item = data.equipment.equipment.find((e) => e.tag === tag);
   const decisions = (data.decisions ?? []).filter((d) => d.equipment.includes(tag) && ['standing', 'proposed'].includes(d.status));
   const orders = (data.orders ?? []).filter((o) => o.check?.touched?.includes(tag));
@@ -122,7 +138,10 @@ function EquipmentDetail({ siteId, tag, data, onBack, onRecord }) {
       <a onClick={onBack} className="subtle">← All decisions</a>
       <div className="row" style={{ justifyContent: 'space-between', margin: '8px 0' }}>
         <h2 className="page-title" style={{ fontSize: 22 }}>{tag}</h2>
-        <Button variant="primary" onClick={() => onRecord([tag])}>Record a decision about {tag}</Button>
+        <div className="row">
+          {onOpenSystems && <Button onClick={() => onOpenSystems(tag)}>Open in Systems</Button>}
+          <Button variant="primary" onClick={() => onRecord([tag])}>Record a decision about {tag}</Button>
+        </div>
       </div>
       {item ? (
         <div className="card" style={{ padding: 12, marginBottom: 16 }}>
@@ -147,22 +166,13 @@ function EquipmentDetail({ siteId, tag, data, onBack, onRecord }) {
 
 // ---------- Model tab ----------
 
-function ModelTab({ site, data, initialTag }) {
-  const source = modelSourceFor(site);
+function ModelTab({ site, data, initialTag, onOpenSystems }) {
+  const { source, viewerSource, error: loadError } = useViewerSource(site);
   const [selectedTag, setSelectedTag] = useState(initialTag ?? null);
-  const [blob, setBlob] = useState(null);
   const [pin, setPin] = useState(null);
   const [recording, setRecording] = useState(null); // initial tags for the dialog
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (source?.kind !== 'scan') return;
-    let cancelled = false;
-    downloadScan(source.key).then((b) => !cancelled && setBlob(b)).catch((e) => setError(String(e?.message ?? e)));
-    return () => { cancelled = true; };
-  }, [source?.key]);
-
-  const viewerSource = source?.kind === 'bundled' ? { url: source.url } : blob ? { blob } : null;
+  const [renderError, setError] = useState(null);
+  const error = loadError ?? renderError;
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 3fr) minmax(320px, 2fr)', gap: 24, alignItems: 'start' }}>
@@ -206,7 +216,7 @@ function ModelTab({ site, data, initialTag }) {
       <div>
         {data.error && <Banner tone="error">{data.error}</Banner>}
         {selectedTag
-          ? <EquipmentDetail siteId={site.id} tag={selectedTag} data={data} onBack={() => setSelectedTag(null)} onRecord={setRecording} />
+          ? <EquipmentDetail siteId={site.id} tag={selectedTag} data={data} onBack={() => setSelectedTag(null)} onRecord={setRecording} onOpenSystems={onOpenSystems} />
           : <Overview site={site} data={data} onSelectTag={setSelectedTag} onRecord={setRecording} onChanged={data.reload} />}
       </div>
       {recording && (
@@ -356,11 +366,24 @@ function SettingsTab({ site, onSiteChange }) {
 
 // ---------- Page ----------
 
-const TABS = [['model', 'Model'], ['work-orders', 'Work orders'], ['settings', 'Settings']];
+const TABS = [['systems', 'Systems'], ['model', 'Decisions'], ['work-orders', 'Work orders'], ['settings', 'Settings']];
+
+function SystemsTab({ site, data, initialTag }) {
+  const { viewerSource, source, error } = useViewerSource(site);
+  if (error) return <Banner tone="error">{error}</Banner>;
+  if (source && !viewerSource) return <div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading model…" /></div>;
+  return (
+    <Suspense fallback={<div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading systems…" /></div>}>
+      <SystemsWorkspace key={initialTag ?? ''} site={site} source={viewerSource} decisions={data.decisions ?? []} initialTag={initialTag} />
+    </Suspense>
+  );
+}
 
 function SiteScreens({ site, setSite, initialTag }) {
-  const [tab, setTab] = useState('model');
+  const [tab, setTab] = useState(initialTag ? 'model' : 'systems');
+  const [systemsTag, setSystemsTag] = useState(null);
   const data = useSiteData(site);
+  const openSystems = (tag) => { setSystemsTag(tag); setTab('systems'); };
   return (
     <>
       <div className="page-header">
@@ -378,7 +401,8 @@ function SiteScreens({ site, setSite, initialTag }) {
           <button key={key} type="button" role="tab" aria-selected={tab === key} className={`tab ${tab === key ? 'tab-active' : ''}`} onClick={() => setTab(key)}>{label}</button>
         ))}
       </div>
-      {tab === 'model' && <ModelTab site={site} data={data} initialTag={initialTag} />}
+      {tab === 'systems' && <SystemsTab site={site} data={data} initialTag={systemsTag} />}
+      {tab === 'model' && <ModelTab site={site} data={data} initialTag={initialTag} onOpenSystems={openSystems} />}
       {tab === 'work-orders' && <WorkOrdersTab site={site} data={data} />}
       {tab === 'settings' && <SettingsTab site={site} onSiteChange={setSite} />}
     </>

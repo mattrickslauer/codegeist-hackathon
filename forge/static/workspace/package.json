@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "node --test test/siteState.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "dev:mock": "vite --mode mock"
   },
   "dependencies": {
     "@forge/bridge": "7.2.1",

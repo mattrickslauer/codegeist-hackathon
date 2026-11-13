@@ -14,7 +14,8 @@ const getHistory = () => {
   return historyPromise;
 };
 
-let memoryPath = '/';
+// Local preview starts at #/sites/<id> when given; Jira always has history.
+let memoryPath = typeof location !== 'undefined' && location.hash.startsWith('#/') ? location.hash.slice(1) : '/';
 const memoryListeners = new Set();
 
 export async function navigate(path) {

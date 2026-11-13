@@ -74,6 +74,11 @@ docs/ARCHITECTURE.md        this file
 | `getSiteEquipment` | `{ siteId }` | `{ source: 'assets' \| 'seed' \| 'none', equipment: [{ tag, objectKey, category, level, serves, manufacturer, model, specs, sourceSheet, ifcGuid }] }`: live AQL read asApp, falling back to the bundled seed | Any user | ✅ deployed |
 | `loadSampleBuilding` | `{ space }` | `{ site, decisions, graph }`: "Example Office Building" (equipment from Assets) + 3 standing decisions (`src/samples.js`) + its building context graph (`seedGraph`) | Any user | ✅ deployed |
 | `getEquipmentContext` | `{ siteId, tag }` | `{ source: 'graph' \| 'none', context? }`: `context(ix, tag)` from `src/graphWalk.js` (equipment, powerChain source→equipment, panel { busA, connectedBreakerA, siblings }, serves, connects, loopMembers, support, provenanceSummary). Sample-building sites created before v6.11 get their graph seeded on first read | Any user | ✅ deployed (v6.11.0) |
+| `getSiteGraph` | `{ siteId }` | `{ graph }` (with `rev`), or `{ graph: null, canStartFromRegister }`. Seeds the sample building on first read | Any user | ✅ built, not yet deployed |
+| `startSiteGraph` | `{ siteId }` | `{ graph }`: a new graph (`newGraph` in `src/graphEdit.js`), pre-filled with the site's Assets equipment register when it has one, else empty. No-op if one exists | Any user | ✅ built, not yet deployed |
+| `editSiteGraph` | `{ siteId, rev, ops: Op[] ≤ 500, label? }` | `{ graph, touched }`. Ops are applied all-or-nothing by `applyOps` (§6.8). Refused if `rev` ≠ the stored revision ("someone else just changed…"). Appends to `graphlog:<siteId>` with the inverse ops | Any user (`enteredBy` from context) | ✅ built, not yet deployed |
+| `undoSiteGraph` | `{ siteId, rev }` | `{ graph }`: applies the newest undoable log entry's inverse, marks it undone | Any user | ✅ built, not yet deployed |
+| `graphHistory` | `{ siteId }` | `[{ rev, at, by, label, count, undone, undoable }]` newest first | Any user | ✅ built, not yet deployed |
 | `listDecisions` | `{ siteId }` | `Decision[]` newest first | Any user | ✅ deployed |
 | `createDecision` | `{ siteId, statement ≤300, reason ≤1000, equipment: tags (≥1), guards: phrases, pin?, decidedAt? }` | `Decision` (standing; `decidedBy` from context) | Any user | ✅ deployed |
 | `withdrawDecision` | `{ siteId, decisionId }` | standing → `withdrawn`, proposed → `rejected` | Any user | ✅ deployed |
@@ -120,7 +125,15 @@ docs/ARCHITECTURE.md        this file
 | `api.js` | Resolver wrappers (`api.*`), scan upload/download, Jira-as-user helpers, JQL builders, `openInJira` links | ✅ deployed |
 | `ui.jsx` + `styles.css` | Button, Lozenge, StatusLozenge, SpaceChip (avatar with initials fallback), Dialog, Banner, Spinner. All styled with Atlassian Design System tokens, so it follows Jira light/dark | ✅ deployed |
 | `SitesPage.jsx` | Site cards (linked space, live open/blocked counts via JQL). Empty state has one primary action, **Load sample building**, plus "Create your own site" (the LiDAR sample is no longer offered) | ✅ deployed (v6.4.0) |
-| `SitePage.jsx` | Three tabs. **Model** (default): the 3D model on the left (bundled building model or the latest LiDAR scan) with equipment coloured **blue** (has standing decisions) / **red** (a blocked work order touches it); the side panel on the right is an *Overview* (counts, approvals, blocked work orders, standing decisions) or, when equipment is clicked, *Equipment detail* (specs from Assets, its decisions, its open work orders, "Record a decision about TAG"). A scan spot → "Record a decision here" (pin). **Work orders**: open work orders with Precedent status and touched equipment. **Settings**: details and linked space, LiDAR scans, equipment register | ✅ deployed (v6.4.0) |
+| `SitePage.jsx` | Four tabs: **Systems** (default, §6.8: `systems/SystemsWorkspace.jsx`), **Decisions** (formerly *Model*; equipment detail links back with *Open in Systems*), **Work orders**, **Settings**. `useViewerSource` resolves the model for both 3D views. Decisions tab: the 3D model on the left (bundled building model or the latest LiDAR scan) with equipment coloured **blue** (has standing decisions) / **red** (a blocked work order touches it); the side panel on the right is an *Overview* (counts, approvals, blocked work orders, standing decisions) or, when equipment is clicked, *Equipment detail* (specs from Assets, its decisions, its open work orders, "Record a decision about TAG"). A scan spot → "Record a decision here" (pin). **Work orders**: open work orders with Precedent status and touched equipment. **Settings**: details and linked space, LiDAR scans, equipment register | ✅ deployed (v6.4.0) |
+| `systems/SystemsWorkspace.jsx` | The systems editor (§6.8). Views **3D**, **Split**, **Schematic**, **Table** over one graph and one selection. Toolbar: Select / Connect (click a component, then the next; the run continues from the last one) / Add (palette by trade, then a form with the next tag in the series, e.g. V-13 after V-12, *Connect after*, *Then place on the model*) / drawing system / Undo / Paste / History; tag search (`/`). Left: onboarding progress (units connected, components, connections, valves & switches), system layers (toggle, *only*), X-ray, labels. Right: inspector. Bottom: what-if / isolation panel with standing decisions affected and *Replay*. Keys: V C A X T F 1–4, Delete, Ctrl+Z, Esc. Edits are optimistic (`useSiteGraph.js` runs the same `applyOps` locally, then saves in order; rolls back on error) | ✅ built (mock-verified), not yet deployed |
+| `systems/SystemsScene.jsx` | three.js scene: the model as an optional X-ray shell, components as glyphs per type, connections as arcing tubes in their system colour (thicker for larger pipe sizes) with flow particles, bloom, selection halos, hover labels, fly-to, connect rubber band, click-to-place. Failure wave: lost components turn red hop by hop (0.32 s per hop) with a shock ring; flow stops on dead connections. Isolation points pulse amber | ✅ built (mock-verified) |
+| `systems/Schematic.jsx` | Generated one-line diagram (SVG): layered left→right (`schematicLayout`), animated flow dashes, pan/zoom, same selection, trace, wave and isolation states | ✅ built (mock-verified) |
+| `systems/Inspector.jsx` | Component inspector (rename, type, system, valve/switch position toggle, values with provenance chips, add value, connections in/out, delete) and connection inspector (type, system, reverse, values such as pipe size/material/length) | ✅ built (mock-verified) |
+| `systems/AddPanel.jsx`, `addHelpers.js` | Palette and add form; `nextTag`, `defaultLinkType` (to a served area → serves, to a curb → supportedBy, electrical → feeds, loops/line sets → connects, sensors → controls, else pipe) | ✅ built |
+| `systems/ImportDialog.jsx`, `TableView.jsx` | Paste-from-spreadsheet with live preview and warnings; sortable/filterable component and connection tables | ✅ built |
+| `systems/layout.js` | `visibleSubgraph`, `schematicLayout` (longest-path layers, 14 barycentre sweeps), `scenePositions` (explicit `pos` → model tag centre → floating above the roof, higher the further upstream, golden-angle spread; unconnected parked on a shelf). Tested in `static/workspace/test/layout.test.mjs` | ✅ built |
+| `dev/mockBridge.js` | Local preview only: `npm run dev:mock` aliases `@forge/bridge` to an in-memory stand-in running the same pure graph modules over the sample building. Not in the Forge bundle | ✅ built |
 | `Diagnostics.jsx` | The former spike panels (1: upload round trip, 2: viewer, 3: validator test controls) and a CSP-violation log; reached via the footer link | ✅ deployed |
 | `ValidatorSpike.jsx` | Spike 3 test controls: read / set / clear `precedent.check` on an issue via `requestJira` (as the user) | ✅ deployed |
 | `cspSafeTextures.js` | GLTFLoader plugin: decodes bufferView-embedded images with `createImageBitmap(Blob)` instead of fetching a `blob:` URL (see §5.6) | ✅ deployed, pending browser check |
@@ -138,7 +151,8 @@ docs/ARCHITECTURE.md        this file
 | Jira issue property | `precedent.equipment` | `{ tags: [TAG] }`: equipment a work order touches, set by hand in the panel |
 | KVS | `decision:<siteId>:<id>` | Decision records (§5.2) |
 | KVS | `resolution:<issueKey>:<decisionId>` | `{ type: 'reaffirm', reason, by, at }` |
-| KVS | `graph:<siteId>` | The site's building context graph (≈88 KB): the `exb-graph.json` shape + `seededFrom`, `updatedAt`. Source of truth for the graph (§6.7); helpers in `src/graph.js`, `src/graphKeys.js` |
+| KVS | `graph:<siteId>` | The site's building context graph (≈88 KB for the sample): the `exb-graph.json` shape + `seededFrom`, `updatedAt`, `rev`; schema v2 adds optional `pos {x,y,z}` and `system` on nodes, `system` and `attrs` on links, and `as-entered` values (`enteredBy`, `enteredAt`). Edits are capped at 230 KB per site (KVS value limit 240 KB). Source of truth for the graph (§6.7); helpers in `src/graph.js`, `src/graphKeys.js` |
+| KVS | `graphlog:<siteId>` | Recent graph edits, newest first: `{ rev, at, by, label, count, inverse, undone? }`, ≤ 40 entries and ≤ 180 KB (oldest dropped; a single huge edit is kept without its inverse) |
 | KVS | `site:<id>` | Sites (now also `equipmentSource: { kind: 'assets', siteName }` and `approvers: [accountId]`) |
 
 ### 5.5 Permissions (scopes, egress, CSP)
@@ -336,6 +350,43 @@ The data lives in a generated seed file (like `exb.json`), written by a script f
 #### Left to the builder
 Exact Assets attribute types and reference configuration, the Forge SQL vs KVS choice for history, the portal UI layout, the deterministic rule table's exact thresholds, and the conversation-starter wording.
 
+### 6.8 Systems editor, what-if and incident replays (design 2026-11-13; editor and what-if built)
+
+#### Why
+A facilities manager onboarding a building has the knowledge (and usually a valve schedule or panel schedule in a spreadsheet) but no way to get it into the graph: until now the graph only came from the bundled seed. Once it's in, the payoff is the questions they ask every week: *what does this feed?*, *what goes down if this fails?*, *what do I close before work starts?*
+
+#### Goals
+- G1. Anyone on the site team can map pipes, valves, pumps, panels, breakers and their values for **any** building (register-backed, scan-only or empty), fast: paste a schedule, click-to-connect runs, add-next-in-line.
+- G2. One graph, several views: the 3D model (placement), a generated schematic, a table.
+- G3. Answers from the map: trace, failure impact (respecting redundancy and today's valve positions), isolation plans; tied to standing decisions.
+- G4. (Next) Incident reports: record a real outage as a replayable animation on the model, and share a read-only public page.
+
+#### Non-goals / anti-goals
+- Not CAD or BIM authoring: no geometry editing, only components, connections, placement points and values.
+- Never present entered or illustrative data as as-built: every value keeps its provenance; typed values are `as-entered` with who and when.
+- Isolation plans are **checks for a licensed professional**, not a lockout/tagout procedure (the UI says so on every plan).
+
+#### Model (built)
+- Vocabulary in `src/graphSchema.js`: 12 systems with overlay colours; 25 component types (electrical sources to dampers), each with attribute templates and units; isolation devices declare which position stops flow (valve/damper `closed`; breaker/disconnect/ATS `open`).
+- Connection types: `feeds` (power), `flowsTo` (pipe/duct, with size/material/length/insulation), `serves`, `protects`, `connects`, `controls`, `supportedBy`, `locatedOn`.
+- Edits (`src/graphEdit.js`): `addNode`, `updateNode` (name, set/unset values, `pos`, `system`), `removeNode` (with its links), `addLink`, `updateLink`, `removeLink`, plus internal `putNode`/`putLink` for inverses. Batches are all-or-nothing and return their inverse (undo). Limits: 3,000 components, 6,000 connections, 230 KB.
+- Import (`src/graphImport.js`): connection tables (From/To/System/Size/Material/Length/From type/To type) and component tables (Tag/Type/System + any column as a value). Matches existing components by name or by the tag in their id; guesses types from tags (V-, CHWP-, PNL-, CB-, MSB…). Never deletes.
+
+#### What-if (built, `src/graphImpact.js`)
+- **Supply** is a least fixpoint per supply kind: power (`feeds`), support (`supportedBy`, reversed), served (`serves`), and one kind per piped system (`flowsTo`). A component is supplied when, for every kind it receives, some upstream component of that kind is supplied. So a rooftop unit needs power *and* its curb, redundant pumps cover for each other, and a loop cut off from its source is correctly dead.
+- **Impact** = supplied before − supplied after the failure (devices already stopping flow stay as they are), with hop depth for the wave.
+- **Isolation plan** = the first isolation device on every upstream path (pipes and power), plus downstream valves on pipes (back-flow); a downstream merge fed from elsewhere with no valve first is reported, as is any upstream path with no device. Side effects = what else loses supply when those points are operated.
+
+#### G4 Incident reports and public replays (next; not built)
+1. **Record**: from a what-if or from scratch, an *incident* = `{ siteId, title, startedAt, endedAt, failed: [ids], timeline: [{ at, nodeId, event: 'failed'|'isolated'|'restored', note }], workOrders: [keys], photos: [keys] }` in KVS `incident:<siteId>:<id>`, with a snapshot of the affected subgraph so later edits don't rewrite history.
+2. **Replay**: the scene and schematic play the timeline (the failure wave already exists); scrub bar; export a short WebM via `MediaRecorder` on the canvas, for the video and for attaching to the Jira work order.
+3. **Share publicly**: a Forge **web trigger** serves a read-only HTML replay for an unguessable, revocable token (`share:<token>` → incident id, expiry). The page carries a static copy of the affected subgraph and the model (or a redacted massing) and no Jira data. Requires an explicit *Publish* by a site approver, a redaction step, expiry (default 30 days) and revoke. Spike first: web-trigger response size and CSP limits, and *Runs on Atlassian* eligibility.
+4. Work order panel: *"this work order shuts down RTU-1 → North tower levels 2–5 lose cooling"*, from the same impact engine.
+
+#### Left to the builder
+Exact glyph art, label density rules, and whether `graphlog` moves to Forge SQL when sites outgrow KVS.
+
+
 ## 7. Spikes (each must pass on the dev site before we build on it)
 | # | Spike | Status |
 |---|---|---|
@@ -383,3 +434,6 @@ Exact Assets attribute types and reference configuration, the Forge SQL vs KVS c
 | 2026-11-11 | Expand to a building context graph + scoping agent + contractor closeout (§6.7) | Building managers can't scope jobs; contractors need connections (feeders, breakers, structure), not just an equipment list |
 | 2026-11-11 | Invent an **illustrative** electrical/mechanical design for the sample building, derived from its real ratings and always labelled | The partner's connection data hasn't arrived; the demo needs a graph; we must never present invented data as as-built |
 | 2026-11-11 | Contractor closeouts change the graph only after facilities review | Trust: the graph is what the next quote relies on |
+| 2026-11-13 | Systems editor in the app (§6.8); **Systems** becomes the site page's first tab | Onboarding a real building needs authoring, not a seed; the 3D/schematic what-if is the most visual answer to "what's already been decided and what does it affect" |
+| 2026-11-13 | Typed values get provenance `as-entered` (purple *Entered* chip) | Keeps the as-built / illustrative / as-installed promise when people type data in |
+| 2026-11-13 | The systems workspace is a dark studio surface in both Jira themes | System colours must read as light on the 3D canvas; tools like this are dark by convention. The rest of the app follows ADS tokens |

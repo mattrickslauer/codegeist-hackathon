@@ -22,6 +22,12 @@ export const api = {
   loadSampleBuilding: (space) => invoke('loadSampleBuilding', { space }),
   getSiteEquipment: (siteId) => invoke('getSiteEquipment', { siteId }),
   getEquipmentContext: (siteId, tag) => invoke('getEquipmentContext', { siteId, tag }),
+  // Systems editor
+  getSiteGraph: (siteId) => invoke('getSiteGraph', { siteId }),
+  startSiteGraph: (siteId) => invoke('startSiteGraph', { siteId }),
+  editSiteGraph: (siteId, rev, ops, label) => invoke('editSiteGraph', { siteId, rev, ops, label }),
+  undoSiteGraph: (siteId, rev) => invoke('undoSiteGraph', { siteId, rev }),
+  graphHistory: (siteId) => invoke('graphHistory', { siteId }),
   // Decisions
   listDecisions: (siteId) => invoke('listDecisions', { siteId }),
   createDecision: (input) => invoke('createDecision', input),

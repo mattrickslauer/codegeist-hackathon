@@ -34,6 +34,8 @@ The app follows the Atlassian Design System tokens (so it matches Jira light and
 | As-built | success lozenge | Facts from the record drawings |
 | Illustrative | default (grey) lozenge | Sample data written for the demo |
 | As-installed | information lozenge | Facts from an accepted contractor closeout |
+| Entered | discovery (purple) lozenge | Values typed in or pasted by the site team, with who and when |
+| Systems (3D / schematic) | `forge/src/graphSchema.js` `SYSTEMS` | One colour per building system (power yellow, chilled water blue, heating hot water orange…); failure red, isolation amber |
 
 ## Mark
 

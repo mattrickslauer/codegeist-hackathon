@@ -69,6 +69,9 @@ Honest as of this commit:
 | Equipment in Jira Assets | ✅ import verified. **Running it as part of setup is in progress** (until then the app uses the bundled equipment data) |
 | LiDAR scan upload as a site's 3D model | ✅ working |
 | Building context graph: each unit's power chain (panel, breaker, wire size, disconnect), what it serves and what holds it up, every fact labelled as-built or **illustrative** | ✅ working on the sample building. The electrical and structural parts are an **illustrative** design derived from the real equipment ratings (see `samples/bim/exb/README.md`) |
+| **Systems editor**: map pipes, valves, pumps, panels and breakers for any building by pasting a schedule, clicking to connect, or adding the next valve in a run; 3D, schematic and table views; every typed value labelled *Entered* with who and when; undo and history | ✅ built and tested locally, **not yet deployed to the dev site** |
+| **What if?**: trace a system, see what loses supply if something fails (redundancy and closed valves respected) as an animated wave on the model, and get an isolation plan (which valves or breakers to operate), with the standing decisions affected | ✅ built and tested locally, not yet deployed. Isolation plans are checks for a licensed professional, not a lockout/tagout procedure |
+| Incident reports: replay a real outage on the model and share a read-only page | ⏳ designed (`docs/ARCHITECTURE.md` §6.8), not built |
 | Public install link | ⏳ coming before submission |
 | Rovo agent "Precedent" + `get-equipment-context` action, also an MCP tool ("what feeds RTU-2?") | ✅ deployed to development, being verified |
 | Scoping briefs ("what does replacing RTU-2 involve?") and contractor closeout with photos in the customer portal | ⏳ in progress |
