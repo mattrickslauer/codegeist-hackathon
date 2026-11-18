@@ -3,6 +3,9 @@
 /** KVS key holding a site's whole building graph. */
 export const graphKey = (siteId) => `graph:${siteId}`;
 
+/** KVS key holding a site's recent graph edits (newest first, with inverses for undo). */
+export const graphLogKey = (siteId) => `graphlog:${siteId}`;
+
 /**
  * Is this site the bundled sample building? Newer sites record the bundled model; sites created before models
  * existed are recognised by their Assets equipment source (same rule as SitePage.modelSourceFor).

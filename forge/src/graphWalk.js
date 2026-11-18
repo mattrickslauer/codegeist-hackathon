@@ -97,7 +97,7 @@ export function context(ix, tag) {
   }
 
   const involved = [equipment, ...chain, ...serves, ...connects, ...support];
-  const provenanceSummary = { asBuilt: 0, illustrative: 0, asInstalled: 0 };
+  const provenanceSummary = { asBuilt: 0, illustrative: 0, asInstalled: 0, asEntered: 0 };
   const seen = new Set();
   for (const n of involved) {
     if (seen.has(n.id)) continue;
@@ -106,6 +106,7 @@ export function context(ix, tag) {
       if (a.provenance === 'as-built') provenanceSummary.asBuilt += 1;
       else if (a.provenance === 'illustrative') provenanceSummary.illustrative += 1;
       else if (a.provenance === 'as-installed') provenanceSummary.asInstalled += 1;
+      else if (a.provenance === 'as-entered') provenanceSummary.asEntered += 1;
     }
   }
 

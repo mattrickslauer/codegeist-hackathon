@@ -12,10 +12,10 @@ import { acknowledgeForIssue, checkWorkOrder, reaffirm, setWorkOrderEquipment } 
 import { loadSampleBuilding } from './samples';
 import { spikeAssetsRefs } from './spikes/assetsRefs';
 import { getEquipmentContext } from './actions';
-import { deleteGraph, equipmentContextForSite } from './graph';
+import { deleteGraph, editSiteGraph, equipmentContextForSite, getSiteGraph, graphHistory, startSiteGraph, undoSiteGraph } from './graph';
 
 /** Bumped by hand when the backend contract changes; the UI shows it so we can confirm which build is live. */
-export const BACKEND_VERSION = '0.4.0';
+export const BACKEND_VERSION = '0.5.0';
 
 /** Throws unless the signed-in user can see this work order (the check itself runs asApp). */
 async function assertCanView(issueKey) {
@@ -134,6 +134,13 @@ resolver.define('spikeCleanSite', async ({ context }) => {
 
 // Building context graph: one piece of equipment's power chain, served areas, connections and support.
 resolver.define('getEquipmentContext', ({ payload }) => equipmentContextForSite(payload?.siteId, payload?.tag));
+
+// Systems editor (§6.8): the whole site graph, edits with undo, history. The editor's account comes from the context.
+resolver.define('getSiteGraph', ({ payload }) => getSiteGraph(payload?.siteId));
+resolver.define('startSiteGraph', ({ payload, context }) => startSiteGraph(payload?.siteId, context.accountId));
+resolver.define('editSiteGraph', ({ payload, context }) => editSiteGraph(payload ?? {}, context.accountId));
+resolver.define('undoSiteGraph', ({ payload, context }) => undoSiteGraph(payload ?? {}, context.accountId));
+resolver.define('graphHistory', ({ payload }) => graphHistory(payload?.siteId));
 
 // Site equipment (live from Assets, seed fallback).
 resolver.define('getSiteEquipment', async ({ payload }) => {
