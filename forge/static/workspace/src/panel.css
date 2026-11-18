@@ -1,0 +1,34 @@
+/* The Walkdown panel on a work order (jira:issuePanel). ADS tokens so it follows Jira light/dark. */
+.wp { padding: 4px 2px 8px; }
+.wp-verdict { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.wp-verdict-blocked { background: var(--ds-background-danger, #ffeceb); border: 1px solid var(--ds-border-danger, #e2483d); }
+.wp-verdict-clear { background: var(--ds-background-success, #dcfff1); border: 1px solid var(--ds-border-success, #22a06b); }
+.wp-verdict-none { background: var(--ds-background-neutral, #091e420f); display: block; }
+.wp-verdict-icon { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; }
+.wp-verdict-blocked .wp-verdict-icon { background: var(--ds-background-danger-bold, #c9372c); }
+.wp-verdict-clear .wp-verdict-icon { background: var(--ds-background-success-bold, #1f845a); }
+.wp-verdict-title { font-weight: 700; font-size: 15px; line-height: 20px; }
+.wp-verdict-blocked .wp-verdict-title { color: var(--ds-text-danger, #ae2e24); }
+.wp-verdict-clear .wp-verdict-title { color: var(--ds-text-success, #216e4e); }
+.wp-verdict-sub { color: var(--ds-text-subtle, #44546f); margin-top: 2px; }
+.wp-checked { font-size: 12px; color: var(--ds-text-subtlest, #626f86); white-space: nowrap; }
+
+.wp-equipment { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.wp-tag { font: inherit; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; border: 0; cursor: pointer; background: var(--ds-background-information, #e9f2ff); color: var(--ds-text-information, #0055cc); }
+.wp-tag:hover { background: var(--ds-background-information-hovered, #cce0ff); }
+
+.wp-conflict { border: 1px solid var(--ds-border, #091e4224); border-radius: 12px; padding: 14px; margin-bottom: 12px; background: var(--ds-surface-raised, #fff); }
+.wp-decision { border-left: 4px solid var(--ds-border-danger, #e2483d); padding: 2px 0 2px 12px; margin-bottom: 12px; }
+.wp-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ds-text-subtlest, #626f86); }
+.wp-decision blockquote { margin: 4px 0; font-size: 16px; font-weight: 600; line-height: 22px; }
+.wp-why { color: var(--ds-text-subtle, #44546f); }
+.wp-match { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 14px; }
+.wp-match mark { background: var(--ds-background-warning, #fff7d6); color: var(--ds-text-warning, #a54800); padding: 0 4px; border-radius: 3px; font-weight: 700; }
+.wp-choose { font-weight: 700; margin-bottom: 8px; }
+.wp-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.wp-choice { display: flex; flex-direction: column; gap: 4px; text-align: left; font: inherit; padding: 10px 12px; border-radius: 10px; cursor: pointer; background: var(--ds-background-neutral-subtle, transparent); border: 1px solid var(--ds-border, #091e4224); color: inherit; }
+.wp-choice:hover { background: var(--ds-background-neutral-subtle-hovered, #091e420f); }
+.wp-choice span { font-size: 12px; line-height: 16px; color: var(--ds-text-subtle, #44546f); }
+.wp-choice-on { border-color: var(--ds-border-selected, #0c66e4); box-shadow: inset 0 0 0 1px var(--ds-border-selected, #0c66e4); background: var(--ds-background-selected, #e9f2ff); }
+.wp-form { margin-top: 8px; }
+.wp-ack { border: 1px solid var(--ds-border, #091e4224); border-radius: 12px; padding: 12px 14px; margin-bottom: 12px; }

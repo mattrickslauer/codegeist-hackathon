@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { api, blockedWorkOrdersJql, countJql, listSpaces, openWorkOrdersJql } from './api.js';
 import { navigate } from './router.js';
-import { Banner, Button, Dialog, Lozenge, SpaceChip, Spinner, formatDate } from './ui.jsx';
+import { Banner, Button, Dialog, SpaceChip, Spinner } from './ui.jsx';
+import './site.css';
+
+/** A real render of the sample building's Building view, shipped with the app (regenerate from the mock preview). */
+const SAMPLE_PREVIEW = './models/exb-preview.jpg';
 
 /** Prefer a Facilities-style service space for the sample site; otherwise the first service space; otherwise any. */
 function pickSampleSpace(spaces) {
@@ -15,7 +19,7 @@ function pickSampleSpace(spaces) {
 function useSpaceCounts(spaceKey) {
   const [counts, setCounts] = useState({ open: undefined, blocked: undefined });
   useEffect(() => {
-    if (!spaceKey) return;
+    if (!spaceKey) return undefined;
     let cancelled = false;
     Promise.all([countJql(openWorkOrdersJql(spaceKey)), countJql(blockedWorkOrdersJql(spaceKey))])
       .then(([open, blocked]) => !cancelled && setCounts({ open, blocked }));
@@ -24,26 +28,37 @@ function useSpaceCounts(spaceKey) {
   return counts;
 }
 
+const isSample = (site) => site.model?.path === 'models/exb.glb' || site.equipmentSource?.siteName === 'Example Office Building';
+const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+
+function SiteArt({ site, blocked }) {
+  return (
+    <div className="site-art">
+      {isSample(site) ? <img src={SAMPLE_PREVIEW} alt="" /> : <><div className="site-art-grid" /><div className="site-art-initials">{initials(site.name)}</div></>}
+      <div className="site-badges">
+        {blocked > 0 && <span className="site-badge site-badge-danger">{blocked} blocked</span>}
+        {blocked === 0 && <span className="site-badge site-badge-ok">All clear</span>}
+        {site.scans?.length > 0 && <span className="site-badge">{site.scans.length} scan{site.scans.length === 1 ? '' : 's'}</span>}
+      </div>
+    </div>
+  );
+}
+
 function SiteCard({ site, spacesByKey }) {
   const space = site.space ? { ...site.space, avatarUrl: spacesByKey[site.space.key]?.avatarUrl } : null;
   const counts = useSpaceCounts(site.space?.key);
-  const latest = site.scans?.at(-1);
   const show = (n) => (n === undefined ? '…' : n === null ? '–' : n);
   return (
-    <button type="button" className="card card-link" onClick={() => navigate(`/sites/${encodeURIComponent(site.id)}`)}>
-      <div className="row" style={{ justifyContent: 'space-between' }}>
-        <h3 className="card-title">{site.name}</h3>
-        {counts.blocked > 0 && <Lozenge tone="bold-danger">{counts.blocked} blocked</Lozenge>}
-      </div>
-      {site.description && <p className="subtle" style={{ margin: '0 0 12px' }}>{site.description}</p>}
-      <SpaceChip space={space} />
-      <div className="stats">
-        <div><div className="stat-value">{site.scans?.length ?? 0}</div><div className="subtlest">scans</div></div>
-        <div><div className="stat-value">{show(counts.open)}</div><div className="subtlest">open work orders</div></div>
-        <div><div className="stat-value">{show(counts.blocked)}</div><div className="subtlest">blocked</div></div>
-      </div>
-      <div className="subtlest" style={{ marginTop: 12 }}>
-        {latest ? `Latest scan ${formatDate(latest.uploadedAt)}` : 'No scan yet'}
+    <button type="button" className="site-card" onClick={() => navigate(`/sites/${encodeURIComponent(site.id)}`)}>
+      <SiteArt site={site} blocked={counts.blocked} />
+      <div className="site-body">
+        <div className="site-name">{site.name}</div>
+        {site.description && <div className="subtle">{site.description}</div>}
+        <SpaceChip space={space} />
+        <div className="site-meta">
+          <span><strong>{show(counts.open)}</strong> open work orders</span>
+          <span><strong>{show(counts.blocked)}</strong> blocked</span>
+        </div>
       </div>
     </button>
   );
@@ -95,7 +110,41 @@ function NewSiteDialog({ spaces, onClose, onCreated }) {
         </select>
         <span className="subtlest">Walkdown checks work orders in this space against the site's decisions.</span>
       </div>
+      <p className="subtle" style={{ marginBottom: 0 }}>Next, you can map its equipment and systems on the Building tab, upload a LiDAR scan in Settings, and record decisions.</p>
     </Dialog>
+  );
+}
+
+const STEPS = [
+  ['#0C66E4', 'See the building', 'Every unit on the 3D model, what feeds it, what it serves and what holds it up, each fact labelled with where it came from.'],
+  ['#C9372C', 'Every work order is checked', 'Record what was decided about a unit and why. A work order that contradicts it is flagged and blocked until someone resolves it.'],
+  ['#B65C02', 'Ask before anyone climbs the roof', '“What if this panel trips?” “What do I close to isolate this unit?” See what goes dark, and which standing decisions it touches.'],
+];
+
+function FirstRun({ loading, onLoadSample, onCreate }) {
+  return (
+    <div className="hero">
+      <div>
+        <h2>The pre-quote walkdown, before anyone climbs the roof</h2>
+        <p className="subtle" style={{ fontSize: 15, lineHeight: '22px', margin: 0 }}>
+          Walkdown keeps what a technician needs to know about a building's equipment next to the Jira work orders that touch it.
+        </p>
+        <ol className="hero-steps">
+          {STEPS.map(([colour, title, text], i) => (
+            <li key={title}>
+              <span className="n" style={{ background: colour }}>{i + 1}</span>
+              <span><strong>{title}</strong><br /><span className="subtle">{text}</span></span>
+            </li>
+          ))}
+        </ol>
+        <div className="row">
+          <Button variant="primary" onClick={onLoadSample} disabled={loading}>{loading ? 'Loading the sample building…' : 'Explore the sample building'}</Button>
+          <Button onClick={onCreate}>Set up your own site</Button>
+        </div>
+        <p className="subtlest" style={{ marginTop: 10 }}>The sample is a real, anonymised five-storey office building with 28 pieces of rooftop plant. Its electrical and structural details are illustrative and labelled as such.</p>
+      </div>
+      <div className="hero-art"><img src={SAMPLE_PREVIEW} alt="The sample building in Walkdown: equipment coloured by status, power runs glowing" /></div>
+    </div>
   );
 }
 
@@ -113,13 +162,11 @@ export default function SitesPage() {
 
   const spacesByKey = Object.fromEntries(spaces.map((s) => [s.key, s]));
 
-  /** kind: 'building' (EXB office building + decisions) or 'scan' (North Plant Room LiDAR scan). */
-  async function loadSample(kind = 'building') {
+  async function loadSample() {
     setLoadingSample(true);
     setError(null);
     try {
-      const space = pickSampleSpace(spaces);
-      const { site } = kind === 'building' ? await api.loadSampleBuilding(space) : await api.loadSampleSite(space);
+      const { site } = await api.loadSampleBuilding(pickSampleSpace(spaces));
       navigate(`/sites/${encodeURIComponent(site.id)}`);
     } catch (err) {
       setError(String(err?.message ?? err));
@@ -128,15 +175,15 @@ export default function SitesPage() {
   }
 
   return (
-    <div className="page">
+    <div className="page" style={{ maxWidth: 1400 }}>
       <div className="page-header">
         <div>
           <h1 className="page-title">Sites</h1>
-          <div className="subtle">Buildings and plants, the decisions made about their equipment, and the work orders those decisions guard.</div>
+          <div className="subtle">Buildings and plants, what's decided about their equipment, and the work orders those decisions guard.</div>
         </div>
         {sites?.length > 0 && (
           <div className="row">
-            <Button onClick={() => loadSample('building')} disabled={loadingSample}>{loadingSample ? 'Loading…' : 'Load sample building'}</Button>
+            {!sites.some(isSample) && <Button onClick={loadSample} disabled={loadingSample}>{loadingSample ? 'Loading…' : 'Add the sample building'}</Button>}
             <Button variant="primary" onClick={() => setCreating(true)}>New site</Button>
           </div>
         )}
@@ -144,24 +191,9 @@ export default function SitesPage() {
 
       {error && <Banner tone="error">{error}</Banner>}
       {sites === null && !error && <Spinner label="Loading sites…" />}
-
-      {sites?.length === 0 && (
-        <div className="empty">
-          <h2>Every decision about a building, enforced on every work order</h2>
-          <p className="subtle" style={{ maxWidth: 560, margin: '0 auto 16px' }}>
-            Record what was decided about a piece of equipment, and why. When a work order in the linked Jira space contradicts it,
-            Walkdown blocks it from starting until someone reaffirms, supersedes or withdraws it.
-            Start with the sample: a real five-storey office building with its rooftop plant.
-          </p>
-          <div className="row" style={{ justifyContent: 'center' }}>
-            <Button variant="primary" onClick={() => loadSample('building')} disabled={loadingSample}>{loadingSample ? 'Loading…' : 'Load sample building'}</Button>
-            <Button onClick={() => setCreating(true)}>Create your own site</Button>
-          </div>
-        </div>
-      )}
-
+      {sites?.length === 0 && <FirstRun loading={loadingSample} onLoadSample={loadSample} onCreate={() => setCreating(true)} />}
       {sites?.length > 0 && (
-        <div className="grid">
+        <div className="site-grid">
           {sites.map((site) => <SiteCard key={site.id} site={site} spacesByKey={spacesByKey} />)}
         </div>
       )}

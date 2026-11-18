@@ -13,7 +13,7 @@ export function ProvenanceTag({ fact }) {
 const n = (v) => (typeof v === 'number' ? v.toLocaleString() : v);
 
 /** The one fact that matters most for each node type, as [text, fact]. */
-function keyFact(node) {
+export function keyFact(node) {
   const a = node.attrs;
   switch (node.type) {
     case 'Switchboard': return [`${a.voltage?.value}, ${n(a.busA?.value)} A bus`, a.busA];

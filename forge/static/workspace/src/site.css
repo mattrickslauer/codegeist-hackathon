@@ -1,0 +1,37 @@
+/* Site header: the numbers that matter, big enough to read at a glance. ADS tokens, so Jira light/dark both work. */
+.hstats { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.hstat { min-width: 92px; padding: 10px 14px; border-radius: 10px; background: var(--ds-background-neutral, #091e420f); display: flex; flex-direction: column; }
+.hstat-n { font-size: 24px; font-weight: 700; line-height: 28px; }
+.hstat-l { font-size: 12px; color: var(--ds-text-subtle, #44546f); }
+.hstat-danger { background: var(--ds-background-danger, #ffeceb); }
+.hstat-danger .hstat-n { color: var(--ds-text-danger, #ae2e24); }
+.hstat-discovery { background: var(--ds-background-discovery, #f3f0ff); }
+.hstat-discovery .hstat-n { color: var(--ds-text-discovery, #5e4db2); }
+.tab-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ds-icon-discovery, #8270db); margin-left: 6px; vertical-align: 2px; }
+
+/* Sites list: picture-led cards */
+.site-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.site-card { display: flex; flex-direction: column; text-align: left; padding: 0; overflow: hidden; border-radius: 14px; border: 1px solid var(--ds-border, #091e4224); background: var(--ds-surface-raised, #fff); box-shadow: var(--ds-shadow-raised, 0 1px 1px #091e4240, 0 0 1px #091e424f); cursor: pointer; font: inherit; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
+.site-card:hover { transform: translateY(-2px); box-shadow: var(--ds-shadow-overlay, 0 8px 24px #091e4233); }
+.site-art { position: relative; height: 180px; background: radial-gradient(600px 220px at 70% -20%, #1f3a63 0%, #0d1117 70%); overflow: hidden; }
+.site-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.site-art-initials { position: absolute; inset: 0; display: grid; place-items: center; font-size: 48px; font-weight: 800; color: rgba(230, 237, 243, 0.85); letter-spacing: -0.02em; }
+.site-art-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+.site-badges { position: absolute; left: 12px; top: 12px; display: flex; gap: 6px; }
+.site-badge { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; color: #fff; background: rgba(13, 17, 23, 0.72); backdrop-filter: blur(6px); }
+.site-badge-danger { background: #c9372c; }
+.site-badge-ok { background: rgba(31, 132, 90, 0.9); }
+.site-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+.site-name { font-size: 18px; font-weight: 700; }
+.site-meta { display: flex; gap: 16px; font-size: 13px; color: var(--ds-text-subtle, #44546f); }
+.site-meta strong { color: var(--ds-text, #172b4d); }
+
+/* First-run hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: center; padding: 32px; border-radius: 18px; background: var(--ds-surface-raised, #fff); border: 1px solid var(--ds-border, #091e4224); }
+.hero h2 { font-size: 28px; line-height: 34px; margin: 0 0 12px; letter-spacing: -0.01em; }
+.hero-art { border-radius: 14px; overflow: hidden; background: #0d1117; aspect-ratio: 16 / 10; }
+.hero-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-steps { list-style: none; margin: 20px 0 24px; padding: 0; display: grid; gap: 12px; }
+.hero-steps li { display: flex; gap: 12px; align-items: flex-start; }
+.hero-steps .n { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; color: #fff; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }

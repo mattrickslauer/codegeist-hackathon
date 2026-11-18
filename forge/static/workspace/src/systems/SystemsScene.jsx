@@ -9,11 +9,15 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { cspSafeEmbeddedTextures } from '../cspSafeTextures.js';
 import { NODE_TYPES, blocksFlow, systemColour, systemOfLink, systemOfNode } from '../../../../src/graphSchema.js';
 import { scenePositions } from './layout.js';
+import { STATUS_COLOURS } from './statusColours.js';
 
 const RED = new THREE.Color('#F15B50');
 const AMBER = new THREE.Color('#FBC828');
 const WHITE = new THREE.Color('#ffffff');
 const GREEN = new THREE.Color('#4BCE97');
+/** Site status colours (Building view): what needs attention, on the model and on the glyphs. */
+const STATUS = Object.fromEntries(Object.entries(STATUS_COLOURS).map(([k, v]) => [k, new THREE.Color(v)]));
+const STATUS_LABEL = { blocked: 'blocked', approval: 'awaiting approval', capacity: 'near capacity', decision: 'standing decision' };
 const WAVE_STEP = 0.32; // seconds per hop of the failure wave
 
 const linkKey = (l) => `${l.from}|${l.type}|${l.to}`;
@@ -42,6 +46,9 @@ function geometries(r) {
  * trace ({ids:Set, links:Set}), impact ({ lost: Map(id→depth), failed:Set, startedAt }), isolation (Set of ids),
  * mode ('select'|'connect'|'place'), connectFrom (id), xray (bool), labels ('all'|'smart'),
  * onSelect(sel|null), onPlace(point), onReady({ tags }), onError(err), focusId (fly to it when it changes).
+ * status (Map nodeId → 'blocked'|'approval'|'capacity'|'decision') and tagStatus (Map tag → same) colour the glyphs and
+ * the equipment in the model; homeNonce flies back to the opening view; onSurface(point) reports clicks on the model
+ * surface (used to pin a decision to a spot on a scan).
  */
 export default function SystemsScene(props) {
   const mountRef = useRef(null);
@@ -135,6 +142,7 @@ export default function SystemsScene(props) {
         if (point) p.onPlace?.({ x: point.x, y: point.y, z: point.z });
         return;
       }
+      if ((hit.kind === 'surface' || hit.kind === 'empty') && hit.point && p.onSurface) p.onSurface({ x: hit.point.x, y: hit.point.y, z: hit.point.z });
       if (hit.kind === 'node') p.onSelect?.({ kind: 'node', id: hit.id });
       else if (hit.kind === 'link') p.onSelect?.({ kind: 'link', key: hit.key });
       else if (hit.kind === 'tag') {
@@ -230,6 +238,16 @@ export default function SystemsScene(props) {
           }
           const box = new THREE.Box3().setFromObject(state.model);
           state.bounds = { min: box.min.clone(), max: box.max.clone() };
+          // Frame on the building that holds the equipment, not on everything in the file (the sample's IFC also has
+          // a large, low neighbouring structure that otherwise pushes the building into a corner).
+          if (perTag.size >= 2) {
+            const eq = new THREE.Box3();
+            for (const b of perTag.values()) eq.union(b);
+            const pad = Math.max(...eq.getSize(new THREE.Vector3()).toArray()) * 0.35;
+            eq.expandByScalar(pad);
+            eq.min.y = box.min.y;
+            state.frame = eq;
+          }
         } else {
           state.bounds = null;
         }
@@ -243,8 +261,11 @@ export default function SystemsScene(props) {
         grid.material.opacity = 0.6;
         scene.add(grid);
         state.grid = grid;
-        const centre = state.bounds ? new THREE.Vector3().addVectors(state.bounds.min, state.bounds.max).multiplyScalar(0.5) : new THREE.Vector3(0, 6, 0);
-        camera.position.copy(centre).add(new THREE.Vector3(size * 0.85, size * 0.7, size * 1.05));
+        const frameBox = state.frame ?? (state.bounds ? new THREE.Box3(state.bounds.min, state.bounds.max) : null);
+        const centre = frameBox ? frameBox.getCenter(new THREE.Vector3()) : new THREE.Vector3(0, 6, 0);
+        const fsize = frameBox ? Math.max(...frameBox.getSize(new THREE.Vector3()).toArray()) : size;
+        camera.position.copy(centre).add(new THREE.Vector3(fsize * 0.8, fsize * 0.65, fsize * 1.0));
+        state.home = { target: centre.clone(), camera: camera.position.clone() };
         camera.near = size / 800;
         camera.far = size * 30;
         camera.updateProjectionMatrix();
@@ -253,6 +274,7 @@ export default function SystemsScene(props) {
         state.ready = true;
         live.current.rebuild?.();
         applyXray(state, live.current.props.xray);
+        applyModelStatus(state, live.current.props.tagStatus);
         live.current.props.onReady?.({ tags: [...state.tagCentres.keys()] });
       } catch (err) {
         live.current.props.onError?.(err);
@@ -289,7 +311,14 @@ export default function SystemsScene(props) {
     rebuild();
   }, [props.graph]);
 
-  useEffect(() => { if (s.current?.ready) applyXray(s.current, props.xray); }, [props.xray]);
+  useEffect(() => { if (s.current?.ready) { applyXray(s.current, props.xray); applyModelStatus(s.current, props.tagStatus); } }, [props.xray, props.tagStatus]);
+
+  // Back to the opening view.
+  useEffect(() => {
+    const state = s.current;
+    if (!state?.ready || !state.home || !props.homeNonce) return;
+    state.flyTo = { k: 0, fromT: state.controls.target.clone(), toT: state.home.target.clone(), fromC: state.camera.position.clone(), toC: state.home.camera.clone() };
+  }, [props.homeNonce]);
 
   // Fly to a component when asked.
   useEffect(() => {
@@ -323,6 +352,22 @@ function applyXray(state, on) {
       m.mat.opacity = m.opacity;
       m.mat.depthWrite = true;
       if (m.color) m.mat.color.copy(m.color);
+    }
+    m.mat.needsUpdate = true;
+  }
+}
+
+/** Equipment in the model takes its site status colour (blocked red, decision blue…); others keep their own. */
+function applyModelStatus(state, tagStatus) {
+  for (const m of state.modelMats) {
+    if (!m.tag) continue;
+    const st = tagStatus?.get?.(m.tag);
+    if (st) {
+      m.mat.color?.copy(STATUS[st]);
+      if (m.mat.emissive) { m.mat.emissive.copy(STATUS[st]); m.mat.emissiveIntensity = st === 'decision' ? 0.35 : 0.6; }
+    } else {
+      if (m.color) m.mat.color.copy(m.color);
+      if (m.mat.emissive) { m.mat.emissive.set('#000000'); m.mat.emissiveIntensity = 1; }
     }
     m.mat.needsUpdate = true;
   }
@@ -437,6 +482,12 @@ function animateOverlay(state, p, t) {
     const inTrace = p.trace?.ids.has(id);
     const isolating = p.isolation?.has(id);
     if (mesh.userData.blocks) { colour = AMBER; }
+    const st = p.status?.get?.(id);
+    if (st && !dim) {
+      colour = STATUS[st];
+      intensity = st === 'decision' ? 0.8 : 1.1 + Math.sin(t * 3.2) * 0.35;
+      if (st !== 'decision') { ringOpacity = 0.55 + Math.sin(t * 3.2) * 0.25; ringColour = STATUS[st]; scale = 1.2; }
+    }
     if (dim && !inTrace && !isolating && !(impact && impact.lost.has(id))) { intensity = 0.08; mat.opacity = 0.25; } else mat.opacity = mesh.userData.floating ? 0.9 : 1;
     if (inTrace) intensity = 0.9;
     if (isolating) {
@@ -516,6 +567,9 @@ function updateLabels(state, p, el, camera, renderer, tmp) {
   const want = new Map();
   const add = (id, cls) => { if (state.anchors.has(id)) want.set(id, cls); };
   if (p.labels === 'all') for (const id of state.nodeMeshes.keys()) add(id, 'sx-label');
+  if (p.status && !p.impact && !p.isolation && !p.trace) {
+    for (const [id, st] of p.status) if (st !== 'decision') add(id, `sx-label sx-label-status sx-label-${st}`);
+  }
   if (p.impact) for (const id of p.impact.failed) add(id, 'sx-label sx-label-red');
   if (p.isolation) for (const id of p.isolation) add(id, 'sx-label sx-label-amber');
   if (p.selected?.kind === 'node') add(p.selected.id, 'sx-label sx-label-strong');
@@ -534,7 +588,8 @@ function updateLabels(state, p, el, camera, renderer, tmp) {
     }
     existing.delete(id);
     const node = state.nodeMeshes.get(id)?.userData.node;
-    const text = node ? node.name : id;
+    const st = cls.includes('sx-label-status') ? p.status?.get?.(id) : null;
+    const text = node ? (st ? `${node.name} · ${STATUS_LABEL[st]}` : node.name) : id;
     if (div.textContent !== text) div.textContent = text;
     if (div.className !== cls) div.className = cls;
     const hidden = tmp.z > 1;

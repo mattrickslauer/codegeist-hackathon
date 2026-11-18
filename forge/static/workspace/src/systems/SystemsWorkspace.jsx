@@ -9,6 +9,8 @@ import { LinkInspector, NodeInspector, SystemDot } from './Inspector.jsx';
 import AddPanel, { defaultLinkType } from './AddPanel.jsx';
 import ImportDialog from './ImportDialog.jsx';
 import TableView from './TableView.jsx';
+import { siteAttention } from '../../../../src/graphAttention.js';
+import { AttentionPanel, Guide, NodeCard, StatusLegend } from './ExplorePanels.jsx';
 import './systems.css';
 
 // three.js + bloom is large: load the 3D scene only when shown.
@@ -27,6 +29,7 @@ function Icon({ name }) {
     undo: 'M7 5L3 9l4 4M3 9h9a5 5 0 0 1 0 10h-2',
     paste: 'M7 3h6v3H7zM5 5h-1v13h12V5h-1',
     history: 'M10 4a6 6 0 1 1-6 6M4 4v4h4M10 7v3l2 2',
+    home: 'M3 10l7-6 7 6M5 8.5V16h10V8.5',
     search: 'M9 3a6 6 0 1 1 0 12A6 6 0 0 1 9 3zm4.5 10.5L18 18',
   }[name];
   return <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>;
@@ -94,10 +97,17 @@ function StartPanel({ site, sg }) {
   );
 }
 
-/** The systems workspace: 3D + schematic + table over one graph, with the editor overlaid. */
-export default function SystemsWorkspace({ site, source, decisions = [], initialTag }) {
+/**
+ * The Building view: 3D + schematic + table over one graph. Opens in **explore** mode (what needs attention, a card
+ * per unit, what-if and isolation); **Edit systems** switches on the editor tools.
+ */
+export default function SystemsWorkspace({ site, source, decisions = [], orders = [], initialTag, onRecordDecision, onOpenDecisions }) {
   const sg = useSiteGraph(site.id);
   const graph = sg.graph;
+  const [editing, setEditing] = useState(false);
+  const [systemsOpen, setSystemsOpen] = useState(false);
+  const [homeNonce, setHomeNonce] = useState(0);
+  const [pin, setPin] = useState(null);
   const [view, setView] = useState('3d');
   const [mode, setMode] = useState('select');
   const [selected, setSelected] = useState(null);
@@ -131,6 +141,15 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
   const visibleSystems = useMemo(() => (hidden.size ? new Set(Object.keys(SYSTEMS).filter((k) => !hidden.has(k))) : null), [hidden]);
   const visible = useMemo(() => (graph ? visibleSubgraph(graph, visibleSystems) : { nodes: [], links: [] }), [graph, visibleSystems]);
   const progress = useMemo(() => (graph ? progressOf(graph) : null), [graph]);
+  const attention = useMemo(() => siteAttention({ graph, decisions, orders }), [graph, decisions, orders]);
+  const statusCounts = useMemo(() => {
+    const c = {};
+    for (const st of attention.tagStatus.values()) c[st] = (c[st] ?? 0) + 1;
+    for (const st of attention.nodeStatus.values()) if (st === 'capacity') c.capacity = (c.capacity ?? 0) + 1;
+    return c;
+  }, [attention]);
+  const standingCount = decisions.filter((d) => d.status === 'standing').length;
+  const scanSource = Boolean(source?.blob);
 
   const selectedNode = selected?.kind === 'node' ? nodes.get(selected.id) : null;
   const selectedLink = selected?.kind === 'link' ? links.get(selected.key) : null;
@@ -193,7 +212,14 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
     if (sel?.kind === 'node' && fly) setFocus({ id: sel.id, nonce: Date.now() });
   }, [mode, connectFrom, nodes, drawingSystem, edit]);
 
-  const startConnect = (fromId) => { setMode('connect'); setConnectFrom(fromId ?? null); setAdd(null); };
+  const focusNode = useCallback((id) => { setSelected({ kind: 'node', id }); setFocus({ id, nonce: Date.now() }); setWhatif(null); }, []);
+  const focusTag = useCallback((tag) => {
+    const n = graph?.nodes.find((x) => x.type === 'Equipment' && x.name === tag);
+    if (n) focusNode(n.id);
+    else setSelected({ kind: 'tag', tag });
+  }, [graph, focusNode]);
+
+  const startConnect = (fromId) => { setEditing(true); setMode('connect'); setConnectFrom(fromId ?? null); setAdd(null); };
   const stopModes = () => { setMode('select'); setConnectFrom(null); setPlacing(null); setAdd(null); };
 
   const onPlace = (point) => {
@@ -241,9 +267,12 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
   useEffect(() => {
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z' && !isTyping(e)) { e.preventDefault(); sg.undo(); return; }
-      if (e.key === 'Escape') { stopModes(); setWhatif(null); setTraceOn(false); setSearchOpen(false); setImporting(false); return; }
+      if (e.key === 'Escape') { stopModes(); setPin(null); setWhatif(null); setTraceOn(false); setSearchOpen(false); setImporting(false); return; }
       if (isTyping(e) || e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === '/') { e.preventDefault(); searchRef.current?.focus(); setSearchOpen(true); }
+      else if (e.key === 'e') { setEditing((x) => !x); stopModes(); }
+      else if (e.key === 'h') setHomeNonce(Date.now());
+      else if (!editing && ['c', 'a', 'Delete', 'Backspace'].includes(e.key)) return;
       else if (e.key === 'c') startConnect(selected?.kind === 'node' ? selected.id : null);
       else if (e.key === 'a') setAdd({ from: selected?.kind === 'node' ? selected.id : null });
       else if (e.key === 'v') stopModes();
@@ -279,6 +308,37 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
   const showScene = view === '3d' || view === 'split';
   const showSchematic = view === 'schematic' || view === 'split';
 
+  const exploreActions = selectedNode && (
+    <>
+      <button type="button" className="sx-btn sx-btn-warn" onClick={() => runImpact([selectedNode.id])}>What if it fails?</button>
+      <button type="button" className="sx-btn sx-btn-ghost" onClick={() => runIsolation(selectedNode.id)}>How to isolate</button>
+      <button type="button" className={`sx-btn ${traceOn ? 'sx-btn-on' : 'sx-btn-ghost'}`} onClick={() => setTraceOn((t) => !t)} title="Highlight everything upstream and downstream (T)">Trace</button>
+    </>
+  );
+
+  const layersUI = (
+    <>
+      {presentSystems.length === 0 && <div className="sx-empty-note">Nothing drawn yet. {editing ? <>Paste a schedule or press <kbd>A</kbd>.</> : <a onClick={() => setEditing(true)}>Start mapping</a>}</div>}
+      {presentSystems.map(([key, count]) => (
+        <label key={key} className={`sx-layer ${hidden.has(key) ? 'sx-layer-off' : ''}`}>
+          <input type="checkbox" checked={!hidden.has(key)} onChange={() => setHidden((h) => { const n = new Set(h); if (n.has(key)) n.delete(key); else n.add(key); return n; })} />
+          <SystemDot system={key} size={12} />
+          <span className="sx-layer-name">{SYSTEMS[key]?.label ?? key}</span>
+          <span className="sx-muted">{count}</span>
+          <button type="button" className="sx-only" onClick={(e) => { e.preventDefault(); setHidden(new Set(Object.keys(SYSTEMS).filter((k) => k !== key))); }}>only</button>
+        </label>
+      ))}
+      {hidden.size > 0 && <button type="button" className="sx-btn sx-btn-ghost sx-small" onClick={() => setHidden(new Set())}>Show all systems</button>}
+      {(view === '3d' || view === 'split') && (
+        <>
+          <div className="sx-section-title">View</div>
+          <label className="sx-switch"><input type="checkbox" checked={xray} onChange={() => setXray((x) => !x)} /><span>X-ray building</span><kbd>X</kbd></label>
+          <label className="sx-switch"><input type="checkbox" checked={labels === 'all'} onChange={() => setLabels((l) => (l === 'all' ? 'smart' : 'all'))} /><span>All labels</span></label>
+        </>
+      )}
+    </>
+  );
+
   const nodeActions = selectedNode && (
     <>
       <button type="button" className="sx-btn sx-btn-ghost" onClick={() => startConnect(selectedNode.id)} title="Connect from here (C)">Connect from here</button>
@@ -311,6 +371,10 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
                 labels={labels}
                 focusId={focus.id}
                 focusNonce={focus.nonce}
+                homeNonce={homeNonce}
+                status={editing ? null : attention.nodeStatus}
+                tagStatus={attention.tagStatus}
+                onSurface={scanSource && !editing ? (p) => setPin(p) : undefined}
                 onSelect={select}
                 onPlace={onPlace}
                 onReady={(r) => setModelTags(new Set(r.tags))}
@@ -330,6 +394,13 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
       {/* Top toolbar */}
       <div className="sx-toolbar">
         <div className="sx-tools">
+          <div className="sx-modes" role="tablist" aria-label="Mode">
+            <button type="button" role="tab" aria-selected={!editing} className={!editing ? 'sx-mode-on' : ''} onClick={() => { setEditing(false); stopModes(); }} title="Explore (E)">Explore</button>
+            <button type="button" role="tab" aria-selected={editing} className={editing ? 'sx-mode-on' : ''} onClick={() => setEditing(true)} title="Edit systems (E)">Edit systems</button>
+          </div>
+          <button type="button" className="sx-tool" onClick={() => { setHomeNonce(Date.now()); setSelected(null); setWhatif(null); setTraceOn(false); }} title="Back to the whole building (H)"><Icon name="home" /></button>
+          {editing && <>
+          <span className="sx-tool-sep" />
           <button type="button" className={`sx-tool ${mode === 'select' ? 'sx-tool-on' : ''}`} onClick={stopModes} title="Select (V)"><Icon name="select" /><span>Select</span></button>
           <button type="button" className={`sx-tool ${mode === 'connect' ? 'sx-tool-on' : ''}`} onClick={() => (mode === 'connect' ? stopModes() : startConnect(selectedNode?.id))} title="Connect (C)"><Icon name="connect" /><span>Connect</span></button>
           <button type="button" className={`sx-tool ${add ? 'sx-tool-on' : ''}`} onClick={() => setAdd(add ? null : { from: selectedNode?.id ?? null })} title="Add a component (A)"><Icon name="add" /><span>Add</span></button>
@@ -344,6 +415,7 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
           <button type="button" className="sx-tool" onClick={sg.undo} title="Undo (Ctrl+Z)"><Icon name="undo" /></button>
           <button type="button" className="sx-tool" onClick={() => setImporting(true)} title="Paste from a spreadsheet"><Icon name="paste" /><span>Paste</span></button>
           <button type="button" className="sx-tool" onClick={openHistory} title="History"><Icon name="history" /></button>
+          </>}
         </div>
         <div className="sx-search">
           <Icon name="search" />
@@ -371,8 +443,23 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
         </div>
       </div>
 
-      {/* Left: progress + layers */}
-      {view !== 'table' && (
+      {/* Left (explore): what needs attention */}
+      {view !== 'table' && !editing && (
+        <AttentionPanel
+          attention={attention}
+          standing={standingCount}
+          onFocusTag={focusTag}
+          onFocusNode={focusNode}
+          onOpenDecisions={onOpenDecisions}
+          systemsOpen={systemsOpen}
+          onShowSystems={() => setSystemsOpen((x) => !x)}
+        >
+          {layersUI}
+        </AttentionPanel>
+      )}
+
+      {/* Left (editing): progress + layers */}
+      {view !== 'table' && editing && (
         <div className="sx-panel sx-layers">
           <div className="sx-progress">
             <Ring pct={progress.pctConnected} />
@@ -383,24 +470,7 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
           </div>
           {progress.unconnected > 0 && <div className="sx-muted sx-small">{progress.unconnected} not connected yet</div>}
           <div className="sx-section-title">Systems</div>
-          {presentSystems.length === 0 && <div className="sx-empty-note">Nothing drawn yet. Paste a schedule or press <kbd>A</kbd>.</div>}
-          {presentSystems.map(([key, count]) => (
-            <label key={key} className={`sx-layer ${hidden.has(key) ? 'sx-layer-off' : ''}`}>
-              <input type="checkbox" checked={!hidden.has(key)} onChange={() => setHidden((h) => { const n = new Set(h); if (n.has(key)) n.delete(key); else n.add(key); return n; })} />
-              <SystemDot system={key} size={12} />
-              <span className="sx-layer-name">{SYSTEMS[key]?.label ?? key}</span>
-              <span className="sx-muted">{count}</span>
-              <button type="button" className="sx-only" onClick={(e) => { e.preventDefault(); setHidden(new Set(Object.keys(SYSTEMS).filter((k) => k !== key))); }}>only</button>
-            </label>
-          ))}
-          {hidden.size > 0 && <button type="button" className="sx-btn sx-btn-ghost sx-small" onClick={() => setHidden(new Set())}>Show all systems</button>}
-          {showScene && (
-            <>
-              <div className="sx-section-title">View</div>
-              <label className="sx-switch"><input type="checkbox" checked={xray} onChange={() => setXray((x) => !x)} /><span>X-ray building</span><kbd>X</kbd></label>
-              <label className="sx-switch"><input type="checkbox" checked={labels === 'all'} onChange={() => setLabels((l) => (l === 'all' ? 'smart' : 'all'))} /><span>All labels</span></label>
-            </>
-          )}
+          {layersUI}
           <div className="sx-legend">
             <span><i className="sx-lg-amber" /> closed valve / open breaker</span>
             <span><i className="sx-lg-float" /> floating = not placed on the model yet</span>
@@ -412,7 +482,21 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
       {(selectedNode || selectedLink || selected?.kind === 'tag') && (
         <div className="sx-panel sx-right">
           <button type="button" className="sx-x sx-close" onClick={() => setSelected(null)}>×</button>
-          {selectedNode && <NodeInspector graph={graph} node={selectedNode} onEdit={edit} onSelect={select} actions={nodeActions} modelTags={modelTags} />}
+          {selectedNode && !editing && (
+            <NodeCard
+              graph={graph}
+              node={selectedNode}
+              status={attention.nodeStatus.get(selectedNode.id)}
+              panelLoad={attention.panels.find((p) => p.id === selectedNode.id)}
+              decisions={decisions}
+              orders={orders}
+              onSelectNode={focusNode}
+              onRecordDecision={(tags) => onRecordDecision?.(tags, null)}
+              actions={exploreActions}
+              onEdit={() => setEditing(true)}
+            />
+          )}
+          {selectedNode && editing && <NodeInspector graph={graph} node={selectedNode} onEdit={edit} onSelect={select} actions={nodeActions} modelTags={modelTags} />}
           {selectedLink && <LinkInspector graph={graph} link={selectedLink} onEdit={edit} onSelect={select} />}
           {selected?.kind === 'tag' && (
             <div className="sx-inspector">
@@ -494,6 +578,17 @@ export default function SystemsWorkspace({ site, source, decisions = [], initial
         </div>
       )}
 
+      {!editing && !selected && !whatif && showScene && (
+        <Guide graph={graph} attention={attention} onFocusTag={focusTag} onFocusNode={focusNode} onImpact={(id) => runImpact([id])} />
+      )}
+      {!editing && showScene && !impactData && !isoData && <StatusLegend counts={statusCounts} />}
+      {pin && !editing && (
+        <div className="sx-hint sx-hint-action">
+          Picked a spot on the scan.
+          <button type="button" className="sx-btn sx-btn-primary" onClick={() => { onRecordDecision?.([], pin); setPin(null); }}>Record a decision here</button>
+          <button type="button" className="sx-btn sx-btn-ghost" onClick={() => setPin(null)}>Cancel</button>
+        </div>
+      )}
       {hint && <div className="sx-hint">{hint}</div>}
       {(toast || sg.saving || sg.error) && (
         <div className={`sx-status ${sg.error ? 'sx-status-error' : ''}`}>

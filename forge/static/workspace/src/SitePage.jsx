@@ -1,4 +1,3 @@
-import EquipmentGraph from './EquipmentGraph.jsx';
 import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   api, blockedWorkOrdersJql, downloadScan, listSpaces, listWorkOrders, openInJira, uploadScanToSite,
@@ -9,9 +8,9 @@ import {
 } from './ui.jsx';
 import { EquipmentTab, NewDecisionDialog, STATUS, useSiteEquipment } from './SiteDecisions.jsx';
 import { deriveSiteState } from './siteState.js';
+import './site.css';
 
-// three.js is large; load the viewer only when the model is shown.
-const ModelViewer = lazy(() => import('./ModelViewer.jsx'));
+// three.js is large; load the Building view only when shown.
 const SystemsWorkspace = lazy(() => import('./systems/SystemsWorkspace.jsx'));
 
 /** The 3D model to show: a model bundled with the app (sample building) or the site's latest uploaded scan. */
@@ -93,12 +92,6 @@ function Overview({ site, data, onSelectTag, onRecord, onChanged }) {
   const act = async (id, fn) => { setBusy(id); try { await fn(); onChanged(); } finally { setBusy(null); } };
   return (
     <div>
-      <div className="stats" style={{ marginTop: 0, marginBottom: 16 }}>
-        <div><div className="stat-value">{data.standing.length}</div><div className="subtlest">standing decisions</div></div>
-        <div><div className="stat-value" style={{ color: data.blockedOrders.length ? 'var(--ds-text-danger, #ae2e24)' : undefined }}>{data.blockedOrders.length}</div><div className="subtlest">blocked work orders</div></div>
-        <div><div className="stat-value">{data.equipment.equipment.length}</div><div className="subtlest">equipment</div></div>
-      </div>
-
       {proposed.length > 0 && (
         <>
           <h3 className="card-title">Awaiting approval</h3>
@@ -129,106 +122,31 @@ function Overview({ site, data, onSelectTag, onRecord, onChanged }) {
   );
 }
 
-function EquipmentDetail({ siteId, tag, data, onBack, onRecord, onOpenSystems }) {
-  const item = data.equipment.equipment.find((e) => e.tag === tag);
-  const decisions = (data.decisions ?? []).filter((d) => d.equipment.includes(tag) && ['standing', 'proposed'].includes(d.status));
-  const orders = (data.orders ?? []).filter((o) => o.check?.touched?.includes(tag));
+// ---------- Decisions tab ----------
+
+/** Every decision at the site as a list: approvals first, then blocked work orders, standing, and history. */
+function DecisionsTab({ site, data, onSelectTag, onRecord }) {
+  const history = (data.decisions ?? []).filter((d) => ['superseded', 'withdrawn', 'rejected'].includes(d.status));
   return (
-    <div>
-      <a onClick={onBack} className="subtle">← All decisions</a>
-      <div className="row" style={{ justifyContent: 'space-between', margin: '8px 0' }}>
-        <h2 className="page-title" style={{ fontSize: 22 }}>{tag}</h2>
-        <div className="row">
-          {onOpenSystems && <Button onClick={() => onOpenSystems(tag)}>Open in Systems</Button>}
-          <Button variant="primary" onClick={() => onRecord([tag])}>Record a decision about {tag}</Button>
-        </div>
-      </div>
-      {item ? (
-        <div className="card" style={{ padding: 12, marginBottom: 16 }}>
-          <div><strong>{item.category}</strong>{item.manufacturer && ` · ${item.manufacturer}`}{item.model && ` ${item.model}`}</div>
-          {item.serves && <div className="subtle">Serves: {item.serves}</div>}
-          <div className="subtlest">Level {item.level}{item.sourceSheet && ` · drawing ${item.sourceSheet}`}{item.objectKey && ` · Assets ${item.objectKey}`}</div>
-          {item.specs && <details style={{ marginTop: 8 }}><summary className="subtle">Specifications</summary><p style={{ fontSize: 13 }}>{item.specs}</p></details>}
-        </div>
-      ) : <p className="subtle">Not in this site's equipment register.</p>}
-
-      <EquipmentGraph siteId={siteId} tag={tag} />
-
-      <h3 className="card-title">Decisions about {tag}</h3>
-      {decisions.length === 0 && <p className="subtle">None yet.</p>}
-      {decisions.map((d) => <DecisionRow key={d.id} d={d} />)}
-
-      <h3 className="card-title" style={{ marginTop: 16 }}>Open work orders on {tag}</h3>
-      {orders.length === 0 ? <p className="subtle">None.</p> : orders.map((o) => <WorkOrderRow key={o.key} o={o} />)}
-    </div>
-  );
-}
-
-// ---------- Model tab ----------
-
-function ModelTab({ site, data, initialTag, onOpenSystems }) {
-  const { source, viewerSource, error: loadError } = useViewerSource(site);
-  const [selectedTag, setSelectedTag] = useState(initialTag ?? null);
-  const [pin, setPin] = useState(null);
-  const [recording, setRecording] = useState(null); // initial tags for the dialog
-  const [renderError, setError] = useState(null);
-  const error = loadError ?? renderError;
-
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 3fr) minmax(320px, 2fr)', gap: 24, alignItems: 'start' }}>
-      <div>
-        {error && <Banner tone="error">{error}</Banner>}
-        {!source && (
-          <div className="empty" style={{ height: 520, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <h2>No 3D model yet</h2>
-            <p className="subtle">Upload a LiDAR scan (GLB) in <strong>Settings</strong>. Decisions still work by equipment tag.</p>
-          </div>
-        )}
-        {source && !viewerSource && <div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading model…" /></div>}
-        {viewerSource && (
-          <Suspense fallback={<div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading 3D viewer…" /></div>}>
-            <ModelViewer
-              source={viewerSource}
-              highlights={data.highlights}
-              selectedTag={selectedTag}
-              onSelectTag={(t) => { setSelectedTag(t); setPin(null); }}
-              onPick={(p) => setPin(source.kind === 'scan' ? { scanKey: source.key, ...p } : null)}
-              onError={(e) => setError(`Couldn't render the model: ${String(e?.message ?? e)}`)}
-            />
-          </Suspense>
-        )}
-        <div className="row subtlest" style={{ justifyContent: 'space-between', marginTop: 8 }}>
-          <span className="row" style={{ gap: 12 }}>
-            <span><span style={{ color: '#388bff' }}>■</span> has decisions</span>
-            <span><span style={{ color: '#e2483d' }}>■</span> blocked work order</span>
-          </span>
-          <span>Click equipment to select · drag to orbit · scroll to zoom</span>
-        </div>
-        {pin && (
-          <Banner tone="info">
-            <div className="row" style={{ justifyContent: 'space-between' }}>
-              <span>Selected a spot on the scan</span>
-              <Button variant="primary" onClick={() => setRecording([])}>Record a decision here</Button>
-            </div>
-          </Banner>
-        )}
-      </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 3fr) minmax(260px, 1fr)', gap: 32, alignItems: 'start' }}>
       <div>
         {data.error && <Banner tone="error">{data.error}</Banner>}
-        {selectedTag
-          ? <EquipmentDetail siteId={site.id} tag={selectedTag} data={data} onBack={() => setSelectedTag(null)} onRecord={setRecording} onOpenSystems={onOpenSystems} />
-          : <Overview site={site} data={data} onSelectTag={setSelectedTag} onRecord={setRecording} onChanged={data.reload} />}
+        <Overview site={site} data={data} onSelectTag={onSelectTag} onRecord={onRecord} onChanged={data.reload} />
+        {history.length > 0 && (
+          <details style={{ marginTop: 16 }}>
+            <summary className="subtle">History: {history.length} superseded, withdrawn or rejected</summary>
+            <div style={{ marginTop: 8 }}>{history.map((d) => <DecisionRow key={d.id} d={d} onSelectTag={onSelectTag} />)}</div>
+          </details>
+        )}
       </div>
-      {recording && (
-        <NewDecisionDialog
-          site={site}
-          equipment={data.equipment.equipment}
-          initialTags={recording}
-          pin={pin}
-          onClose={() => setRecording(null)}
-          onCreated={() => { setRecording(null); setPin(null); data.reload(); }}
-        />
-      )}
+      <aside className="card" style={{ padding: 16 }}>
+        <h3 className="card-title" style={{ marginTop: 0 }}>How decisions work</h3>
+        <ol className="subtle" style={{ paddingLeft: 18, margin: 0, lineHeight: '20px' }}>
+          <li>Record what was decided about a unit, and why. Optionally list the actions it guards (“shut down”).</li>
+          <li>Every work order in <strong>{site.space?.name ?? 'the linked space'}</strong> that names the unit is checked when it’s created or edited.</li>
+          <li>A conflict blocks the work order from starting until someone reaffirms, supersedes (with an approver) or withdraws it.</li>
+        </ol>
+      </aside>
     </div>
   );
 }
@@ -366,45 +284,81 @@ function SettingsTab({ site, onSiteChange }) {
 
 // ---------- Page ----------
 
-const TABS = [['systems', 'Systems'], ['model', 'Decisions'], ['work-orders', 'Work orders'], ['settings', 'Settings']];
+const TABS = [['building', 'Building'], ['decisions', 'Decisions'], ['work-orders', 'Work orders'], ['settings', 'Settings']];
 
-function SystemsTab({ site, data, initialTag }) {
+function BuildingTab({ site, data, initialTag, onRecord, onOpenDecisions }) {
   const { viewerSource, source, error } = useViewerSource(site);
   if (error) return <Banner tone="error">{error}</Banner>;
   if (source && !viewerSource) return <div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading model…" /></div>;
   return (
-    <Suspense fallback={<div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading systems…" /></div>}>
-      <SystemsWorkspace key={initialTag ?? ''} site={site} source={viewerSource} decisions={data.decisions ?? []} initialTag={initialTag} />
+    <Suspense fallback={<div className="card" style={{ height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner label="Loading the building…" /></div>}>
+      <SystemsWorkspace
+        key={initialTag ?? ''}
+        site={site}
+        source={viewerSource}
+        decisions={data.decisions ?? []}
+        orders={data.orders ?? []}
+        initialTag={initialTag}
+        onRecordDecision={(tags, point) => onRecord(tags, point && source?.kind === 'scan' ? { scanKey: source.key, point } : null)}
+        onOpenDecisions={onOpenDecisions}
+      />
     </Suspense>
   );
 }
 
+function HeaderStats({ data }) {
+  const proposed = (data.decisions ?? []).filter((d) => d.status === 'proposed').length;
+  const stat = (n, label, tone) => (
+    <div className={`hstat ${tone && n ? `hstat-${tone}` : ''}`}><span className="hstat-n">{n}</span><span className="hstat-l">{label}</span></div>
+  );
+  return (
+    <div className="hstats">
+      {stat(data.blockedOrders.length, 'blocked', 'danger')}
+      {stat(proposed, 'to approve', 'discovery')}
+      {stat(data.standing.length, 'standing decisions')}
+      {stat((data.orders ?? []).length, 'open work orders')}
+    </div>
+  );
+}
+
 function SiteScreens({ site, setSite, initialTag }) {
-  const [tab, setTab] = useState(initialTag ? 'model' : 'systems');
-  const [systemsTag, setSystemsTag] = useState(null);
+  const [tab, setTab] = useState('building');
+  const [buildingTag, setBuildingTag] = useState(initialTag ?? null);
+  const [recording, setRecording] = useState(null); // { tags, pin }
   const data = useSiteData(site);
-  const openSystems = (tag) => { setSystemsTag(tag); setTab('systems'); };
+  const showOnBuilding = (tag) => { setBuildingTag(tag); setTab('building'); };
   return (
     <>
       <div className="page-header">
         <div>
           <h1 className="page-title">{site.name}</h1>
           {site.description && <div className="subtle">{site.description}</div>}
+          <div style={{ marginTop: 8 }}><SpaceChip space={site.space} onClick={site.space ? () => openInJira.space(site.space.key) : undefined} /></div>
         </div>
-        <div className="stack" style={{ alignItems: 'flex-end' }}>
-          <SpaceChip space={site.space} onClick={site.space ? () => openInJira.space(site.space.key) : undefined} />
-          {data.blockedOrders.length > 0 && <Lozenge tone="bold-danger">{data.blockedOrders.length} blocked</Lozenge>}
-        </div>
+        <HeaderStats data={data} />
       </div>
       <div className="tabs" role="tablist">
         {TABS.map(([key, label]) => (
-          <button key={key} type="button" role="tab" aria-selected={tab === key} className={`tab ${tab === key ? 'tab-active' : ''}`} onClick={() => setTab(key)}>{label}</button>
+          <button key={key} type="button" role="tab" aria-selected={tab === key} className={`tab ${tab === key ? 'tab-active' : ''}`} onClick={() => setTab(key)}>
+            {label}
+            {key === 'decisions' && (data.decisions ?? []).some((d) => d.status === 'proposed') && <span className="tab-dot" title="Awaiting approval" />}
+          </button>
         ))}
       </div>
-      {tab === 'systems' && <SystemsTab site={site} data={data} initialTag={systemsTag} />}
-      {tab === 'model' && <ModelTab site={site} data={data} initialTag={initialTag} onOpenSystems={openSystems} />}
+      {tab === 'building' && <BuildingTab site={site} data={data} initialTag={buildingTag} onRecord={(tags, pin) => setRecording({ tags, pin })} onOpenDecisions={() => setTab('decisions')} />}
+      {tab === 'decisions' && <DecisionsTab site={site} data={data} onSelectTag={showOnBuilding} onRecord={(tags) => setRecording({ tags, pin: null })} />}
       {tab === 'work-orders' && <WorkOrdersTab site={site} data={data} />}
       {tab === 'settings' && <SettingsTab site={site} onSiteChange={setSite} />}
+      {recording && (
+        <NewDecisionDialog
+          site={site}
+          equipment={data.equipment.equipment}
+          initialTags={recording.tags}
+          pin={recording.pin}
+          onClose={() => setRecording(null)}
+          onCreated={() => { setRecording(null); data.reload(); }}
+        />
+      )}
     </>
   );
 }
