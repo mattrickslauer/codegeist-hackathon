@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkdown Support</title>
+<meta name="description" content="How to get help with the Walkdown app for Jira.">
+<link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><img src="/walkdown-mark.svg" alt="">Walkdown</a>
+  <nav><a href="/">Home</a><a href="/support/" aria-current="page">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Support</h1>
+  <p class="lede">Questions, bugs or a request: open an issue and we'll reply there.</p>
+
+  <h2>Contact</h2>
+  <p><a href="https://github.com/mattrickslauer/codegeist-hackathon/issues/new">Open a support issue on GitHub</a>. Issues are public, so please don't include passwords, API tokens, or details about your buildings that you wouldn't publish.</p>
+  <p>Helpful to include:</p>
+  <ul>
+    <li>your Atlassian site's address (<code>your-site.atlassian.net</code>)</li>
+    <li>what you did, what you expected, and what happened</li>
+    <li>the work order key (for example <code>FAC-12</code>) if the problem is on a work order</li>
+  </ul>
+
+  <h2>Common questions</h2>
+  <h3>A work order wasn't flagged</h3>
+  <p>Walkdown matches whole equipment tags in the work order's summary and description, and only checks work orders in the Jira space linked to the site. Check that the tag is written exactly as it appears on the model (<code>RTU-1</code>, not <code>RTU1</code>) and that the decision is still standing.</p>
+  <h3>A work order is blocked and I need to start it</h3>
+  <p>Open the Walkdown panel on the work order and choose Reaffirm, Supersede or Withdraw. Reaffirming needs edit permission on the work order; superseding needs a site approver to accept the new decision.</p>
+  <h3>Finding blocked work orders</h3>
+  <p>Search Jira with <code>walkdownStatus = conflict</code>.</p>
+  <h3>Removing Walkdown</h3>
+  <p>A Jira admin can uninstall it from <em>Apps → Manage apps</em>. See the <a href="/privacy/">privacy policy</a> for what happens to its data.</p>
+</div></main>
+<footer class="site"><div class="wrap">
+  <span>Walkdown</span><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+</div></footer>
+</body>
+</html>

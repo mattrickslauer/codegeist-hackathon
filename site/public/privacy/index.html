@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkdown Privacy</title>
+<meta name="description" content="What data the Walkdown app for Jira stores, where it lives and who can see it.">
+<link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><img src="/walkdown-mark.svg" alt="">Walkdown</a>
+  <nav><a href="/">Home</a><a href="/support/">Support</a><a href="/privacy/" aria-current="page">Privacy</a><a href="/terms/">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Privacy policy</h1>
+  <p class="meta">Effective 18 November 2026</p>
+  <p>This policy covers the Walkdown app for Jira and Jira Service Management (“Walkdown”, “the app”) and this website. Walkdown is made by Mattricks Lauer (“we”, “us”).</p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li>Walkdown runs entirely on Atlassian Forge. It has no external servers and makes no network calls outside Atlassian.</li>
+    <li>Everything the app stores is stored by Atlassian, in the app's storage for your Atlassian site, or in your own Jira.</li>
+    <li>The only personal data the app stores is <strong>Atlassian account IDs</strong>, to record who did what. It does not store names, email addresses or passwords.</li>
+    <li>We don't sell data, show ads, or use your data to train AI models.</li>
+  </ul>
+
+  <h2>What the app stores</h2>
+  <p>In Forge app storage (hosted by Atlassian, separate for each site that installs the app):</p>
+  <div class="table-scroll"><table>
+    <tr><th>Data</th><th>Contents</th></tr>
+    <tr><td>Sites</td><td>Name, description, the linked Jira space, approvers (account IDs), and who created the site and when</td></tr>
+    <tr><td>Decisions</td><td>Statement, reason, equipment tags, guarded actions, status, the originating work order, and who decided and approved it (account IDs) and when</td></tr>
+    <tr><td>Resolutions</td><td>When a conflict is reaffirmed: the reason given, who gave it (account ID) and when</td></tr>
+    <tr><td>Building context</td><td>Equipment, its connections and their sources, for each site</td></tr>
+    <tr><td>3D scans</td><td>GLB files you upload, with file name, size, who uploaded it (account ID) and when. Stored in Atlassian's Forge Object Store</td></tr>
+  </table></div>
+  <p>In your own Jira, using Jira's standard features:</p>
+  <ul>
+    <li>issue properties on work orders, holding the check result and the matched equipment</li>
+    <li>a comment on a conflicting work order that @mentions the person who made the decision</li>
+    <li>if an admin runs the equipment import, a <em>Walkdown</em> schema and its objects in Jira Assets</li>
+  </ul>
+
+  <h2>What the app reads</h2>
+  <p>When a work order is created or edited, the app reads its summary, description, project and status, and checks it against decisions if it is in a Jira space linked to a site. It also reads Jira Assets objects in the Walkdown schema. It reads only what it needs for those checks.</p>
+
+  <h2>Rovo</h2>
+  <p>If your site uses Atlassian Rovo, the Walkdown agent answers questions with the site's equipment and decision data. Those conversations are processed by Atlassian under Atlassian's own terms and policies, not sent to us.</p>
+
+  <h2>What we can see</h2>
+  <p>We can't read your app storage, scans, decisions or work orders. Atlassian gives us app logs for troubleshooting. They can include account IDs, issue keys, equipment tags and site names, plus error messages. Atlassian keeps these logs for a limited time; we don't copy them anywhere else.</p>
+
+  <h2>Who can see your data</h2>
+  <p>Anyone on your Atlassian site who can use the app can see its sites, decisions and scans. Comments and issue properties follow your Jira permissions. We share nothing with third parties. Atlassian hosts the data as the Forge platform provider.</p>
+
+  <h2>Keeping and deleting data</h2>
+  <ul>
+    <li>Data stays until the app is uninstalled. Deleting a site in the app removes the site record and its building context; uploaded scans stay in app storage until uninstall.</li>
+    <li>When an admin uninstalls Walkdown, Atlassian deletes the app's Forge storage under its Forge data retention rules.</li>
+    <li>Comments, issue properties and Assets objects are part of your Jira and stay there until you remove them.</li>
+  </ul>
+
+  <h2>This website</h2>
+  <p>walkdown.mattrickslauer.com is a static site on Amazon Web Services. It sets no cookies and runs no analytics or tracking scripts. Like any web host, AWS may keep standard request logs.</p>
+
+  <h2>Your rights and questions</h2>
+  <p>To ask about your data, or to have it removed, <a href="/support/">contact us</a>. Most data lives in your Atlassian site, so a site admin can also remove it directly. We'll post any changes to this policy on this page, with a new effective date.</p>
+</div></main>
+<footer class="site"><div class="wrap">
+  <span>Walkdown</span><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+</div></footer>
+</body>
+</html>

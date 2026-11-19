@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkdown</title>
+<meta name="description" content="Walkdown is a Forge app for Jira and Jira Service Management that pins decisions to building equipment and checks every work order against them.">
+<link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="/"><img src="/walkdown-mark.svg" alt="">Walkdown</a>
+  <nav><a href="/" aria-current="page">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Every decision about a building, pinned to the equipment it governs, enforced on every work order.</h1>
+  <p class="lede">Walkdown is an app for Jira and Jira Service Management, built on Atlassian Forge.</p>
+
+  <div class="quote"><p>“RTU-1 must not be shut down on weekdays between 06:00 and 19:00. It's the only air supply for four floors.”</p></div>
+  <p>Someone decided that, for a good reason. Three months later a different shift opens a work order:</p>
+  <div class="quote blocked"><p>“Shut down RTU-1 Tuesday 10:00 for coil cleaning.”</p></div>
+  <p>Nobody remembers the decision, and the reason never reached the system where work is planned. Walkdown fixes that.</p>
+
+  <h2>How it works</h2>
+  <h3>1. Record decisions on the building</h3>
+  <p>Each site is linked to the Jira space where its work orders live, and shown as a 3D model you can click. Pick a unit and record what was decided, why, and which actions it guards (“shut down”, “isolate”, “drain”). Equipment with standing decisions shows blue.</p>
+  <h3>2. Every work order is checked</h3>
+  <p>When a work order is created or edited, Walkdown finds the equipment it mentions (whole tags only: <code>RTU-1</code> never matches <code>RTU-10</code>) and checks it against the site's standing decisions. On a conflict it marks the work order, turns the unit red on the model, and posts a Jira comment that @mentions the person who made the decision.</p>
+  <p>The check is deterministic and explainable. No AI decides whether something conflicts.</p>
+  <h3>3. Conflicts are resolved on the work order</h3>
+  <p>The Walkdown panel on the work order shows the decision, its reason and the matched equipment, with three choices:</p>
+  <ul>
+    <li><strong>Reaffirm:</strong> the work is consistent after all. Say why; it's recorded.</li>
+    <li><strong>Supersede:</strong> propose a new decision. A site approver must accept it.</li>
+    <li><strong>Withdraw:</strong> change the work order. It's re-checked automatically.</li>
+  </ul>
+  <p>A Jira workflow validator stops a conflicting work order from moving to <em>In Progress</em>, and blocked work orders are searchable with <code>walkdownStatus = conflict</code>.</p>
+
+  <h2>Your own buildings</h2>
+  <p>Start from the bundled sample office building, or upload a LiDAR scan (GLB, for example from Scaniverse on an iPhone or iPad Pro) as a site's 3D model.</p>
+
+  <h2>Runs on Atlassian</h2>
+  <p>Walkdown runs entirely on Atlassian Forge. It has no external backend and sends your data nowhere outside Atlassian. See the <a href="/privacy/">privacy policy</a> for exactly what it stores.</p>
+
+  <h2>Install</h2>
+  <p>Walkdown is in development for Atlassian Codegeist 2026. The install link will be posted here. The source is public on <a href="https://github.com/mattrickslauer/codegeist-hackathon">GitHub</a>.</p>
+
+  <p class="note">Walkdown records and surfaces decisions. It does not replace a site's safety, engineering or Management of Change sign-off.</p>
+</div></main>
+<footer class="site"><div class="wrap">
+  <span>Walkdown</span><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+</div></footer>
+</body>
+</html>
