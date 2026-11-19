@@ -4,55 +4,203 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Walkdown</title>
-<meta name="description" content="Walkdown is a Forge app for Jira and Jira Service Management that pins decisions to building equipment and checks every work order against them.">
+<meta name="description" content="Walkdown for Jira pins every decision about a building to the equipment it governs, and stops a work order that contradicts one from starting.">
+<meta property="og:title" content="Walkdown for Jira">
+<meta property="og:description" content="Every decision about a building, enforced on every Jira work order.">
+<meta property="og:image" content="https://walkdown.mattrickslauer.com/media/rtu1.webp">
 <link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<header class="site"><div class="wrap">
+<header class="top"><div class="wrap">
   <a class="brand" href="/"><img src="/walkdown-mark.svg" alt="">Walkdown</a>
-  <nav><a href="/" aria-current="page">Home</a><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+  <nav>
+    <a class="hide-sm" href="#how">How it works</a>
+    <a class="hide-sm" href="/support/">Support</a>
+    <a class="btn small" href="https://developer.atlassian.com/console/install/0fa45447-08dc-430d-93a1-8501bd630d9d?signature=AYABeEUtioiIBTx6Qbd9HywqzjEAAAADAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6NzA5NTg3ODM1MjQzOmtleS83MDVlZDY3MC1mNTdjLTQxYjUtOWY5Yi1lM2YyZGNjMTQ2ZTcAuAECAQB4CxqLTo9l4lqXuFjNim1xJM%2Bp%2F3TVP9xHS2BrU5DRRucBJhl3r2wertNOK%2FIfRhzF8wAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGyEHIsAy2b5IHUC5QIBEIA78B%2BBakTAIBCSWobn5gEhsmC57yZXNEZXfFev%2BOZyk7pnTcNMgU9kGVGA2xqcsmw0qPDn0dkgmTEwIL8AB2F3cy1rbXMAS2Fybjphd3M6a21zOmV1LXdlc3QtMTo3MDk1ODc4MzUyNDM6a2V5LzQ2MzBjZTZiLTAwYzMtNGRlMi04NzdiLTYyN2UyMDYwZTVjYwC4AQICAHi9bVMAkme4qVQX1fQHo6ePw3H40A7cGfz7yrmSfBWMXgGAUZrjSb2U%2FI1IYl%2BIS26TAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0QmK44TQZp3AAgDqAgEQgDvfi0VcMWRQXZaFvvlkDFvbp%2FftSUpqDQknKCNyFhlwPM5YVBq0pSYsXEAecTYJ1%2FfAWbNvr%2F7DdBW%2FrQAHYXdzLWttcwBLYXJuOmF3czprbXM6dXMtZWFzdC0xOjcwOTU4NzgzNTI0MzprZXkvNmMxMjBiYTAtNGNkNS00OTg1LWI4MmUtNDBhMDQ5NTJjYzU3ALgBAgIAeDYASx0XCjkny4iLV6vz%2BKtEGSGT6kdt0QRpkn6D%2FlVEAfjTu7CLLaJPDPZPh7asjccAAAB%2BMHwGCSqGSIb3DQEHBqBvMG0CAQAwaAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAz01Wlgr5%2ByZgcLS%2FACARCAO%2F50twsjILAsBnsBaY5LIdq3r%2B5PKw%2BtrGffLlP1S56cO9m5lhYBLqmsFSB67j5vA1Pjqy%2FufJZRMmY7AgAAAAAMAAAQAAAAAAAAAAAAAAAAAIQEGNuVxES0VL3Co%2B3Kmrj%2F%2F%2F%2F%2FAAAAAQAAAAAAAAAAAAAAAQAAADLqI9j3w%2Fgo5NCmydVr3OU39X%2F7AcNvZVl2muoc%2BiP1NtMmTV2qyw0bdkD2FEvYyFVJKAnA0W%2FlgDo%2BMkezDayLcWI%3D&amp;product=jira">Install on Jira</a>
+  </nav>
 </div></header>
-<main><div class="wrap">
-  <h1>Every decision about a building, pinned to the equipment it governs, enforced on every work order.</h1>
-  <p class="lede">Walkdown is an app for Jira and Jira Service Management, built on Atlassian Forge.</p>
-  <p><a class="button" href="https://developer.atlassian.com/console/install/0fa45447-08dc-430d-93a1-8501bd630d9d?signature=AYABeEUtioiIBTx6Qbd9HywqzjEAAAADAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6NzA5NTg3ODM1MjQzOmtleS83MDVlZDY3MC1mNTdjLTQxYjUtOWY5Yi1lM2YyZGNjMTQ2ZTcAuAECAQB4CxqLTo9l4lqXuFjNim1xJM%2Bp%2F3TVP9xHS2BrU5DRRucBJhl3r2wertNOK%2FIfRhzF8wAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGyEHIsAy2b5IHUC5QIBEIA78B%2BBakTAIBCSWobn5gEhsmC57yZXNEZXfFev%2BOZyk7pnTcNMgU9kGVGA2xqcsmw0qPDn0dkgmTEwIL8AB2F3cy1rbXMAS2Fybjphd3M6a21zOmV1LXdlc3QtMTo3MDk1ODc4MzUyNDM6a2V5LzQ2MzBjZTZiLTAwYzMtNGRlMi04NzdiLTYyN2UyMDYwZTVjYwC4AQICAHi9bVMAkme4qVQX1fQHo6ePw3H40A7cGfz7yrmSfBWMXgGAUZrjSb2U%2FI1IYl%2BIS26TAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0QmK44TQZp3AAgDqAgEQgDvfi0VcMWRQXZaFvvlkDFvbp%2FftSUpqDQknKCNyFhlwPM5YVBq0pSYsXEAecTYJ1%2FfAWbNvr%2F7DdBW%2FrQAHYXdzLWttcwBLYXJuOmF3czprbXM6dXMtZWFzdC0xOjcwOTU4NzgzNTI0MzprZXkvNmMxMjBiYTAtNGNkNS00OTg1LWI4MmUtNDBhMDQ5NTJjYzU3ALgBAgIAeDYASx0XCjkny4iLV6vz%2BKtEGSGT6kdt0QRpkn6D%2FlVEAfjTu7CLLaJPDPZPh7asjccAAAB%2BMHwGCSqGSIb3DQEHBqBvMG0CAQAwaAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAz01Wlgr5%2ByZgcLS%2FACARCAO%2F50twsjILAsBnsBaY5LIdq3r%2B5PKw%2BtrGffLlP1S56cO9m5lhYBLqmsFSB67j5vA1Pjqy%2FufJZRMmY7AgAAAAAMAAAQAAAAAAAAAAAAAAAAAIQEGNuVxES0VL3Co%2B3Kmrj%2F%2F%2F%2F%2FAAAAAQAAAAAAAAAAAAAAAQAAADLqI9j3w%2Fgo5NCmydVr3OU39X%2F7AcNvZVl2muoc%2BiP1NtMmTV2qyw0bdkD2FEvYyFVJKAnA0W%2FlgDo%2BMkezDayLcWI%3D&amp;product=jira">Install on Jira</a> <a class="button secondary" href="/support/">Get help</a></p>
 
-  <div class="quote"><p>“RTU-1 must not be shut down on weekdays between 06:00 and 19:00. It's the only air supply for four floors.”</p></div>
-  <p>Someone decided that, for a good reason. Three months later a different shift opens a work order:</p>
-  <div class="quote blocked"><p>“Shut down RTU-1 Tuesday 10:00 for coil cleaning.”</p></div>
-  <p>Nobody remembers the decision, and the reason never reached the system where work is planned. Walkdown fixes that.</p>
+<main>
+  <section class="hero"><div class="wrap hero-grid">
+    <div>
+      <h1>Every decision about a building, enforced on every work order.</h1>
+      <p class="lede">Walkdown pins decisions to the equipment they govern, right on a 3D model of the building. When a Jira work order contradicts one, it can't start until someone deals with it.</p>
+      <div class="ctas">
+        <a class="btn" href="https://developer.atlassian.com/console/install/0fa45447-08dc-430d-93a1-8501bd630d9d?signature=AYABeEUtioiIBTx6Qbd9HywqzjEAAAADAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6NzA5NTg3ODM1MjQzOmtleS83MDVlZDY3MC1mNTdjLTQxYjUtOWY5Yi1lM2YyZGNjMTQ2ZTcAuAECAQB4CxqLTo9l4lqXuFjNim1xJM%2Bp%2F3TVP9xHS2BrU5DRRucBJhl3r2wertNOK%2FIfRhzF8wAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGyEHIsAy2b5IHUC5QIBEIA78B%2BBakTAIBCSWobn5gEhsmC57yZXNEZXfFev%2BOZyk7pnTcNMgU9kGVGA2xqcsmw0qPDn0dkgmTEwIL8AB2F3cy1rbXMAS2Fybjphd3M6a21zOmV1LXdlc3QtMTo3MDk1ODc4MzUyNDM6a2V5LzQ2MzBjZTZiLTAwYzMtNGRlMi04NzdiLTYyN2UyMDYwZTVjYwC4AQICAHi9bVMAkme4qVQX1fQHo6ePw3H40A7cGfz7yrmSfBWMXgGAUZrjSb2U%2FI1IYl%2BIS26TAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0QmK44TQZp3AAgDqAgEQgDvfi0VcMWRQXZaFvvlkDFvbp%2FftSUpqDQknKCNyFhlwPM5YVBq0pSYsXEAecTYJ1%2FfAWbNvr%2F7DdBW%2FrQAHYXdzLWttcwBLYXJuOmF3czprbXM6dXMtZWFzdC0xOjcwOTU4NzgzNTI0MzprZXkvNmMxMjBiYTAtNGNkNS00OTg1LWI4MmUtNDBhMDQ5NTJjYzU3ALgBAgIAeDYASx0XCjkny4iLV6vz%2BKtEGSGT6kdt0QRpkn6D%2FlVEAfjTu7CLLaJPDPZPh7asjccAAAB%2BMHwGCSqGSIb3DQEHBqBvMG0CAQAwaAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAz01Wlgr5%2ByZgcLS%2FACARCAO%2F50twsjILAsBnsBaY5LIdq3r%2B5PKw%2BtrGffLlP1S56cO9m5lhYBLqmsFSB67j5vA1Pjqy%2FufJZRMmY7AgAAAAAMAAAQAAAAAAAAAAAAAAAAAIQEGNuVxES0VL3Co%2B3Kmrj%2F%2F%2F%2F%2FAAAAAQAAAAAAAAAAAAAAAQAAADLqI9j3w%2Fgo5NCmydVr3OU39X%2F7AcNvZVl2muoc%2BiP1NtMmTV2qyw0bdkD2FEvYyFVJKAnA0W%2FlgDo%2BMkezDayLcWI%3D&amp;product=jira">Install on Jira</a>
+        <a class="btn quiet" href="#how">See how it works</a>
+      </div>
+      <p class="fine">Free. For Jira Cloud and Jira Service Management. Runs entirely on Atlassian.</p>
+    </div>
+    <figure style="margin:0">
+      <div class="viewport">
+        <video src="/media/orbit.mp4" poster="/media/orbit.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The sample building in Walkdown's 3D view. RTU-1 glows red because a work order conflicts with a decision about it."></video>
+      </div>
+      <figcaption class="caption"><span><span class="tag">RTU-1 is red:</span> a work order conflicts with a standing decision.</span><span>Recorded in Jira</span></figcaption>
+    </figure>
+  </div></section>
 
-  <h2>How it works</h2>
-  <h3>1. Record decisions on the building</h3>
-  <p>Each site is linked to the Jira space where its work orders live, and shown as a 3D model you can click. Pick a unit and record what was decided, why, and which actions it guards (“shut down”, “isolate”, “drain”). Equipment with standing decisions shows blue.</p>
-  <h3>2. Every work order is checked</h3>
-  <p>When a work order is created or edited, Walkdown finds the equipment it mentions (whole tags only: <code>RTU-1</code> never matches <code>RTU-10</code>) and checks it against the site's standing decisions. On a conflict it marks the work order, turns the unit red on the model, and posts a Jira comment that @mentions the person who made the decision.</p>
-  <p>The check is deterministic and explainable. No AI decides whether something conflicts.</p>
-  <h3>3. Conflicts are resolved on the work order</h3>
-  <p>The Walkdown panel on the work order shows the decision, its reason and the matched equipment, with three choices:</p>
-  <ul>
-    <li><strong>Reaffirm:</strong> the work is consistent after all. Say why; it's recorded.</li>
-    <li><strong>Supersede:</strong> propose a new decision. A site approver must accept it.</li>
-    <li><strong>Withdraw:</strong> change the work order. It's re-checked automatically.</li>
-  </ul>
-  <p>A Jira workflow validator stops a conflicting work order from moving to <em>In Progress</em>, and blocked work orders are searchable with <code>walkdownStatus = conflict</code>.</p>
+  <section class="story"><div class="wrap">
+    <h2>The decision was made. The work order never heard about it.</h2>
+    <p class="intro">Three months apart, two people, two different places. This is the gap Walkdown closes.</p>
+    <div class="pair">
+      <div class="note decision">
+        <p class="who">Standing decision, recorded 3 March</p>
+        <blockquote><span class="etag">RTU-1</span> must not be shut down on weekdays between 06:00 and 19:00.</blockquote>
+        <p class="why">It's the only air supply for the north tower, levels 2 to 5. A weekday outage leaves four occupied floors without ventilation.</p>
+      </div>
+      <div class="note workorder" id="wo">
+        <p class="who">New work order FAC-279, opened by the next shift</p>
+        <blockquote>Shut down <span class="etag">RTU-1</span> Tuesday 10:00 for coil cleaning.</blockquote>
+        <p class="why">Quarterly coil cleaning. Unit off for about three hours.</p>
+        <svg class="redline" aria-hidden="true"><path pathLength="100"/></svg>
+      </div>
+    </div>
+    <p class="verdict">Walkdown reads the work order, matches <strong>RTU-1</strong> against the decision, and blocks it before anyone climbs onto the roof. No AI decides: the match is exact and the reason is shown.</p>
+  </div></section>
 
-  <h2>Your own buildings</h2>
-  <p>Start from the bundled sample office building, or upload a LiDAR scan (GLB, for example from Scaniverse on an iPhone or iPad Pro) as a site's 3D model.</p>
+  <section class="section" id="how"><div class="wrap">
+    <h2>How it works</h2>
+    <p class="intro">Everything below was recorded in a real Jira site running Walkdown, on a real, anonymised five-storey office building.</p>
 
-  <h2>Runs on Atlassian</h2>
-  <p>Walkdown runs entirely on Atlassian Forge. It has no external backend and sends your data nowhere outside Atlassian. See the <a href="/privacy/">privacy policy</a> for exactly what it stores.</p>
+    <div class="step">
+      <div class="text">
+        <div class="n">1</div>
+        <h3>Record decisions on the building</h3>
+        <p>Click a unit on the 3D model and write down what was decided, why, and which actions it guards: shut down, isolate, drain. Units with standing decisions show blue.</p>
+        <p>Use the bundled sample building, or upload a LiDAR scan of your own from an iPhone or iPad Pro.</p>
+      </div>
+      <div class="shot"><img src="/media/rtu1.webp" width="1800" height="1063" loading="lazy" alt="RTU-1 selected in Walkdown: its card shows the standing decision and that work order FAC-279 is blocked."></div>
+    </div>
 
-  <h2 id="install">Install</h2>
-  <p>Walkdown installs on Jira Cloud, including Jira Service Management. You need to be a site admin.</p>
-  <p><a class="button" href="https://developer.atlassian.com/console/install/0fa45447-08dc-430d-93a1-8501bd630d9d?signature=AYABeEUtioiIBTx6Qbd9HywqzjEAAAADAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6NzA5NTg3ODM1MjQzOmtleS83MDVlZDY3MC1mNTdjLTQxYjUtOWY5Yi1lM2YyZGNjMTQ2ZTcAuAECAQB4CxqLTo9l4lqXuFjNim1xJM%2Bp%2F3TVP9xHS2BrU5DRRucBJhl3r2wertNOK%2FIfRhzF8wAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGyEHIsAy2b5IHUC5QIBEIA78B%2BBakTAIBCSWobn5gEhsmC57yZXNEZXfFev%2BOZyk7pnTcNMgU9kGVGA2xqcsmw0qPDn0dkgmTEwIL8AB2F3cy1rbXMAS2Fybjphd3M6a21zOmV1LXdlc3QtMTo3MDk1ODc4MzUyNDM6a2V5LzQ2MzBjZTZiLTAwYzMtNGRlMi04NzdiLTYyN2UyMDYwZTVjYwC4AQICAHi9bVMAkme4qVQX1fQHo6ePw3H40A7cGfz7yrmSfBWMXgGAUZrjSb2U%2FI1IYl%2BIS26TAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0QmK44TQZp3AAgDqAgEQgDvfi0VcMWRQXZaFvvlkDFvbp%2FftSUpqDQknKCNyFhlwPM5YVBq0pSYsXEAecTYJ1%2FfAWbNvr%2F7DdBW%2FrQAHYXdzLWttcwBLYXJuOmF3czprbXM6dXMtZWFzdC0xOjcwOTU4NzgzNTI0MzprZXkvNmMxMjBiYTAtNGNkNS00OTg1LWI4MmUtNDBhMDQ5NTJjYzU3ALgBAgIAeDYASx0XCjkny4iLV6vz%2BKtEGSGT6kdt0QRpkn6D%2FlVEAfjTu7CLLaJPDPZPh7asjccAAAB%2BMHwGCSqGSIb3DQEHBqBvMG0CAQAwaAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAz01Wlgr5%2ByZgcLS%2FACARCAO%2F50twsjILAsBnsBaY5LIdq3r%2B5PKw%2BtrGffLlP1S56cO9m5lhYBLqmsFSB67j5vA1Pjqy%2FufJZRMmY7AgAAAAAMAAAQAAAAAAAAAAAAAAAAAIQEGNuVxES0VL3Co%2B3Kmrj%2F%2F%2F%2F%2FAAAAAQAAAAAAAAAAAAAAAQAAADLqI9j3w%2Fgo5NCmydVr3OU39X%2F7AcNvZVl2muoc%2BiP1NtMmTV2qyw0bdkD2FEvYyFVJKAnA0W%2FlgDo%2BMkezDayLcWI%3D&amp;product=jira">Install on Jira</a></p>
-  <p>It's free, and an entry in Atlassian Codegeist 2026. The source is public on <a href="https://github.com/mattrickslauer/codegeist-hackathon">GitHub</a>.</p>
+    <div class="step flip">
+      <div class="text">
+        <div class="n">2</div>
+        <h3>Every work order is checked</h3>
+        <p>When a work order is created or edited, Walkdown finds the equipment it names. Whole tags only: <code>RTU-1</code> never matches <code>RTU-10</code>.</p>
+        <p>On a conflict it flags the work order and posts a comment that @mentions the person who made the decision, so they hear about it the Jira way.</p>
+      </div>
+      <div class="stack">
+        <div class="shot"><img src="/media/panel.webp" loading="lazy" alt="The Walkdown panel on FAC-279: Can't start yet, conflicts with a standing decision, with Reaffirm, Supersede and Withdraw."></div>
+        <div class="shot"><img src="/media/comment.webp" loading="lazy" alt="Walkdown's Jira comment on FAC-279 naming the decision and mentioning its author."></div>
+      </div>
+    </div>
 
-  <p class="note">Walkdown records and surfaces decisions. It does not replace a site's safety, engineering or Management of Change sign-off.</p>
-</div></main>
-<footer class="site"><div class="wrap">
-  <span>Walkdown</span><a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+    <div class="step">
+      <div class="text">
+        <div class="n">3</div>
+        <h3>It can't start until someone decides</h3>
+        <p>Add Walkdown's validator to your workflow's start transition and Jira refuses to move a conflicting work order to In Progress.</p>
+        <p>Blocked work orders are one search away: <code>walkdownStatus = conflict</code>.</p>
+      </div>
+      <figure style="margin:0">
+        <div class="shot"><video src="/media/blocked.mp4" poster="/media/blocked.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Moving FAC-279 to In Progress fails: Blocked by Walkdown."></video></div>
+        <figcaption class="caption"><span><span class="tag">Transition failed:</span> Jira's own message, written by Walkdown.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="step flip">
+      <div class="text">
+        <div class="n">4</div>
+        <h3>Resolve it on the work order</h3>
+        <p><strong>Reaffirm</strong> if the work fits after all, and say why. <strong>Supersede</strong> to propose a new decision, which a site approver must accept. <strong>Withdraw</strong> to change the work; it's re-checked automatically.</p>
+        <p>Every answer is recorded next to the decision it touched.</p>
+      </div>
+      <div class="shot"><img src="/media/decisions.webp" loading="lazy" alt="The site's Decisions tab: one blocked work order and three standing decisions with their reasons."></div>
+    </div>
+  </div></section>
+
+  <section class="night"><div class="wrap">
+    <h2>See what a job touches before it starts</h2>
+    <p class="intro">The building model knows what feeds each unit and what it serves.</p>
+    <div class="night-grid">
+      <figure style="margin:0">
+        <div class="viewport"><video src="/media/cascade.mp4" poster="/media/cascade.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Asking what goes dark if the main switchboard fails: 109 components lose supply."></video></div>
+        <figcaption class="caption"><span><span class="tag">What if it fails?</span> Everything downstream of the main switchboard lights up.</span></figcaption>
+        <p class="illus">Electrical data on the sample building is illustrative, and labelled that way in the app.</p>
+      </figure>
+      <div>
+        <h3>Ask Rovo</h3>
+        <p>The Walkdown agent answers in Rovo chat: what feeds RTU-2, how loaded its panel is, which decisions guard it. It names the source of every number and says when one is illustrative.</p>
+        <div class="phone"><img src="/media/rovo-still.webp" loading="lazy" alt="Rovo chat with the Walkdown agent: RTU-2's power chain from the main switchboard to its disconnect, and its panel's load, each value marked illustrative."></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <h2>Built on Atlassian, nothing else</h2>
+    <div class="facts">
+      <div><h3>Your data stays put</h3><p>Walkdown runs on Forge with no outside servers. Decisions live in your Atlassian site. <a href="/privacy/">What it stores</a></p></div>
+      <div><h3>Explainable checks</h3><p>Exact equipment tags against written decisions. Every flag shows the decision and its reason.</p></div>
+      <div><h3>Jira-native</h3><p>Comments, mentions, a workflow validator and JQL. Equipment kept in Jira Assets.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section" id="install" style="padding-top:0"><div class="wrap">
+    <div class="install">
+      <div>
+        <h2>Try it on your own Jira</h2>
+        <p>Free, and an entry in Atlassian Codegeist 2026. You'll need to be a site admin to install.</p>
+        <a class="btn" href="https://developer.atlassian.com/console/install/0fa45447-08dc-430d-93a1-8501bd630d9d?signature=AYABeEUtioiIBTx6Qbd9HywqzjEAAAADAAdhd3Mta21zAEthcm46YXdzOmttczp1cy13ZXN0LTI6NzA5NTg3ODM1MjQzOmtleS83MDVlZDY3MC1mNTdjLTQxYjUtOWY5Yi1lM2YyZGNjMTQ2ZTcAuAECAQB4CxqLTo9l4lqXuFjNim1xJM%2Bp%2F3TVP9xHS2BrU5DRRucBJhl3r2wertNOK%2FIfRhzF8wAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGyEHIsAy2b5IHUC5QIBEIA78B%2BBakTAIBCSWobn5gEhsmC57yZXNEZXfFev%2BOZyk7pnTcNMgU9kGVGA2xqcsmw0qPDn0dkgmTEwIL8AB2F3cy1rbXMAS2Fybjphd3M6a21zOmV1LXdlc3QtMTo3MDk1ODc4MzUyNDM6a2V5LzQ2MzBjZTZiLTAwYzMtNGRlMi04NzdiLTYyN2UyMDYwZTVjYwC4AQICAHi9bVMAkme4qVQX1fQHo6ePw3H40A7cGfz7yrmSfBWMXgGAUZrjSb2U%2FI1IYl%2BIS26TAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0QmK44TQZp3AAgDqAgEQgDvfi0VcMWRQXZaFvvlkDFvbp%2FftSUpqDQknKCNyFhlwPM5YVBq0pSYsXEAecTYJ1%2FfAWbNvr%2F7DdBW%2FrQAHYXdzLWttcwBLYXJuOmF3czprbXM6dXMtZWFzdC0xOjcwOTU4NzgzNTI0MzprZXkvNmMxMjBiYTAtNGNkNS00OTg1LWI4MmUtNDBhMDQ5NTJjYzU3ALgBAgIAeDYASx0XCjkny4iLV6vz%2BKtEGSGT6kdt0QRpkn6D%2FlVEAfjTu7CLLaJPDPZPh7asjccAAAB%2BMHwGCSqGSIb3DQEHBqBvMG0CAQAwaAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAz01Wlgr5%2ByZgcLS%2FACARCAO%2F50twsjILAsBnsBaY5LIdq3r%2B5PKw%2BtrGffLlP1S56cO9m5lhYBLqmsFSB67j5vA1Pjqy%2FufJZRMmY7AgAAAAAMAAAQAAAAAAAAAAAAAAAAAIQEGNuVxES0VL3Co%2B3Kmrj%2F%2F%2F%2F%2FAAAAAQAAAAAAAAAAAAAAAQAAADLqI9j3w%2Fgo5NCmydVr3OU39X%2F7AcNvZVl2muoc%2BiP1NtMmTV2qyw0bdkD2FEvYyFVJKAnA0W%2FlgDo%2BMkezDayLcWI%3D&amp;product=jira">Install on Jira</a>
+      </div>
+      <ol>
+        <li>Install Walkdown on your Jira Cloud site.</li>
+        <li>Open <strong>Apps → Walkdown</strong>.</li>
+        <li>Choose <strong>Explore the sample building</strong>, or create a <strong>New site</strong> linked to your space.</li>
+      </ol>
+    </div>
+    <p class="disclaimer">Walkdown records and surfaces decisions. It does not replace a site's safety, engineering or Management of Change sign-off.</p>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <span>Walkdown for Jira</span>
+  <a href="/support/">Support</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+  <a class="sp" href="https://github.com/mattrickslauer/codegeist-hackathon">Source on GitHub</a>
 </div></footer>
+
+<script>
+// Draw the red-line once, when the work order scrolls into view. Pause offscreen videos.
+(function () {
+  var wo = document.getElementById('wo');
+  var path = wo && wo.querySelector('.redline path');
+  // Revision cloud: scallops all the way round the card, sized in real pixels.
+  function cloud() {
+    var svg = path.ownerSVGElement, w = svg.clientWidth, h = svg.clientHeight, m = 4;
+    if (!w || !h) return;
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    var W = w - 2 * m, H = h - 2 * m, r = 11;
+    var nx = Math.max(2, Math.round(W / (2 * r))), ny = Math.max(2, Math.round(H / (2 * r)));
+    var sx = W / nx, sy = H / ny, d = 'M' + m + ',' + m, i;
+    var arc = function (dx, dy, rr) { return ' a' + rr + ',' + rr + ' 0 0 1 ' + dx.toFixed(2) + ',' + dy.toFixed(2); };
+    for (i = 0; i < nx; i++) d += arc(sx, 0, sx / 2 + 1);
+    for (i = 0; i < ny; i++) d += arc(0, sy, sy / 2 + 1);
+    for (i = 0; i < nx; i++) d += arc(-sx, 0, sx / 2 + 1);
+    for (i = 0; i < ny; i++) d += arc(0, -sy, sy / 2 + 1);
+    path.setAttribute('d', d);
+  }
+  if (path) {
+    cloud();
+    window.addEventListener('resize', cloud);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es, o) {
+        es.forEach(function (e) { if (e.isIntersecting) { wo.classList.add('drawn'); o.disconnect(); } });
+      }, { threshold: 0.6 }).observe(wo);
+    } else wo.classList.add('drawn');
+  }
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('video').forEach(function (v) {
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; return; }
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); });
+    }, { threshold: 0.25 }).observe(v);
+  });
+})();
+</script>
 </body>
 </html>

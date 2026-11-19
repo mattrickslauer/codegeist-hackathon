@@ -1,0 +1,25 @@
+import { attach, appFrame, hiRes } from './lib.mjs';
+import { record } from './rec.mjs';
+const VW = 1600, VH = 1000;
+const { page } = await attach();
+page.setDefaultTimeout(10000);
+await hiRes(page, VW, VH, 2);
+const f = await appFrame(page);
+await page.waitForTimeout(1500);
+const vb = await f.locator('canvas').first().boundingBox();
+const box = { x: vb.x, y: vb.y, width: vb.width, height: Math.min(vb.height, VH - vb.y) };
+await f.getByPlaceholder('Find a tag').fill('MSB'); await page.keyboard.press('Enter');
+await page.waitForTimeout(2500);
+const btn = f.getByRole('button', { name: 'What if it fails?' }).first();
+console.log('btn visible', await btn.isVisible());
+await record(page, 'cascade', async () => {
+  await page.waitForTimeout(1200);
+  const b = await btn.boundingBox();
+  await page.mouse.move(b.x + b.width / 2 - 80, b.y + 60);
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 12 });
+  await page.waitForTimeout(300);
+  await btn.click();
+  await page.waitForTimeout(5000);
+}, box, { vw: VW, vh: VH });
+await page.screenshot({ path: 's2-cascade.png', clip: box });
+process.exit(0);
