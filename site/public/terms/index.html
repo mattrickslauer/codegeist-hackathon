@@ -7,6 +7,18 @@
 <meta name="description" content="Terms of service for the Walkdown app for Jira.">
 <link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
+<script src="https://t.mattrickslauer.com/t.js" defer></script>
+<script>
+// tally (t.mattrickslauer.com): page counts + the clicks marked data-tally. Calls before t.js loads are queued.
+window.tally = window.tally || function () { (tally.q = tally.q || []).push(['event'].concat([].slice.call(arguments))); };
+['capture', 'identify', 'reset', 'optOut', 'optIn'].forEach(function (m) {
+  tally[m] = tally[m] || function () { (tally.q = tally.q || []).push([m].concat([].slice.call(arguments))); };
+});
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('[data-tally]');
+  if (a) tally.capture(a.getAttribute('data-tally'), { where: a.getAttribute('data-where') || '', page: location.pathname });
+});
+</script>
 </head>
 <body>
 <header class="site"><div class="wrap">
