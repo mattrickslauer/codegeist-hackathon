@@ -7,6 +7,18 @@
 <meta name="description" content="What data the Walkdown app for Jira stores, where it lives and who can see it.">
 <link rel="icon" href="/walkdown-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
+<script src="https://t.mattrickslauer.com/t.js" defer></script>
+<script>
+// tally (t.mattrickslauer.com): page counts + the clicks marked data-tally. Calls before t.js loads are queued.
+window.tally = window.tally || function () { (tally.q = tally.q || []).push(['event'].concat([].slice.call(arguments))); };
+['capture', 'identify', 'reset', 'optOut', 'optIn'].forEach(function (m) {
+  tally[m] = tally[m] || function () { (tally.q = tally.q || []).push([m].concat([].slice.call(arguments))); };
+});
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('[data-tally]');
+  if (a) tally.capture(a.getAttribute('data-tally'), { where: a.getAttribute('data-where') || '', page: location.pathname });
+});
+</script>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -15,7 +27,7 @@
 </div></header>
 <main><div class="wrap">
   <h1>Privacy policy</h1>
-  <p class="meta">Effective 18 November 2026</p>
+  <p class="meta">Effective 20 November 2026</p>
   <p>This policy covers the Walkdown app for Jira and Jira Service Management (“Walkdown”, “the app”) and this website. Walkdown is made by Mattricks Lauer (“we”, “us”).</p>
 
   <h2>The short version</h2>
@@ -63,7 +75,7 @@
   </ul>
 
   <h2>This website</h2>
-  <p>walkdown.mattrickslauer.com is a static site on Amazon Web Services. It sets no cookies and runs no analytics or tracking scripts. Like any web host, AWS may keep standard request logs.</p>
+  <p>walkdown.mattrickslauer.com is a static site on Amazon Web Services. It sets no cookies. It loads one first-party analytics script (t.mattrickslauer.com, run by us, not a third party) that counts page views and clicks on the install, support and source links. Outside the EU, EEA, UK and Switzerland it keeps a random visitor id in your browser’s local storage; in those regions it asks first, and only keeps an id if you agree. Browsers that send Global Privacy Control are treated as having said no, and adding <code>?tally=off</code> to any URL stops your browser being counted. It never reads your Atlassian site or the app’s data. Like any web host, AWS may keep standard request logs.</p>
 
   <h2>Your rights and questions</h2>
   <p>To ask about your data, or to have it removed, <a href="/support/">contact us</a>. Most data lives in your Atlassian site, so a site admin can also remove it directly. We'll post any changes to this policy on this page, with a new effective date.</p>
